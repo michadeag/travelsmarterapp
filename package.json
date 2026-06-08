@@ -4,6 +4,7 @@
   "description": "TravelSmarter - Complete Travel Hacking Platform (Frontend + Backend)",
   "main": "server/server.js",
   "scripts": {
+    "postinstall": "cd server && npm install",
     "start": "cd server && npm start",
     "dev": "cd server && npm run dev",
     "install-all": "npm install && cd server && npm install",
