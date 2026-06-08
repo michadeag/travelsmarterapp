@@ -936,15 +936,19 @@ async function initializeApp() {
       console.warn('⚠️ Error seeding email templates:', err.message);
     });
 
-    // Seed travel hacks if database is empty
-    await seedTravelHacks().catch(err => {
-      console.warn('⚠️ Error seeding travel hacks:', err.message);
-    });
+    // Seed travel hacks if database is empty (skip in production for faster startup)
+    if (process.env.SKIP_SEED !== 'true') {
+      await seedTravelHacks().catch(err => {
+        console.warn('⚠️ Error seeding travel hacks:', err.message);
+      });
 
-    // Seed community discussions if none exist
-    await seedCommunityDiscussions().catch(err => {
-      console.warn('⚠️ Error seeding community discussions:', err.message);
-    });
+      // Seed community discussions if none exist
+      await seedCommunityDiscussions().catch(err => {
+        console.warn('⚠️ Error seeding community discussions:', err.message);
+      });
+    } else {
+      console.log('⏭️ Skipping seed data (SKIP_SEED=true)');
+    }
 
     console.log('✅ App initialization complete');
   } catch (error) {
