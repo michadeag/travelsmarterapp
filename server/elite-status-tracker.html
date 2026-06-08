@@ -673,7 +673,7 @@
         async function checkTierAccess() {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000'
-                : 'https://api.travelsmarterapp.com';
+                : 'https://monkfish-app-74dif.ondigitalocean.app';
 
             const token = localStorage.getItem('userToken');
 
@@ -711,7 +711,7 @@
         async function loadPrograms() {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000'
-                : 'https://api.travelsmarterapp.com';
+                : 'https://monkfish-app-74dif.ondigitalocean.app';
 
             document.getElementById('loadingState').style.display = 'block';
             document.getElementById('programsGrid').innerHTML = '';
@@ -871,7 +871,7 @@
             // Get first program definition from routes for tier details
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000'
-                : 'https://api.travelsmarterapp.com';
+                : 'https://monkfish-app-74dif.ondigitalocean.app';
 
             fetch(`${API_URL}/api/elite-status/program-details/${encodeURIComponent(prog.name)}`)
                 .then(res => res.json())
@@ -895,7 +895,7 @@
         async function saveProgram() {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000'
-                : 'https://api.travelsmarterapp.com';
+                : 'https://monkfish-app-74dif.ondigitalocean.app';
 
             const data = {
                 program_name: selectedProgram.name,
@@ -935,7 +935,7 @@
 
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000'
-                : 'https://api.travelsmarterapp.com';
+                : 'https://monkfish-app-74dif.ondigitalocean.app';
 
             try {
                 const response = await fetch(`${API_URL}/api/elite-status/remove-program/${encodeURIComponent(programName)}`, {

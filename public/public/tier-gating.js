@@ -24,7 +24,7 @@ const TIER_LIMITS = {
   }
 };
 
-const API_URL = 'https://api.travelsmarterapp.com';
+const API_URL = 'https://monkfish-app-74dif.ondigitalocean.app';
 
 /**
  * Get current user's tier from API or localStorage

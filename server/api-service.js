@@ -12,7 +12,7 @@ class APIService {
             defaultApiUrl = 'http://localhost:5000/api';
         } else {
             // Production
-            defaultApiUrl = 'https://api.travelsmarterapp.com/api';
+            defaultApiUrl = 'https://monkfish-app-74dif.ondigitalocean.app/api';
             // Clear any localhost URLs from localStorage in production
             const storedUrl = localStorage.getItem('apiUrl');
             if (storedUrl && storedUrl.includes('localhost')) {
