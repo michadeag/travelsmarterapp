@@ -956,47 +956,49 @@ async function initializeApp() {
   }
 }
 
-// Start server
+// Start server IMMEDIATELY (non-blocking DB init)
 const PORT = process.env.PORT || 5000;
 
-initializeApp().then(() => {
-  app.listen(PORT, () => {
-    console.log(`
+// Start listening FIRST - don't wait for DB initialization
+app.listen(PORT, () => {
+  console.log(`
 ╔════════════════════════════════════════╗
 ║   🚀 TravelSmarter API Server Running  ║
 ║   Port: ${PORT}                         ║
 ║   Environment: ${process.env.NODE_ENV || 'development'}              ║
 ║   Database: ${process.env.DB_NAME}                      ║
 ╚════════════════════════════════════════╝
-    `);
+  `);
 
-    // Email sequence scheduler - runs every hour to send pending emails
-    console.log('📧 Email sequence scheduler started (runs every hour)');
-    setInterval(async () => {
-      try {
-        await emailSequenceService.sendPendingEmails();
-      } catch (error) {
-        console.error('❌ Error in email sequence scheduler:', error);
-      }
-    }, 60 * 60 * 1000);
+  // Email sequence scheduler - runs every hour to send pending emails
+  console.log('📧 Email sequence scheduler started (runs every hour)');
+  setInterval(async () => {
+    try {
+      await emailSequenceService.sendPendingEmails();
+    } catch (error) {
+      console.error('❌ Error in email sequence scheduler:', error);
+    }
+  }, 60 * 60 * 1000);
 
-    // Hack update scheduler - runs biweekly (every 14 days) to search for and update hacks
-    console.log('🤖 Hack update scheduler started (runs biweekly)');
-    setInterval(async () => {
-      try {
-        await hackUpdateService.runHackUpdateCycle();
-      } catch (error) {
-        console.error('❌ Error in hack update scheduler:', error);
-      }
-    }, 14 * 24 * 60 * 60 * 1000); // 14 days
+  // Hack update scheduler - runs biweekly (every 14 days) to search for and update hacks
+  console.log('🤖 Hack update scheduler started (runs biweekly)');
+  setInterval(async () => {
+    try {
+      await hackUpdateService.runHackUpdateCycle();
+    } catch (error) {
+      console.error('❌ Error in hack update scheduler:', error);
+    }
+  }, 14 * 24 * 60 * 60 * 1000); // 14 days
 
-    // Run hack update immediately on startup (optional - comment out to skip)
-    // Uncomment next line to run immediately on server start
-    // hackUpdateService.runHackUpdateCycle().catch(err => console.error('Initial hack update failed:', err));
-  });
-}).catch(error => {
-  console.error('Failed to initialize app:', error);
-  process.exit(1);
+  // Run hack update immediately on startup (optional - comment out to skip)
+  // Uncomment next line to run immediately on server start
+  // hackUpdateService.runHackUpdateCycle().catch(err => console.error('Initial hack update failed:', err));
+});
+
+// Initialize app in background (non-blocking)
+initializeApp().catch(error => {
+  console.error('❌ Error during app initialization (background):', error);
+  // Don't exit - server is already running and can serve requests
 });
 
 // Handle graceful shutdown
