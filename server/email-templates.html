@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Templates - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 1.1em;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .template-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .template-header h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .template-category {
+            font-size: 0.85em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-content {
+            padding: 25px;
+        }
+
+        .template-description {
+            color: #6b7280;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .template-preview {
+            background: #f9fafb;
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 0.85em;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .template-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .btn-copy {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #5568d3;
+        }
+
+        .btn-expand {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .btn-expand:hover {
+            background: #d1d5db;
+        }
+
+        .tips-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .tips-section h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tip-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip-card p {
+            color: #6b7280;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            color: #1f2937;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .template-full {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: #4b5563;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95em;
+        }
+
+        .copy-full-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .copy-full-btn:hover {
+            background: #5568d3;
+        }
+
+        .copied-message {
+            display: none;
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .upgrade-prompt h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upgrade-prompt a {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .upgrade-prompt a:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .navbar-links {
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>✉️ TravelSmarter</h1>
+        <div class="navbar-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="modules.html">📚 Modules</a>
+            <a href="tools.html">📋 Tools</a>
+            <a href="trip-calculator.html">💰 Calculator</a>
+            <a href="account.html">🎫 Account</a>
+            <a onclick="logout()">🚪 Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✉️ Email Templates</h1>
+            <p>Copy-paste emails proven to work. Just personalize and send!</p>
+        </div>
+
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h2>🔒 Smart Traveler & Elite Feature</h2>
+                <p>Email Templates are available to Smart Traveler and Elite members</p>
+                <a href="sales-page.html">Upgrade Now →</a>
+            </div>
+        </div>
+
+        <div id="content" style="display: none;">
+            <!-- Email Templates Grid -->
+            <div class="templates-grid" id="templatesGrid"></div>
+
+            <!-- Tips Section -->
+            <div class="tips-section">
+                <h2>💡 Pro Tips for Email Success</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>📝 Personalize Everything</h4>
+                        <p>Add specific details like dates, loyalty numbers, and your achievements. Generic emails get ignored.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>⏰ Timing Matters</h4>
+                        <p>Send during business hours (9am-5pm in their timezone). Monday-Thursday get better response rates.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>✨ Keep It Professional</h4>
+                        <p>Use proper spelling and grammar. Sign with your full name. Make it easy for them to respond.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>📞 Follow Up</h4>
+                        <p>If no response in 5 business days, send a polite follow-up. Many reps miss emails and appreciate the reminder.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>🎯 One Ask Per Email</h4>
+                        <p>Don't ask multiple things in one email. Focus on one clear request to increase success rates.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>📱 Include Contact Info</h4>
+                        <p>Put your phone number and email at the end. Make it easy for them to respond however they prefer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for full template -->
+    <div id="templateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Email Template</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="template-full" id="modalBody"></div>
+            <button class="copy-full-btn" onclick="copyFullTemplate()">📋 Copy Full Email</button>
+            <div class="copied-message" id="copiedMessage">✅ Copied to clipboard!</div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : 'https://api.travelsmarterapp.com';
+
+        // Email templates data
+        const TEMPLATES = [
+            {
+                id: 'status-match-airline',
+                title: 'Airline Status Match',
+                category: 'Status Matching',
+                description: 'Request status match to another airline based on your current elite status.',
+                preview: 'Dear [Airline] Loyalty Program,\n\nI am currently a [Current Status] member with [Airline A]...',
+                full: `Dear [Airline Name] Loyalty Program,
+
+I am currently a [Your Status Level] member with [Current Airline], and I am interested in transferring my elite status to your program.
+
+I have been a loyal customer with [Current Airline] for [X years/months] and have earned elite status through consistent travel and spending. I average [X flights/€X spent] annually with [Current Airline] and am looking to develop a similar relationship with your airline.
+
+I have attached documentation of my current elite status and would appreciate your assistance with a status match to [Target Status Level] with your program.
+
+Thank you for your time and consideration. I look forward to hearing from you soon.
+
+Best regards,
+[Your Full Name]
+[Phone Number]
+[Email Address]`
+            },
+            {
+                id: 'upgrade-request-airline',
+                title: 'Complimentary Upgrade Request',
+                category: 'Upgrades',
+                description: 'Polite request for a complimentary cabin upgrade on upcoming flight.',
+                preview: 'Dear [Airline] Team,\n\nI have a reservation on [Flight/Date] and wanted to...',
+                full: `Dear [Airline] Team,
+
+I have an upcoming flight [Flight Number/Date] from [Origin] to [Destination], reservation [Confirmation Number].
+
+I am a [Status Level] member with your airline and have been a loyal customer for [X years]. I wanted to inquire if there are any complimentary cabin upgrade opportunities available for this flight.
+
+If an upgrade is not currently available, I would appreciate being placed on the upgrade list and would be happy to discuss other options.
+
+Thank you for your assistance!
+
+Best regards,
+[Your Full Name]
+[Loyalty Number]
+[Phone Number]`
+            },
+            {
+                id: 'hotel-upgrade-request',
+                title: 'Hotel Upgrade Request',
+                category: 'Hotel Hacks',
+                description: 'Request for room upgrade or better accommodation at check-in.',
+                preview: 'Dear [Hotel] Team,\n\nI am excited to stay at your property [Dates]...',
+                full: `Dear [Hotel Name] Team,
+
+I have a reservation at your property for [Check-in Date to Check-out Date] (Confirmation #[Number]). My reservation is under the name [Your Name].
+
+I am a [Status Level] member of your loyalty program and have greatly enjoyed my previous stays at your properties. I am celebrating [special occasion - optional], and I was hoping you might have availability for a room upgrade or other special amenities.
+
+I understand this is subject to availability and would be grateful for any assistance you can provide to enhance my stay.
+
+Thank you so much for your attention to this request!
+
+Best regards,
+[Your Full Name]
+[Loyalty Number]
+[Phone Number]`
+            },
+            {
+                id: 'price-match-request',
+                title: 'Price Match Request',
+                category: 'Hotel Hacks',
+                description: 'Request a price match if you found a better rate elsewhere.',
+                preview: 'Dear [Hotel] Team,\n\nI found a lower rate for my upcoming stay...',
+                full: `Dear [Hotel Name] Team,
+
+I have a reservation at your property for [Dates] (Confirmation #[Number]), currently booked at [Current Rate].
+
+I have found the same room type available on [Competitor Website] for [Lower Price]. Your property offers excellent service and amenities, and I would prefer to stay with you if you can match this rate.
+
+Would you be able to adjust my reservation to the lower rate I found? I'm happy to provide screenshot evidence of the competing offer.
+
+Thank you for your time!
+
+Best regards,
+[Your Full Name]
+[Phone Number]`
+            },
+            {
+                id: 'credit-card-inquiry',
+                title: 'Credit Card Cardholder Benefits',
+                category: 'Credit Cards',
+                description: 'Ask about premium card benefits like lounge access or travel credits.',
+                preview: 'Dear [Bank] Customer Service,\n\nI recently received my [Card Name]...',
+                full: `Dear [Bank Name] Customer Service,
+
+I recently received my [Card Name] and am excited about the premium benefits included with my membership.
+
+I would appreciate clarification on the following benefits included with my card:
+- [Benefit 1] - How do I activate/access this?
+- [Benefit 2] - Are there any blackout dates or restrictions?
+- [Benefit 3] - What is the process for using this benefit?
+
+I want to ensure I'm maximizing all the valuable benefits included with my card. Thank you for your assistance!
+
+Best regards,
+[Your Full Name]
+[Card Number (last 4 digits)]
+[Phone Number]`
+            },
+            {
+                id: 'complaint-resolution',
+                title: 'Service Complaint Resolution',
+                category: 'Complaints',
+                description: 'Professional complaint about poor service to request compensation.',
+                preview: 'Dear [Company] Management,\n\nI am writing to bring attention...',
+                full: `Dear [Company Name] Management,
+
+I recently experienced substandard service during my [Flight/Stay] on [Date], reservation [Confirmation #].
+
+Specifically, [describe the issue: long wait times, rude staff, missing amenities, etc.]. As a loyal [Status Level] member with your company, I was disappointed with this experience as it does not meet the high standards I've come to expect from your brand.
+
+I would appreciate your assistance in resolving this matter. I would value any goodwill compensation such as [miles/points/credit], as I hope to continue our relationship but want to ensure this doesn't happen again.
+
+Thank you for your attention to this matter and for making things right.
+
+Best regards,
+[Your Full Name]
+[Loyalty Number]
+[Phone Number]`
+            },
+            {
+                id: 'elite-night-certificate',
+                title: 'Elite Night Certificate Request',
+                category: 'Hotel Hacks',
+                description: 'Request elite night certificates earned through credit card spend.',
+                preview: 'Dear [Hotel Loyalty Program],\n\nI have met my annual spend...',
+                full: `Dear [Hotel Loyalty Program] Team,
+
+I have met my annual spending requirement of [€Amount] with your [Card Name] co-branded credit card and have earned [X] complimentary elite night certificates as a benefit of my card membership.
+
+Could you please confirm receipt of this benefit and provide me with details on how to use these certificates? Specifically, I would like to know:
+- Which properties accept these certificates
+- Any blackout dates
+- The process for booking with these certificates
+
+Thank you for your assistance!
+
+Best regards,
+[Your Full Name]
+[Loyalty Number]
+[Phone Number]`
+            },
+            {
+                id: 'airline-courtesy-desk',
+                title: 'Seat Selection Request',
+                category: 'Upgrades',
+                description: 'Request preferred seating like exit rows or seats near the front.',
+                preview: 'Dear [Airline] Team,\n\nI have an upcoming flight...',
+                full: `Dear [Airline Name] Team,
+
+I have a reservation on flight [Number] from [City] to [City] on [Date] (Confirmation #[Number]).
+
+I would appreciate assistance with the following seating request:
+- Preferred seat location: [Exit row/Front cabin/Aisle seat/etc.]
+- Reason: [Personal preference/Physical need/etc.]
+
+I am a [Status Level] member and understand seat availability may be limited. If my preferred seat is not available, please let me know the best available options for my flight.
+
+Thank you for your help!
+
+Best regards,
+[Your Full Name]
+[Loyalty Number]`
+            }
+        ];
+
+        function getAuthToken() {
+            return localStorage.getItem('userToken');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const token = getAuthToken();
+                if (!token) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Check user tier
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                const userTier = (data.user?.subscriptionTier || 'free').toLowerCase();
+
+                // Check if user has access (Smart Traveler or Elite)
+                if (userTier !== 'smart traveler' && userTier !== 'smarttraveler' && userTier !== 'elite') {
+                    document.getElementById('upgrade-section').style.display = 'block';
+                    document.getElementById('content').style.display = 'none';
+                    return;
+                }
+
+                document.getElementById('content').style.display = 'block';
+                renderTemplates();
+            } catch (error) {
+                console.error('Error:', error);
+                window.location.href = 'index.html';
+            }
+        });
+
+        function renderTemplates() {
+            const grid = document.getElementById('templatesGrid');
+
+            grid.innerHTML = TEMPLATES.map(template => `
+                <div class="template-card">
+                    <div class="template-header">
+                        <div>
+                            <h3>${template.title}</h3>
+                            <div class="template-category">${template.category}</div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <p class="template-description">${template.description}</p>
+                        <div class="template-preview">${template.preview}</div>
+                        <div class="template-actions">
+                            <button class="btn btn-copy" onclick="copyTemplate('${template.id}')">📋 Copy</button>
+                            <button class="btn btn-expand" onclick="expandTemplate('${template.id}')">📖 View Full</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function copyTemplate(templateId) {
+            const template = TEMPLATES.find(t => t.id === templateId);
+            if (!template) return;
+
+            navigator.clipboard.writeText(template.full).then(() => {
+                alert('✅ Email template copied! Paste it into your email and personalize with your details.');
+            });
+        }
+
+        function expandTemplate(templateId) {
+            const template = TEMPLATES.find(t => t.id === templateId);
+            if (!template) return;
+
+            document.getElementById('modalTitle').textContent = template.title;
+            document.getElementById('modalBody').textContent = template.full;
+            document.getElementById('templateModal').classList.add('active');
+            document.getElementById('copiedMessage').style.display = 'none';
+        }
+
+        function closeModal() {
+            document.getElementById('templateModal').classList.remove('active');
+        }
+
+        function copyFullTemplate() {
+            const text = document.getElementById('modalBody').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const msg = document.getElementById('copiedMessage');
+                msg.style.display = 'block';
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('templateModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('userToken');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

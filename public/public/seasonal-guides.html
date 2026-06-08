@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seasonal Guides - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #6b7280;
+        }
+
+        .season-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .season-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .season-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .season-header {
+            padding: 25px;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            font-size: 1.3em;
+        }
+
+        .season-summer .season-header {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+        }
+
+        .season-fall .season-header {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+        }
+
+        .season-winter .season-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+        }
+
+        .season-spring .season-header {
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+        }
+
+        .season-holidays .season-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .season-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .season-content {
+            padding: 25px;
+        }
+
+        .season-content h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+        }
+
+        .season-tips {
+            list-style: none;
+        }
+
+        .season-tips li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+            color: #6b7280;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .season-tips li:last-child {
+            border-bottom: none;
+        }
+
+        .season-tips li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: 700;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .detailed-guide {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .detailed-guide.active {
+            display: block;
+        }
+
+        .guide-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e5e7eb;
+        }
+
+        .guide-icon {
+            font-size: 3em;
+            margin-right: 20px;
+        }
+
+        .guide-title {
+            flex: 1;
+        }
+
+        .guide-title h2 {
+            font-size: 2em;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .guide-title p {
+            color: #6b7280;
+            font-size: 1.05em;
+        }
+
+        .close-guide {
+            background: #f3f4f6;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+
+        .close-guide:hover {
+            background: #e5e7eb;
+        }
+
+        .guide-section {
+            margin-bottom: 35px;
+        }
+
+        .guide-section h3 {
+            font-size: 1.4em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .guide-section p {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .guide-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .guide-list li {
+            padding: 12px 0;
+            padding-left: 25px;
+            color: #6b7280;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .guide-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .savings-callout {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .savings-callout strong {
+            color: #0369a1;
+        }
+
+        .savings-callout p {
+            color: #075985;
+            margin: 0;
+        }
+
+        .strategy-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .strategy-box strong {
+            color: #92400e;
+        }
+
+        .strategy-box p {
+            color: #78350f;
+            margin: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #6b7280;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .back-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: #f3f4f6;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .elite-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .upgrade-prompt {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .upgrade-prompt h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            color: #78350f;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .season-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .guide-icon {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div>
+            <a href="tools.html">← Back to Tools</a>
+        </div>
+        <div>
+            <a href="modules.html" style="margin-right: 20px;">Modules</a>
+            <a href="index.html" style="margin-right: 20px;">Home</a>
+            <a href="account.html">Account</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📅 Seasonal Travel Guides</h1>
+            <p>Maximize savings with season-specific travel hacking strategies</p>
+        </div>
+
+        <!-- Elite Badge -->
+        <div style="text-align: center;">
+            <span class="elite-badge">✨ Smart Traveler & Elite Feature</span>
+        </div>
+
+        <!-- Check if user has access -->
+        <div id="guides-content">
+            <!-- Season Cards Grid -->
+            <div class="season-grid">
+                <!-- Summer -->
+                <div class="season-card season-summer" onclick="showGuide('summer')">
+                    <div class="season-header">
+                        <div class="season-icon">☀️</div>
+                        Summer
+                    </div>
+                    <div class="season-content">
+                        <h3>June - August</h3>
+                        <ul class="season-tips">
+                            <li>Budget airline sales & deals</li>
+                            <li>Off-peak beach destinations</li>
+                            <li>Road trip optimization</li>
+                            <li>Loyalty elite status matching</li>
+                            <li>Summer promotions unlock</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Fall -->
+                <div class="season-card season-fall" onclick="showGuide('fall')">
+                    <div class="season-header">
+                        <div class="season-icon">🍂</div>
+                        Fall
+                    </div>
+                    <div class="season-content">
+                        <h3>September - November</h3>
+                        <ul class="season-tips">
+                            <li>Shoulder season discounts</li>
+                            <li>Fall break family travel</li>
+                            <li>Thanksgiving deals & planning</li>
+                            <li>Credit card sign-up bonuses</li>
+                            <li>Fall foliage destinations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Winter -->
+                <div class="season-card season-winter" onclick="showGuide('winter')">
+                    <div class="season-header">
+                        <div class="season-icon">❄️</div>
+                        Winter
+                    </div>
+                    <div class="season-content">
+                        <h3>December - February</h3>
+                        <ul class="season-tips">
+                            <li>Holiday travel hacks</li>
+                            <li>Ski resort strategies</li>
+                            <li>New Year redemptions</li>
+                            <li>Winter storm price drops</li>
+                            <li>Award seat availability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Spring -->
+                <div class="season-card season-spring" onclick="showGuide('spring')">
+                    <div class="season-header">
+                        <div class="season-icon">🌸</div>
+                        Spring
+                    </div>
+                    <div class="season-content">
+                        <h3>March - May</h3>
+                        <ul class="season-tips">
+                            <li>Spring break deals</li>
+                            <li>Easter holiday planning</li>
+                            <li>Cherry blossom season</li>
+                            <li>Summer booking strategies</li>
+                            <li>Hotel elite status push</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Holiday Seasons -->
+                <div class="season-card season-holidays" onclick="showGuide('holidays')">
+                    <div class="season-header">
+                        <div class="season-icon">🎄</div>
+                        Major Holidays
+                    </div>
+                    <div class="season-content">
+                        <h3>Year-Round Planning</h3>
+                        <ul class="season-tips">
+                            <li>Thanksgiving travel prep</li>
+                            <li>Christmas/Hanukkah hacks</li>
+                            <li>New Year strategies</li>
+                            <li>Presidents' Day deals</li>
+                            <li>Extended weekend trips</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Prompt (shown to Free users) -->
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h3>⭐ Seasonal Guides are Exclusive to Smart Traveler & Elite Members</h3>
+                <p>Unlock season-specific strategies to maximize your savings year-round.</p>
+                <a href="sales-page.html">
+                    <button class="upgrade-btn">Upgrade Now</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Detailed Guides -->
+
+        <!-- Summer Guide -->
+        <div id="summer-guide" class="detailed-guide">
+            <button class="back-btn" onclick="hideGuide()">← Back to Seasons</button>
+
+            <div class="guide-header">
+                <div class="guide-icon">☀️</div>
+                <div class="guide-title">
+                    <h2>Summer Travel Guide</h2>
+                    <p>Master peak season travel with off-peak strategies</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎯 Summer Overview</h3>
+                <p>Summer is peak travel season with higher prices but also more opportunities for strategic bookings. The key is booking early, using off-peak times, and leveraging loyalty programs at their peak power.</p>
+                <p><strong>Best Savings Period:</strong> Early June, Late August, and Tuesday-Thursday departures.</p>
+            </div>
+
+            <div class="savings-callout">
+                <strong>Average Summer Savings:</strong>
+                <p>€600-900 per person through strategic booking and elite status perks</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>✈️ Flight Hacking in Summer</h3>
+                <ul class="guide-list">
+                    <li>Book 2-3 months in advance (April-May for June-July travel)</li>
+                    <li>Search for flights departing Tuesday-Thursday for cheaper fares</li>
+                    <li>Use airline award charts to find sweet-spot redemptions</li>
+                    <li>Look for Europe to Europe flights (30,000-50,000 miles vs 60,000+ transatlantic)</li>
+                    <li>Book open-jaw tickets (fly into one city, depart from another)</li>
+                    <li>Use status match to get elite benefits (lounge access, free upgrades)</li>
+                    <li>Cash-out credit card points for flight discounts (5-7% redemption)</li>
+                </ul>
+
+                <div class="strategy-box">
+                    <strong>Pro Tip - Summer Award Seat Trick:</strong>
+                    <p>Most travelers book award seats 6-7 months in advance. Check back 2-3 months before travel when casual bookers cancel.</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🏨 Hotel Strategies for Summer</h3>
+                <ul class="guide-list">
+                    <li>Earn elite night certificates from credit card sign-ups</li>
+                    <li>Book mid-week stays (Sun-Thu) instead of weekends</li>
+                    <li>Use points earned from credit cards for free nights</li>
+                    <li>Request complimentary room upgrades at check-in</li>
+                    <li>Book through hotel loyalty program, not OTAs</li>
+                    <li>Use elite status for guaranteed room categories</li>
+                    <li>Look for point promotions (often 50-100% bonus in June)</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>💰 Seasonal Deals & Promotions</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Promotion Type</th>
+                        <th>Timing</th>
+                        <th>Expected Savings</th>
+                    </tr>
+                    <tr>
+                        <td>Budget airline seat sales</td>
+                        <td>Every Tuesday</td>
+                        <td>20-40% off fares</td>
+                    </tr>
+                    <tr>
+                        <td>Airline flash sales</td>
+                        <td>Random, email alerts</td>
+                        <td>30-50% off select routes</td>
+                    </tr>
+                    <tr>
+                        <td>Hotel point bonuses</td>
+                        <td>June-August peak</td>
+                        <td>50-100 bonus points/night</td>
+                    </tr>
+                    <tr>
+                        <td>Credit card sign-ups</td>
+                        <td>Ongoing throughout year</td>
+                        <td>50,000-75,000 point bonus</td>
+                    </tr>
+                    <tr>
+                        <td>Car rental promos</td>
+                        <td>Summer months</td>
+                        <td>25-35% discount</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="guide-section">
+                <h3>🌍 Best Summer Destinations for Value</h3>
+                <ul class="guide-list">
+                    <li><strong>Portugal & Greece:</strong> Cheaper than Western Europe, award flights available</li>
+                    <li><strong>Eastern Europe:</strong> Amazing value, low airline prices, affordable accommodations</li>
+                    <li><strong>Domestic off-peaks:</strong> Road trips to US National Parks (lowest prices mid-week)</li>
+                    <li><strong>Caribbean (off-season):</strong> Hurricane season = 40-60% cheaper rates</li>
+                    <li><strong>Scandinavia:</strong> Midnight sun travels further north (cheaper than Iceland)</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>✅ Summer Planning Checklist</h3>
+                <ul class="guide-list">
+                    <li>February-March: Sign up for summer credit cards (get bonuses by May)</li>
+                    <li>March-April: Book international flights for June-August</li>
+                    <li>April-May: Book hotel stays, look for elite night promotions</li>
+                    <li>May: Finalize car rentals and ground transportation</li>
+                    <li>June-August: Monitor for flash sales, make final changes</li>
+                    <li>Weekly: Check for award seat releases</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fall Guide -->
+        <div id="fall-guide" class="detailed-guide">
+            <button class="back-btn" onclick="hideGuide()">← Back to Seasons</button>
+
+            <div class="guide-header">
+                <div class="guide-icon">🍂</div>
+                <div class="guide-title">
+                    <h2>Fall Travel Guide</h2>
+                    <p>Leverage shoulder season deals and holiday planning</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎯 Fall Overview</h3>
+                <p>Fall is the "shoulder season" when summer vacation crowds disappear and winter holidays haven't started. This creates unique pricing opportunities with fewer travelers competing for the same flights and hotels.</p>
+                <p><strong>Best Savings Period:</strong> September, early October, and mid-November before Thanksgiving.</p>
+            </div>
+
+            <div class="savings-callout">
+                <strong>Average Fall Savings:</strong>
+                <p>€450-750 per person through shoulder season deals and strategic planning</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>✈️ Fall Flight Strategies</h3>
+                <ul class="guide-list">
+                    <li>Book September-October trips 6 weeks in advance for best prices</li>
+                    <li>Avoid fall break weeks (typically October, specific to schools)</li>
+                    <li>Look for mid-week departures (Mon-Wed) for 20-30% savings</li>
+                    <li>Use frequent flyer miles aggressively (off-peak pricing)</li>
+                    <li>Book domestic flights for Thanksgiving by August 15</li>
+                    <li>Set price alerts on Tuesday afternoons for flash sales</li>
+                    <li>Sign up for credit card bonuses in July (get points by September)</li>
+                </ul>
+
+                <div class="strategy-box">
+                    <strong>Pro Tip - Thanksgiving Booking Strategy:</strong>
+                    <p>Book Thanksgiving flights by September 1 for best prices. Peak dates are Wed-Sun before Thanksgiving and Sun-Tue after. Fly out early morning or late evening for savings.</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🏨 Fall Hotel Hacks</h3>
+                <ul class="guide-list">
+                    <li>Shoulder season rates drop 30-40% in September-October</li>
+                    <li>Hotel elite status provides free upgrades without crowds</li>
+                    <li>Book with points from recent credit card sign-ups</li>
+                    <li>Use elite night certificates before year-end</li>
+                    <li>October-November: Destination wedding season deals end</li>
+                    <li>Negotiate direct with hotels in September (lowest occupancy)</li>
+                    <li>Look for fall foliage packages in New England/Canada</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>🍁 Best Fall Destinations</h3>
+                <ul class="guide-list">
+                    <li><strong>New England:</strong> Fall foliage, lower prices, award availability</li>
+                    <li><strong>Japan:</strong> Cherry blossom season crowds gone, pleasant weather</li>
+                    <li><strong>Morocco/Middle East:</strong> Perfect weather, pre-winter prices</li>
+                    <li><strong>South Korea:</strong> Autumn scenery, festival season beginning</li>
+                    <li><strong>Spain/Portugal:</strong> Ideal temperatures, summer tourists departed</li>
+                    <li><strong>Patagonia:</strong> Spring season in Southern Hemisphere (low season pricing)</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>✅ Fall Planning Checklist</h3>
+                <ul class="guide-list">
+                    <li>June-July: Research Thanksgiving & Christmas dates for schools</li>
+                    <li>July: Sign up for fall credit card bonuses</li>
+                    <li>August: Book Thanksgiving flights, finalize holiday plans</li>
+                    <li>August 15: Last call for Thanksgiving domestic flight bookings</li>
+                    <li>September: Monitor award seat availability, book shoulder season trips</li>
+                    <li>October: Start planning winter holiday travel</li>
+                    <li>November 1: Book winter holiday flights</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Winter Guide -->
+        <div id="winter-guide" class="detailed-guide">
+            <button class="back-btn" onclick="hideGuide()">← Back to Seasons</button>
+
+            <div class="guide-header">
+                <div class="guide-icon">❄️</div>
+                <div class="guide-title">
+                    <h2>Winter Travel Guide</h2>
+                    <p>Navigate peak holiday season and find winter deals</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎯 Winter Overview</h3>
+                <p>Winter combines peak holiday travel (December) with shoulder season opportunities (January-February). Premium pricing during holidays can be offset by January clearance sales and ski resort deals.</p>
+                <p><strong>Best Savings Period:</strong> January-February after holidays, and early December before peak dates.</p>
+            </div>
+
+            <div class="savings-callout">
+                <strong>Average Winter Savings:</strong>
+                <p>€350-600 per person (January-February); Holiday period requires more strategy</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>✈️ Winter Flight Hacks</h3>
+                <ul class="guide-list">
+                    <li>December 19-23 & 26-30: Peak prices, book 3+ months early or use miles</li>
+                    <li>January 2-31: Winter clearance sales (40-60% off peak fares)</li>
+                    <li>February: Excellent award seat availability, lowest prices</li>
+                    <li>Book holiday flights by October 15 for December travel</li>
+                    <li>Fly Christmas Eve, New Year's Eve, or after holidays for savings</li>
+                    <li>Use elite status for holiday upgrade opportunities</li>
+                    <li>Monitor for winter storm-related fire sales (24-48 hours notice)</li>
+                </ul>
+
+                <div class="strategy-box">
+                    <strong>Pro Tip - New Year Award Rush:</strong>
+                    <p>January 1-2 is when many travelers attempt New Year bookings. Check award availability Dec 28-31 instead for better seats and less competition.</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🏂 Ski & Winter Sports Strategies</h3>
+                <ul class="guide-list">
+                    <li>Stay in nearby towns instead of resort towns (30-50% cheaper)</li>
+                    <li>Book mid-week (Mon-Thu) stays for 25-40% savings</li>
+                    <li>Use hotel points for mountain resort stays</li>
+                    <li>Book ski packages that include lodging (better value)</li>
+                    <li>Look for January-February shoulder season deals (post-holidays)</li>
+                    <li>Investigate North American resorts vs European Alps (lower US prices)</li>
+                    <li>Use airline miles for flights, points for accommodations</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎄 Holiday Travel Timeline</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Timeframe</th>
+                        <th>Flight Prices</th>
+                        <th>Strategy</th>
+                    </tr>
+                    <tr>
+                        <td>Dec 1-18</td>
+                        <td>High but manageable</td>
+                        <td>Book now if not already reserved</td>
+                    </tr>
+                    <tr>
+                        <td>Dec 19-23</td>
+                        <td>Peak ($400+ premium)</td>
+                        <td>Use miles only, alternative travel</td>
+                    </tr>
+                    <tr>
+                        <td>Dec 24-25</td>
+                        <td>Moderate (less popular)</td>
+                        <td>Good miles opportunity, fewer crowds</td>
+                    </tr>
+                    <tr>
+                        <td>Dec 26-30</td>
+                        <td>Peak (post-holiday)</td>
+                        <td>Miles + early morning/late night flights</td>
+                    </tr>
+                    <tr>
+                        <td>Dec 31-Jan 2</td>
+                        <td>Moderate to high</td>
+                        <td>Flexible dates, Tuesday-Thursday</td>
+                    </tr>
+                    <tr>
+                        <td>Jan 3-31</td>
+                        <td>40-60% off peak</td>
+                        <td>Book aggressively, best winter deals</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="guide-section">
+                <h3>🌍 Best Winter Destinations</h3>
+                <ul class="guide-list">
+                    <li><strong>Southeast Asia:</strong> Winter dry season, perfect weather, low prices</li>
+                    <li><strong>Australia/New Zealand:</strong> Summer season there, award availability</li>
+                    <li><strong>Dubai/Middle East:</strong> Perfect weather, year-round warm destination</li>
+                    <li><strong>Caribbean:</strong> Post-Christmas deals start Dec 26</li>
+                    <li><strong>Ski Resorts:</strong> Rocky Mountains & Canadian Rockies best value</li>
+                    <li><strong>Asia:</strong> Bangkok, Vietnam, Cambodia - winter sweet spot</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>✅ Winter Planning Checklist</h3>
+                <ul class="guide-list">
+                    <li>August: Book October credit cards for point accumulation</li>
+                    <li>September: Start tracking holiday flight prices</li>
+                    <li>October 15: Book December holidays flights (latest safe date)</li>
+                    <li>November: Finalize holiday hotel bookings</li>
+                    <li>December 1: Last-minute changes, monitor for sales</li>
+                    <li>January 2: Book winter getaways for Feb-March</li>
+                    <li>February: Plan spring break using January points earnings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Spring Guide -->
+        <div id="spring-guide" class="detailed-guide">
+            <button class="back-btn" onclick="hideGuide()">← Back to Seasons</button>
+
+            <div class="guide-header">
+                <div class="guide-icon">🌸</div>
+                <div class="guide-title">
+                    <h2>Spring Travel Guide</h2>
+                    <p>Master spring break and plan summer trips strategically</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎯 Spring Overview</h3>
+                <p>Spring bridges late winter clearance with early summer booking. Spring Break, Easter, and Memorial Day create pricing opportunities, while summer planning kicks into high gear for travelers seeking to maximize award seat availability.</p>
+                <p><strong>Best Savings Period:</strong> March (post-spring break week), early April (Easter week), and May (pre-summer price increases).</p>
+            </div>
+
+            <div class="savings-callout">
+                <strong>Average Spring Savings:</strong>
+                <p>€500-800 per person through strategic planning and off-peak timing</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>✈️ Spring Break Hacks</h3>
+                <ul class="guide-list">
+                    <li>Book spring break flights by February 1 (12 weeks early)</li>
+                    <li>Fly on Sunday or Thursday (cheaper than Fri-Sat peak weeks)</li>
+                    <li>Travel week before official spring break (70% cheaper)</li>
+                    <li>Beach destinations: Friday departure, Sunday return (vs Saturday-Saturday)</li>
+                    <li>Use award miles aggressively during spring break</li>
+                    <li>Book hotels with refundable rates (spring break pricing volatile)</li>
+                    <li>Group travel: negotiate directly with hotels for discounts</li>
+
+                    <div class="strategy-box">
+                        <strong>Pro Tip - Spring Break Timing:</strong>
+                        <p>Spring break varies by school (typically 1-3 weeks from March 1-April 15). Travel the week BEFORE your school's break for 50% cheaper flights.</p>
+                    </div>
+                </li>
+            </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>🥚 Easter Holiday Strategy</h3>
+                <ul class="guide-list">
+                    <li>Easter dates: April 8 (2024), March 31 (2025), April 20 (2026)</li>
+                    <li>Book 8-10 weeks in advance (by January/February)</li>
+                    <li>Good-Friday-to-Easter-Monday = 4-day trips popular</li>
+                    <li>Fly on Good Friday or Easter Monday (less crowded)</li>
+                    <li>Use miles for Easter travel (high prices, lower availability)</li>
+                    <li>Religious destinations see premium pricing (book early)</li>
+                    <li>Post-Easter (April 8+): Steep discounts on flights, hotels</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>☀️ Summer Trip Planning (Starting Now)</h3>
+                <ul class="guide-list">
+                    <li><strong>April:</strong> Sign up for summer credit cards (get bonuses by June)</li>
+                    <li><strong>April-May:</strong> Book June-August international flights</li>
+                    <li><strong>May:</strong> Book summer hotel stays, secure elite status matches</li>
+                    <li><strong>June:</strong> Book July-August domestic flights if not already done</li>
+                    <li><strong>Weekly:</strong> Check for summer award seat releases (opens 11 months out)</li>
+                    <li>Use spring break miles earnings for summer travel</li>
+                    <li>Lock in current elite status before year-end status qualification</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>🌍 Best Spring Destinations</h3>
+                <ul class="guide-list">
+                    <li><strong>Europe:</strong> Perfect weather, spring season starts, fewer crowds than summer</li>
+                    <li><strong>Japan:</strong> Cherry blossom season (late March-early April) - wildly popular</li>
+                    <li><strong>Greece & Croatian Coast:</strong> Ideal temperatures, pre-summer prices</li>
+                    <li><strong>Patagonia:</strong> Spring season begins (best trekking weather)</li>
+                    <li><strong>Morocco:</strong> Peak season for weather, moderate pricing</li>
+                    <li><strong>Central America:</strong> Last chance before hurricane season, warm weather</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>✅ Spring Planning Checklist</h3>
+                <ul class="guide-list">
+                    <li>December: Book early spring trips (Jan-Feb return bookings)</li>
+                    <li>January 15: Begin spring break research and tracking</li>
+                    <li>February 1: Book all spring break flights</li>
+                    <li>February 15: Book Easter holiday travel</li>
+                    <li>March: Monitor for spring break week fire sales</li>
+                    <li>April: Start summer planning process</li>
+                    <li>May 1: Last call for summer international bookings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Holiday Guide -->
+        <div id="holidays-guide" class="detailed-guide">
+            <button class="back-btn" onclick="hideGuide()">← Back to Seasons</button>
+
+            <div class="guide-header">
+                <div class="guide-icon">🎄</div>
+                <div class="guide-title">
+                    <h2>Major Holidays Planning Guide</h2>
+                    <p>Master holiday travel beyond the traditional seasons</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>🎯 Holiday Overview</h3>
+                <p>Beyond the major seasons, strategic travelers plan around extended weekends and minor holidays to create 4-5 day trips without using many vacation days. These opportunities often have lower pricing than major holiday periods.</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>🗓️ Holiday Calendar & Strategy</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Holiday</th>
+                        <th>Optimal Travel Dates</th>
+                        <th>Booking Timeline</th>
+                        <th>Expected Savings</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Presidents' Day</strong><br/>(US - Feb 17, 2026)</td>
+                        <td>Fri before - Mon after</td>
+                        <td>8-12 weeks before</td>
+                        <td>20-35% off peak</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Easter Week</strong><br/>(April 8-12, 2026)</td>
+                        <td>Good Friday - Easter Monday</td>
+                        <td>10-14 weeks before</td>
+                        <td>25-40% variance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memorial Day</strong><br/>(US - May 25, 2026)</td>
+                        <td>Thu before - Tue after</td>
+                        <td>12-16 weeks before</td>
+                        <td>15-30% off peak</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Independence Day</strong><br/>(July 4, 2026)</td>
+                        <td>Fri before - Wed after</td>
+                        <td>12-16 weeks before</td>
+                        <td>10-25% variance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Labor Day</strong><br/>(Sep 7, 2026)</td>
+                        <td>Fri before - Tue after</td>
+                        <td>10-14 weeks before</td>
+                        <td>15-30% off peak</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="guide-section">
+                <h3>✈️ Holiday Weekend Flight Strategies</h3>
+                <ul class="guide-list">
+                    <li>Book extended weekends 10-14 weeks in advance (August for Thanksgiving)</li>
+                    <li>Avoid Friday departures & Sunday returns (peak demand days)</li>
+                    <li>Optimal booking: Tuesday departure, Thursday return (30-40% cheaper)</li>
+                    <li>Use credit card sign-up bonuses specifically for holiday travel</li>
+                    <li>Consider one-way flights with miles instead of round-trips</li>
+                    <li>Status match during off-seasons for holiday upgrade benefits</li>
+                    <li>Book award flights 11 months early for holiday periods</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>🏨 Holiday Accommodations</h3>
+                <ul class="guide-list">
+                    <li>Avoid holiday weekends if not necessary (40-60% price premiums)</li>
+                    <li>Stay in adjacent towns to holiday destinations (20-30% cheaper)</li>
+                    <li>Use hotel points from credit cards for free nights</li>
+                    <li>Book refundable rates during holiday periods (flexibility)</li>
+                    <li>Elite status provides free upgrades without crowds</li>
+                    <li>Look for hotel packages (flight + hotel bundles)</li>
+                    <li>Negotiate directly with hotels 6-8 weeks before travel</li>
+                </ul>
+            </div>
+
+            <div class="guide-section">
+                <h3>💳 Credit Card Optimization Calendar</h3>
+                <ul class="guide-list">
+                    <li><strong>January:</strong> Sign up for Presidents' Day card bonus</li>
+                    <li><strong>February:</strong> Sign up for Easter card bonus</li>
+                    <li><strong>March:</strong> Sign up for Memorial Day & summer card bonus</li>
+                    <li><strong>June:</strong> Sign up for July 4th and summer travel</li>
+                    <li><strong>July:</strong> Sign up for Labor Day & fall travel</li>
+                    <li><strong>August:</strong> Sign up for Thanksgiving & holiday season</li>
+                    <li><strong>September:</strong> Sign up for winter holiday bonus cards</li>
+                    <li><strong>October:</strong> Last chance for holiday season card sign-ups</li>
+                </ul>
+
+                <div class="strategy-box">
+                    <strong>Pro Tip - Credit Card Timing:</strong>
+                    <p>Sign up for cards 4-6 weeks before your target travel to meet minimum spending with organic expenses. Most bonuses post within 1-2 weeks of meeting spending.</p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h3>✅ Year-Round Holiday Planning</h3>
+                <ul class="guide-list">
+                    <li>January: Plan all major 2026 holidays in calendar</li>
+                    <li>3 months before each holiday: Start researching destinations</li>
+                    <li>2.5 months before: Sign up for relevant credit cards</li>
+                    <li>10-14 weeks before: Book all flights and hotels</li>
+                    <li>4-6 weeks before: Finalize bookings and check for changes</li>
+                    <li>1-2 weeks before: Confirm reservations, prepare documents</li>
+                    <li>Post-trip: Use earned points to book next holiday</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 TravelSmarter. Exclusive seasonal guides for Smart Traveler & Elite members.</p>
+        <p style="margin-top: 15px; font-size: 0.9em;">
+            <a href="index.html">Home</a> •
+            <a href="tools.html">Tools & Templates</a> •
+            <a href="modules.html">Modules</a> •
+            <a href="account.html">Account</a>
+        </p>
+    </footer>
+
+    <script src="api-service.js"></script>
+    <script>
+        // Check tier on page load
+        document.addEventListener('DOMContentLoaded', checkTierAccess);
+
+        async function checkTierAccess() {
+            // Get user tier from API
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            const token = localStorage.getItem('userToken');
+
+            if (!token) {
+                // Not logged in - show upgrade prompt
+                showUpgradePrompt();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const userTier = (data.user.subscriptionTier || 'free').toLowerCase();
+
+                    if (userTier === 'free') {
+                        showUpgradePrompt();
+                    }
+                    // Smart Traveler and Elite can see the guides
+                } else {
+                    showUpgradePrompt();
+                }
+            } catch (error) {
+                console.error('Error checking tier:', error);
+                showUpgradePrompt();
+            }
+        }
+
+        function showUpgradePrompt() {
+            // Hide guides content
+            document.getElementById('guides-content').style.display = 'none';
+            // Show upgrade section
+            document.getElementById('upgrade-section').style.display = 'block';
+        }
+
+        function showGuide(season) {
+            // Hide all guides
+            const guides = document.querySelectorAll('.detailed-guide');
+            guides.forEach(guide => guide.classList.remove('active'));
+
+            // Hide season cards
+            document.querySelector('.season-grid').style.display = 'none';
+
+            // Show selected guide
+            const guideId = season + '-guide';
+            document.getElementById(guideId).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function hideGuide() {
+            // Hide all guides
+            const guides = document.querySelectorAll('.detailed-guide');
+            guides.forEach(guide => guide.classList.remove('active'));
+
+            // Show season cards
+            document.querySelector('.season-grid').style.display = 'grid';
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

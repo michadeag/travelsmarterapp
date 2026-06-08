@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Status Tracker - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .elite-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .add-program-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .add-program-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .program-title {
+            flex: 1;
+        }
+
+        .program-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+
+        .program-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 3px;
+        }
+
+        .program-type {
+            font-size: 0.85em;
+            color: #9ca3af;
+        }
+
+        .remove-btn {
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #fecaca;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .progress-section {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .progress-label span {
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .expiration-badge {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .empty-state {
+            background: white;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .empty-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .empty-text {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5em;
+            color: #1f2937;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .close-btn:hover {
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn-submit, .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #667eea;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+        }
+
+        .programs-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .program-option {
+            padding: 12px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .program-option:hover {
+            background: #f9fafb;
+        }
+
+        .program-option:last-child {
+            border-bottom: none;
+        }
+
+        .program-option-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .program-option-type {
+            font-size: 0.85em;
+            color: #9ca3af;
+        }
+
+        .upgrade-prompt {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .upgrade-prompt h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            color: #78350f;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tier-breakdown {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.85em;
+        }
+
+        .tier-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            color: #6b7280;
+        }
+
+        .tier-current {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div>
+            <a href="tools.html">← Back to Tools</a>
+        </div>
+        <div>
+            <a href="modules.html" style="margin-right: 20px;">Modules</a>
+            <a href="index.html" style="margin-right: 20px;">Home</a>
+            <a href="account.html">Account</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏆 Elite Status Tracker</h1>
+            <p>Track your progress toward elite status across airlines and hotels</p>
+            <div style="margin-top: 15px;">
+                <span class="elite-badge">✨ Smart Traveler & Elite Feature</span>
+            </div>
+        </div>
+
+        <!-- Check if user has access -->
+        <div id="tracker-content">
+            <button class="add-program-btn" onclick="openAddProgramModal()">+ Add Program</button>
+
+            <!-- Programs Grid -->
+            <div id="programsGrid" class="programs-grid">
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">✈️</div>
+                <div class="empty-title">No Programs Yet</div>
+                <p class="empty-text">Start tracking your elite status progress across airlines and hotels.</p>
+                <button class="add-program-btn" onclick="openAddProgramModal()">Add Your First Program</button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px;">Loading your programs...</p>
+            </div>
+        </div>
+
+        <!-- Upgrade Prompt (shown to Free users) -->
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h3>⭐ Elite Status Tracker is Exclusive to Smart Traveler & Elite Members</h3>
+                <p>Track your progress toward elite status across 10+ airlines and hotel chains. Get projections for reaching next tier.</p>
+                <a href="sales-page.html">
+                    <button class="upgrade-btn">Upgrade Now</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Program Modal -->
+    <div id="addProgramModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Elite Program</h2>
+                <button class="close-btn" onclick="closeModal('addProgramModal')">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <label>Select Program</label>
+                <div class="programs-list" id="programsList">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div id="selectedProgramForm" style="display: none;">
+                <div class="form-group">
+                    <label>Current Tier</label>
+                    <select id="currentTier">
+                        <option value="">Select Tier</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Elite Nights</label>
+                    <input type="number" id="eliteNights" placeholder="e.g., 25" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Tier Miles</label>
+                    <input type="number" id="tierMiles" placeholder="e.g., 50000" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Elite Night Certificates</label>
+                    <input type="number" id="eliteNightCerts" placeholder="e.g., 2" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Status Expires (Date)</label>
+                    <input type="date" id="statusExpires">
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <input type="text" id="programNotes" placeholder="Optional notes about your status">
+                </div>
+
+                <div class="form-buttons">
+                    <button class="btn-submit" onclick="saveProgram()">Save Program</button>
+                    <button class="btn-cancel" onclick="closeModal('addProgramModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 TravelSmarter. Track your path to elite status across the world's top airlines and hotels.</p>
+        <p style="margin-top: 15px; font-size: 0.9em;">
+            <a href="index.html">Home</a> •
+            <a href="tools.html">Tools & Templates</a> •
+            <a href="modules.html">Modules</a> •
+            <a href="account.html">Account</a>
+        </p>
+    </footer>
+
+    <script src="api-service.js"></script>
+    <script>
+        let selectedProgram = null;
+        let allPrograms = [];
+        let userProgress = [];
+
+        // Check tier on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkTierAccess();
+            if (document.getElementById('tracker-content').style.display !== 'none') {
+                await loadPrograms();
+            }
+        });
+
+        async function checkTierAccess() {
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            const token = localStorage.getItem('userToken');
+
+            if (!token) {
+                showUpgradePrompt();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const userTier = (data.user.subscriptionTier || 'free').toLowerCase();
+
+                    if (userTier === 'free') {
+                        showUpgradePrompt();
+                    }
+                } else {
+                    showUpgradePrompt();
+                }
+            } catch (error) {
+                console.error('Error checking tier:', error);
+                showUpgradePrompt();
+            }
+        }
+
+        function showUpgradePrompt() {
+            document.getElementById('tracker-content').style.display = 'none';
+            document.getElementById('upgrade-section').style.display = 'block';
+        }
+
+        async function loadPrograms() {
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('programsGrid').innerHTML = '';
+
+            try {
+                const token = localStorage.getItem('userToken');
+
+                // Fetch available programs
+                const programsRes = await fetch(`${API_URL}/api/elite-status/available-programs`);
+                const programsData = await programsRes.json();
+                allPrograms = programsData.data;
+
+                // Fetch user's progress
+                const progressRes = await fetch(`${API_URL}/api/elite-status/my-progress`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const progressData = await progressRes.json();
+                userProgress = progressData.data;
+
+                document.getElementById('loadingState').style.display = 'none';
+
+                if (userProgress.length === 0) {
+                    document.getElementById('emptyState').style.display = 'block';
+                } else {
+                    displayPrograms();
+                }
+            } catch (error) {
+                console.error('Error loading programs:', error);
+                document.getElementById('loadingState').innerHTML = '<p>Error loading programs</p>';
+            }
+        }
+
+        function displayPrograms() {
+            const grid = document.getElementById('programsGrid');
+            grid.innerHTML = '';
+
+            userProgress.forEach(prog => {
+                const programDef = findProgramDefinition(prog.program_name);
+                if (!programDef) return;
+
+                const currentTierDef = programDef.tiers.find(t => t.name === prog.current_tier);
+                const tierIndex = programDef.tiers.findIndex(t => t.name === prog.current_tier);
+                const nextTier = tierIndex < programDef.tiers.length - 1 ? programDef.tiers[tierIndex + 1] : null;
+
+                let progressPercent = 0;
+                let progressValue = 0;
+                let totalRequired = 0;
+                let progressLabel = '';
+
+                if (prog.program_type === 'airline' && nextTier) {
+                    if (prog.tier_miles !== undefined) {
+                        progressValue = prog.tier_miles;
+                        totalRequired = nextTier.miles;
+                        progressPercent = Math.min((prog.tier_miles / nextTier.miles) * 100, 100);
+                        progressLabel = `${prog.tier_miles.toLocaleString()} / ${nextTier.miles.toLocaleString()} miles`;
+                    }
+                } else if (prog.program_type === 'hotel' && nextTier) {
+                    if (prog.elite_nights !== undefined) {
+                        progressValue = prog.elite_nights;
+                        totalRequired = nextTier.nights;
+                        progressPercent = Math.min((prog.elite_nights / nextTier.nights) * 100, 100);
+                        progressLabel = `${prog.elite_nights} / ${nextTier.nights} nights`;
+                    }
+                }
+
+                const expiresText = prog.status_expires_at ?
+                    `Expires: ${new Date(prog.status_expires_at).toLocaleDateString()}` :
+                    'No expiration';
+
+                const html = `
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div class="program-title">
+                                <span class="program-icon">${programDef.type === 'airline' ? '✈️' : '🏨'}</span>
+                                <div class="program-name">${prog.program_name}</div>
+                                <div class="program-type">${prog.program_type === 'airline' ? 'Airline' : 'Hotel'}</div>
+                            </div>
+                            <button class="remove-btn" onclick="removeProgram('${prog.program_name}')">Remove</button>
+                        </div>
+
+                        <div class="tier-badge">${prog.current_tier}</div>
+
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-value">${prog.elite_night_certificates || 0}</div>
+                                <div class="stat-label">Certificates</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">${expiresText.split(': ')[1] || 'None'}</div>
+                                <div class="stat-label">Expires</div>
+                            </div>
+                        </div>
+
+                        ${nextTier ? `
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Next Tier: ${nextTier.name}</span>
+                                    <span>${Math.round(progressPercent)}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                                </div>
+                                <div style="font-size: 0.8em; color: #9ca3af; margin-top: 6px; text-align: center;">${progressLabel}</div>
+                            </div>
+                        ` : `
+                            <div style="background: #d1fae5; color: #065f46; padding: 12px; border-radius: 6px; text-align: center; font-weight: 600; margin-top: 15px;">
+                                🎉 Maximum Tier Reached!
+                            </div>
+                        `}
+
+                        ${prog.notes ? `<div style="margin-top: 15px; padding: 12px; background: #f9fafb; border-radius: 6px; font-size: 0.9em; color: #6b7280;">📝 ${prog.notes}</div>` : ''}
+                    </div>
+                `;
+
+                grid.innerHTML += html;
+            });
+        }
+
+        function findProgramDefinition(programName) {
+            return allPrograms.find(p => p.name === programName);
+        }
+
+        function openAddProgramModal() {
+            loadProgramsList();
+            document.getElementById('addProgramModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            resetForm();
+        }
+
+        function loadProgramsList() {
+            const list = document.getElementById('programsList');
+            list.innerHTML = '';
+
+            // Filter out programs user already has
+            const tracked = userProgress.map(p => p.program_name);
+            const available = allPrograms.filter(p => !tracked.includes(p.name));
+
+            available.forEach(prog => {
+                const div = document.createElement('div');
+                div.className = 'program-option';
+                div.onclick = () => selectProgram(prog);
+                div.innerHTML = `
+                    <div class="program-option-name">${prog.icon} ${prog.name}</div>
+                    <div class="program-option-type">${prog.type.toUpperCase()}</div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function selectProgram(prog) {
+            selectedProgram = prog;
+            const formDef = allPrograms.find(p => p.name === prog.name);
+
+            // Get first program definition from routes for tier details
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            fetch(`${API_URL}/api/elite-status/program-details/${encodeURIComponent(prog.name)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const tierSelect = document.getElementById('currentTier');
+                        tierSelect.innerHTML = '<option value="">Select Tier</option>';
+                        data.data.tiers.forEach(tier => {
+                            const option = document.createElement('option');
+                            option.value = tier.name;
+                            option.textContent = tier.name;
+                            tierSelect.appendChild(option);
+                        });
+                    }
+                });
+
+            document.getElementById('selectedProgramForm').style.display = 'block';
+            document.getElementById('programsList').style.display = 'none';
+        }
+
+        async function saveProgram() {
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            const data = {
+                program_name: selectedProgram.name,
+                program_type: selectedProgram.type,
+                current_tier: document.getElementById('currentTier').value,
+                elite_nights: parseInt(document.getElementById('eliteNights').value) || 0,
+                tier_miles: parseInt(document.getElementById('tierMiles').value) || 0,
+                elite_night_certificates: parseInt(document.getElementById('eliteNightCerts').value) || 0,
+                status_expires_at: document.getElementById('statusExpires').value || null,
+                notes: document.getElementById('programNotes').value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/api/elite-status/update-progress`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    closeModal('addProgramModal');
+                    await loadPrograms();
+                } else {
+                    alert('Error saving program');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error saving program');
+            }
+        }
+
+        async function removeProgram(programName) {
+            if (!confirm(`Remove ${programName} from tracking?`)) return;
+
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            try {
+                const response = await fetch(`${API_URL}/api/elite-status/remove-program/${encodeURIComponent(programName)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                    }
+                });
+
+                if (response.ok) {
+                    await loadPrograms();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function resetForm() {
+            selectedProgram = null;
+            document.getElementById('currentTier').value = '';
+            document.getElementById('eliteNights').value = '';
+            document.getElementById('tierMiles').value = '';
+            document.getElementById('eliteNightCerts').value = '';
+            document.getElementById('statusExpires').value = '';
+            document.getElementById('programNotes').value = '';
+            document.getElementById('selectedProgramForm').style.display = 'none';
+            document.getElementById('programsList').style.display = 'block';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('addProgramModal');
+            if (e.target === modal) {
+                closeModal('addProgramModal');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | TravelSmarter</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-470B6E2DKF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-470B6E2DKF');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 3px solid #10b981;
+        }
+
+        header h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* ORDER SUMMARY */
+        .order-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+        }
+
+        .order-summary h2 {
+            font-size: 1.3em;
+            color: #1f2937;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 15px;
+        }
+
+        .plan-selection {
+            margin-bottom: 30px;
+        }
+
+        .plan-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .plan-option:hover {
+            border-color: #667eea;
+            background: #f9fafb;
+        }
+
+        .plan-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .plan-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .plan-details {
+            flex: 1;
+        }
+
+        .plan-name {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .plan-desc {
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        .plan-price {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .order-details {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95em;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row strong {
+            color: #1f2937;
+        }
+
+        .detail-row .value {
+            color: #6b7280;
+        }
+
+        .total-row {
+            padding: 15px 0 !important;
+            border-top: 2px solid #e5e7eb !important;
+            border-bottom: none !important;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .total-row .value {
+            color: #667eea !important;
+            font-size: 1.3em;
+        }
+
+        .guarantee-badge {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #065f46;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* CHECKOUT FORM */
+        .checkout-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .checkout-form h2 {
+            font-size: 1.3em;
+            color: #1f2937;
+            margin-bottom: 25px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            font-size: 1em;
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .promo-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .promo-input input {
+            margin-bottom: 0;
+        }
+
+        .promo-button {
+            padding: 12px 20px;
+            background: #f3f4f6;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .promo-button:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .pay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .pay-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .terms-checkbox a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        .security-badges {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .badge {
+            text-align: center;
+            font-size: 0.85em;
+            color: #6b7280;
+        }
+
+        .badge-icon {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .success-message {
+            display: none;
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            color: #065f46;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9em;
+        }
+
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .security-badges {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-option {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>✈️ TravelSmarter Checkout</h1>
+                <p>Complete your purchase and get instant access</p>
+            </div>
+            <div>
+                <a href="tools.html" style="color: white; text-decoration: none; font-weight: 600; margin-right: 20px;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    📋 Tools
+                </a>
+                <a href="index.html" style="color: white; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    🏠 Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="checkout-grid">
+            <!-- ORDER SUMMARY -->
+            <aside class="order-summary">
+                <h2>Order Summary</h2>
+
+                <div class="plan-selection">
+                    <label style="font-weight: 700; margin-bottom: 15px; display: block;">Select Your Plan:</label>
+
+                    <div class="plan-option" onclick="selectPlan('smart')">
+                        <input type="radio" name="plan" value="smart" onchange="updatePrice()">
+                        <div class="plan-details">
+                            <div class="plan-name">Smart Traveler</div>
+                            <div class="plan-desc">For occasional travelers</div>
+                        </div>
+                        <div class="plan-price">€19<span style="font-size: 0.6em; color: #6b7280;">/mo</span></div>
+                    </div>
+
+                    <div class="plan-option" onclick="selectPlan('elite')">
+                        <input type="radio" name="plan" value="elite" onchange="updatePrice()">
+                        <div class="plan-details">
+                            <div class="plan-name">Elite</div>
+                            <div class="plan-desc">For frequent travelers</div>
+                        </div>
+                        <div class="plan-price">€49<span style="font-size: 0.6em; color: #6b7280;">/mo</span></div>
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="detail-row">
+                        <strong>Subtotal (1 month)</strong>
+                        <span class="value">€<span id="subtotal">19</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Promo Code</strong>
+                        <span class="value">-€<span id="discount">0</span></span>
+                    </div>
+                    <div class="detail-row total-row">
+                        <strong>Total Due Today</strong>
+                        <span class="value">€<span id="total">19</span></span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>✓ First 30 days free to try</strong><br>
+                    Then auto-renews at €<span id="infoBoxPrice">19</span>/month. Cancel anytime, no questions asked.
+                </div>
+
+                <div class="guarantee-badge">
+                    🛡️ 30-Day Money-Back Guarantee
+                </div>
+
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-size: 0.9em;">What You Get:</h4>
+                    <ul id="featuresList" style="list-style: none; margin-left: 0;">
+                        <!-- Features will be populated by JavaScript based on selected plan -->
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- CHECKOUT FORM -->
+            <main class="checkout-form">
+                <h2>Billing Information</h2>
+
+                <form id="checkoutForm">
+                    <!-- PERSONAL INFO -->
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <!-- BILLING ADDRESS -->
+                    <div class="form-section">
+                        <h3>Billing Address</h3>
+                        <div class="form-group">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="postalCode">Postal Code *</label>
+                                <input type="text" id="postalCode" name="postalCode" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country">Country *</label>
+                                <select id="country" name="country" required>
+                                    <option value="">-- Select Country --</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="AT">Austria</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="FR">France</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="NL">Netherlands</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAYMENT METHOD -->
+                    <div class="form-section">
+                        <h3>Payment Method</h3>
+                        <div class="info-box">
+                            <strong>✓ Secure Checkout</strong><br>
+                            You'll be redirected to Stripe's secure payment page to enter your card details.
+                        </div>
+                        <div id="card-errors" class="error-message"></div>
+                    </div>
+
+                    <!-- PROMO CODE -->
+                    <div class="form-section">
+                        <h3>Promo Code (Optional)</h3>
+                        <div class="promo-input">
+                            <input type="text" id="promoCode" placeholder="Enter promo code" maxlength="20">
+                            <button type="button" class="promo-button" onclick="applyPromoCode()">Apply</button>
+                        </div>
+                    </div>
+
+                    <!-- TERMS & CONDITIONS -->
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms" style="margin: 0;">
+                            I agree to the <a href="terms-of-service.html" target="_blank">Terms of Service</a>
+                            and <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- PAYMENT BUTTON -->
+                    <button type="submit" class="pay-button" id="payButton">
+                        Complete Purchase - €<span id="buttonPrice">19</span>/month
+                    </button>
+
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Processing your payment...</p>
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        <h3>✓ Payment Successful!</h3>
+                        <p style="margin-bottom: 15px;">Thank you for your purchase. Check your email for account details and login information.</p>
+                        <p style="color: #065f46; font-size: 0.9em;">You now have full access to all 8 modules and real-time alerts.</p>
+                        <p style="margin-top: 20px;">
+                            <a href="index.html" style="display: inline-block; padding: 12px 30px; background: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#059669';" onmouseout="this.style.background='#10b981';">
+                                🚀 Go to Dashboard
+                            </a>
+                        </p>
+                        <p style="color: #6b7280; font-size: 0.85em; margin-top: 15px;">Redirecting in 3 seconds...</p>
+                    </div>
+
+                    <div class="error-message" id="errorMessage"></div>
+                </form>
+
+                <div class="security-badges">
+                    <div class="badge">
+                        <span class="badge-icon">🔒</span>
+                        SSL Encrypted
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">💳</span>
+                        Secure Payment
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">✓</span>
+                        Money-Back Guarantee
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Note: We use Stripe Checkout (hosted) instead of custom card element
+        // The backend creates a checkout session and we redirect to Stripe's page
+        // This means we don't need to initialize Stripe on the frontend
+
+        // Plan Selection
+        function selectPlan(planType) {
+            const options = document.querySelectorAll('.plan-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.querySelector(`input[value="${planType}"]`).checked = true;
+            updatePrice();
+            updateFeatures();
+        }
+
+        // Update Features based on selected plan
+        function updateFeatures() {
+            const checkedInput = document.querySelector('input[name="plan"]:checked');
+            if (!checkedInput) return;
+
+            const selectedPlan = checkedInput.value;
+            const featuresList = document.getElementById('featuresList');
+
+            let features = [];
+
+            if (selectedPlan === 'elite') {
+                features = [
+                    'All 16 modules (flights, hotels, credit cards, visas, etc.)',
+                    '87 verified hacks updated daily',
+                    'SMS alerts for mistake fares',
+                    'Expert consultations (Calendly)',
+                    'Custom deal filters',
+                    'Partner discount access',
+                    'Premium email support',
+                    'Community verification system'
+                ];
+            } else {
+                // Smart Traveler features
+                features = [
+                    'All 10 modules (flights, hotels, credit cards, etc.)',
+                    '47 verified hacks updated daily',
+                    '1,574+ real-time deal alerts/day',
+                    'Daily deal alerts',
+                    'Save hacks & deals',
+                    'Priority support',
+                    'Expert community',
+                    'Community verification system'
+                ];
+            }
+
+            // Build HTML for features
+            featuresList.innerHTML = features.map(feature =>
+                `<li style="margin-bottom: 10px; font-size: 0.9em;"><strong>✓</strong> ${feature}</li>`
+            ).join('');
+        }
+
+        // Update Price
+        function updatePrice() {
+            const checkedInput = document.querySelector('input[name="plan"]:checked');
+
+            // Safety check - if no radio button is selected, default to smart traveler
+            if (!checkedInput) {
+                const smartInput = document.querySelector('input[value="smart"]');
+                if (smartInput) {
+                    smartInput.checked = true;
+                }
+                return; // Exit and try again after selection
+            }
+
+            const selectedPlan = checkedInput.value;
+            const price = selectedPlan === 'elite' ? 49 : 19;
+
+            document.getElementById('subtotal').textContent = price;
+            document.getElementById('total').textContent = price;
+            document.getElementById('buttonPrice').textContent = price;
+            document.getElementById('infoBoxPrice').textContent = price;
+        }
+
+        // Initialize plan from URL parameter
+        function initializePlanFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tier = urlParams.get('tier');
+            console.log('Initializing checkout - Tier from URL:', tier);
+
+            const planOptions = document.querySelectorAll('.plan-option');
+            const smartInput = document.querySelector('input[value="smart"]');
+            const eliteInput = document.querySelector('input[value="elite"]');
+
+            console.log('Plan options found:', planOptions.length);
+            console.log('Smart input found:', !!smartInput);
+            console.log('Elite input found:', !!eliteInput);
+
+            if (!smartInput || !eliteInput || planOptions.length < 2) {
+                console.error('ERROR: Could not find plan elements!');
+                return;
+            }
+
+            // Default to Smart Traveler unless Elite is specified
+            if (tier === 'elite') {
+                console.log('Setting Elite plan...');
+                eliteInput.checked = true;
+                smartInput.checked = false;
+                planOptions.forEach(opt => opt.classList.remove('selected'));
+                planOptions[1].classList.add('selected');
+                console.log('Elite plan set');
+            } else {
+                console.log('Setting Smart Traveler plan...');
+                smartInput.checked = true;
+                eliteInput.checked = false;
+                planOptions.forEach(opt => opt.classList.remove('selected'));
+                planOptions[0].classList.add('selected');
+                console.log('Smart Traveler plan set');
+            }
+
+            // Update the price display
+            console.log('Updating price...');
+            updatePrice();
+            updateFeatures();
+            console.log('Initialization complete');
+        }
+
+        // Run with a small delay to ensure DOM is ready
+        setTimeout(function() {
+            initializePlanFromUrl();
+        }, 50);
+
+        // Also run after DOM is fully loaded (safety fallback)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initializePlanFromUrl, 50);
+        });
+
+        // Apply Promo Code
+        async function applyPromoCode() {
+            const code = document.getElementById('promoCode').value.toUpperCase();
+
+            if (!code) {
+                alert('Please enter a promo code');
+                return;
+            }
+
+            try {
+                // Validate promo code with backend
+                const backendUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'
+                    : 'https://api.travelsmarterapp.com';
+
+                const response = await fetch(`${backendUrl}/api/promos/${code}/validate`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const selectedPlan = document.querySelector('input[name="plan"]:checked').value;
+                    const basePrice = selectedPlan === 'elite' ? 49 : 19;
+
+                    // Calculate discount
+                    let discountAmount = 0;
+                    if (data.data.discount_percent) {
+                        discountAmount = Math.round(basePrice * (data.data.discount_percent / 100) * 100) / 100;
+                    } else if (data.data.discount_amount) {
+                        discountAmount = data.data.discount_amount;
+                    }
+
+                    const total = Math.max(0, basePrice - discountAmount);
+
+                    document.getElementById('discount').textContent = discountAmount;
+                    document.getElementById('total').textContent = total;
+                    document.getElementById('buttonPrice').textContent = total;
+
+                    // Store promo code for checkout
+                    window.appliedPromoCode = code;
+                    window.promoDiscount = discountAmount;
+
+                    alert(`Promo code applied! Saving €${discountAmount} this month.`);
+                    document.getElementById('promoCode').disabled = true;
+                } else {
+                    alert('Invalid or expired promo code');
+                }
+            } catch (error) {
+                console.error('Error validating promo code:', error);
+                alert('Error validating promo code. Please try again.');
+            }
+        }
+
+        // Form Submission
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validation
+            if (!document.getElementById('terms').checked) {
+                alert('Please accept the Terms of Service and Privacy Policy');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('payButton').disabled = true;
+
+            try {
+                // Get form data
+                const selectedPlan = document.querySelector('input[name="plan"]:checked').value;
+                const userToken = localStorage.getItem('userToken');
+
+                console.log('Selected plan:', selectedPlan);
+                console.log('User token:', userToken ? 'present' : 'missing');
+
+                // Track plan selection with Google Analytics
+                const planPrice = selectedPlan === 'elite' ? 49 : 19;
+                gtag('event', 'view_item', {
+                    value: planPrice,
+                    currency: 'EUR',
+                    items: [{
+                        item_id: selectedPlan,
+                        item_name: selectedPlan === 'elite' ? 'Elite' : 'Smart Traveler',
+                        price: planPrice
+                    }]
+                });
+
+                // Validate user is logged in
+                if (!userToken) {
+                    document.getElementById('card-errors').textContent = 'Please log in to complete your purchase';
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('payButton').disabled = false;
+                    return;
+                }
+
+                // Determine backend URL
+                let backendUrl;
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    backendUrl = 'http://localhost:5000';
+                } else {
+                    backendUrl = 'https://api.travelsmarterapp.com';
+                }
+
+                // Send to backend to create Stripe checkout session
+                const endpoint = `${backendUrl}/api/subscriptions/checkout`;
+                console.log('Creating checkout session at:', endpoint);
+
+                // Map frontend tier names to backend tier names
+                const tierMap = {
+                    'smart': 'smart_traveler',
+                    'elite': 'elite'
+                };
+                const backendTier = tierMap[selectedPlan] || selectedPlan;
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    body: JSON.stringify({
+                        tier: backendTier
+                    })
+                });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                if (data.success && data.url) {
+                    // Track checkout initiation with Google Analytics
+                    const planPrice = selectedPlan === 'elite' ? 49 : 19;
+                    gtag('event', 'begin_checkout', {
+                        value: planPrice,
+                        currency: 'EUR',
+                        items: [{
+                            item_id: selectedPlan,
+                            item_name: selectedPlan === 'elite' ? 'Elite' : 'Smart Traveler',
+                            price: planPrice
+                        }]
+                    });
+
+                    // Redirect to Stripe Checkout (hosted page)
+                    console.log('Redirecting to Stripe checkout:', data.url);
+                    window.location.href = data.url;
+                } else {
+                    // Handle error
+                    const errorMsg = data.message || data.error || 'Payment failed. Please try again.';
+                    console.error('Payment error:', errorMsg);
+                    document.getElementById('card-errors').textContent = errorMsg;
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('payButton').disabled = false;
+                }
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+                document.getElementById('card-errors').textContent = error.message || 'An error occurred. Please try again.';
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('payButton').disabled = false;
+            }
+        });
+
+        // Ensure a plan is selected and update price on load
+        const smartInput = document.querySelector('input[value="smart"]');
+        if (smartInput && !document.querySelector('input[name="plan"]:checked')) {
+            smartInput.checked = true;
+        }
+        updatePrice();
+    </script>
+    <script src="tier-gating.js"></script>
+</body>
+</html>

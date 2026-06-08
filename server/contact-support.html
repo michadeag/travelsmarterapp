@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support | TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 40px 0;
+            margin: -40px -20px 40px -20px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.05em;
+            opacity: 0.95;
+        }
+
+        main {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #3b82f6;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #3b82f6;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .contact-card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .contact-card h3 {
+            color: #1e40af;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            color: #374151;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .contact-card a, .contact-card strong {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .response-times {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .response-times h3 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .response-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .response-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .response-item strong {
+            color: #3b82f6;
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .response-item p {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .faq-section {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%);
+        }
+
+        .faq-toggle {
+            font-size: 1.3em;
+            color: #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #374151;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #3b82f6;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .form-section h3 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .availability-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Contact Support</h1>
+            <p>We're here to help. Get answers fast.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to App</a>
+
+        <main>
+            <p style="font-size: 1.1em; color: #374151; margin-bottom: 30px;">
+                Have a question about TravelSmarter? Need help with your subscription? Found a bug? We're here to help. Choose your issue type and we'll get back to you as fast as possible.
+            </p>
+
+            <h2>Contact Methods</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-card-icon">📧</span>
+                    <h3>Email Support</h3>
+                    <p>For general questions, billing issues, and technical support</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 2-4 hours</div>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-card-icon">🛡️</span>
+                    <h3>Guarantee Refund</h3>
+                    <p>Request your 30-day money-back guarantee refund</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 1 hour</div>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-card-icon">⚖️</span>
+                    <h3>Legal & Privacy</h3>
+                    <p>Questions about privacy, terms, or data requests</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 24 hours</div>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-card-icon">💼</span>
+                    <h3>Business Inquiries</h3>
+                    <p>Partnerships, affiliates, or business proposals</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 24-48 hours</div>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-card-icon">🐛</span>
+                    <h3>Bug Report</h3>
+                    <p>Report technical issues or bugs in the app</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 4 hours</div>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-card-icon">💡</span>
+                    <h3>Feature Request</h3>
+                    <p>Suggest new features or improvements</p>
+                    <a href="mailto:michael@reesin.com">michael@reesin.com</a>
+                    <div class="availability-badge">Response: 48 hours</div>
+                </div>
+            </div>
+
+            <div class="response-times">
+                <h3>Support Response Times</h3>
+                <div class="response-grid">
+                    <div class="response-item">
+                        <strong>Monday-Friday 9am-5pm BRT:</strong>
+                        <p>2-4 hours for most inquiries</p>
+                    </div>
+                    <div class="response-item">
+                        <strong>Weekends & Evenings:</strong>
+                        <p>24-48 hours (non-urgent)</p>
+                    </div>
+                    <div class="response-item">
+                        <strong>Account/Billing Issues:</strong>
+                        <p>1-2 hours during business hours</p>
+                    </div>
+                    <div class="response-item">
+                        <strong>Guarantee Refund:</strong>
+                        <p>Processed within 5-7 business days</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Quick Support Form</h2>
+            <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+
+            <form class="form-section" id="supportForm">
+                <h3>Send Us a Message</h3>
+
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="topic">What is your inquiry about? *</label>
+                    <select id="topic" name="topic" required>
+                        <option value="">-- Select Topic --</option>
+                        <option value="billing">Billing/Subscription Issue</option>
+                        <option value="refund">Money-Back Guarantee Refund</option>
+                        <option value="technical">Technical Issue/Bug</option>
+                        <option value="account">Account Issue</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="hack">Hack Verification Question</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-section">
+                <div class="faq-item active">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>How long does it take to get a response?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        For most inquiries (Monday-Friday, 9am-5pm BRT), you'll get a response within 2-4 hours. Urgent issues like account lockouts or refund requests are handled within 1-2 hours. On weekends or late evenings, responses may take 24-48 hours.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>I'm requesting a refund. How quickly will I get it?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        We process refund requests within 1 hour of verification and initiate the refund to your original payment method. The refund appears in your account within 5-7 business days (depending on your bank). You don't need to provide proof—if you're not satisfied after 30 days, we'll refund you.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>I found a bug in the app. How do I report it?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Email michael@reesin.com with details about what happened (what you were doing, what went wrong, what browser/device you're using). Include screenshots if possible. We'll prioritize bug reports and respond within 4 hours during business hours.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>Can I get a refund after 30 days?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Our money-back guarantee is for 30 days from account creation. After that, refunds are handled case-by-case. Contact michael@reesin.com to discuss your situation. We'll work with you if there's a legitimate issue.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>How do I cancel my subscription?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Log into your account and go to Settings → Billing → Cancel Subscription. You can cancel anytime with no penalty. You'll keep access until the end of your billing period. No need to email us unless you have issues with the cancellation process.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>I forgot my password. How do I reset it?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        On the login page, click "Forgot Password" and enter your email address. You'll receive a password reset link within 2 minutes. Click the link to set a new password. If you don't see the email, check your spam folder or contact michael@reesin.com.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>I want to change my plan. How do I upgrade or downgrade?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Log into your account → Settings → Billing → Change Plan. Choose your new plan and the change takes effect immediately. If you're upgrading, you'll be charged the difference. If you're downgrading, the credit carries over to your next billing period.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(event)">
+                        <span>How do I request my data (GDPR)?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Email michael@reesin.com with "Data Request" as the subject line. Provide your full name and account email. We'll send you a copy of all your personal data within 30 days (as required by GDPR). You can also request deletion of your account from your Settings page.
+                    </div>
+                </div>
+            </div>
+
+            <h2>Before You Contact Us</h2>
+            <p>
+                We want to help you as quickly as possible. Before emailing, check if your question is answered in these resources:
+            </p>
+            <ul style="margin-left: 20px; margin-bottom: 20px;">
+                <li><a href="privacy-policy.html" style="color: #3b82f6;">Privacy Policy</a> - For data and privacy questions</li>
+                <li><a href="terms-of-service.html" style="color: #3b82f6;">Terms of Service</a> - For account and usage questions</li>
+                <li><a href="money-back-guarantee.html" style="color: #3b82f6;">Money-Back Guarantee</a> - For refund questions</li>
+                <li><strong>In-App Help</strong> - Most modules have detailed explanations and FAQ sections</li>
+            </ul>
+
+            <h2>Still Have Questions?</h2>
+            <p>
+                Use the form above and we'll get back to you as soon as possible. We read every message and respond personally. No bots, no automated responses.
+            </p>
+
+            <p style="margin-top: 40px; color: #6b7280; font-size: 0.95em;">
+                We're based in Rio de Janeiro and operate Monday-Friday, 9am-5pm BRT. We respond to all emails during business hours and handle urgent issues immediately.
+            </p>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 TravelSmarter. All rights reserved.</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <a href="privacy-policy.html">Privacy Policy</a> •
+                <a href="terms-of-service.html">Terms of Service</a> •
+                <a href="money-back-guarantee.html">Money-Back Guarantee</a> •
+                <a href="contact-support.html">Contact Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFaq(event) {
+            const item = event.currentTarget.parentElement;
+            item.classList.toggle('active');
+        }
+
+        document.getElementById('supportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const topic = document.getElementById('topic').value;
+            const message = document.getElementById('message').value;
+            const button = this.querySelector('.submit-btn');
+
+            // Disable button and show loading state
+            button.disabled = true;
+            const originalText = button.textContent;
+            button.textContent = 'Sending...';
+
+            try {
+                // Determine backend URL
+                const backendUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'
+                    : 'https://api.travelsmarterapp.com';
+
+                // Send form data to backend
+                const response = await fetch(`${backendUrl}/api/contact/send`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        topic,
+                        message
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Show success message
+                    alert(`Thank you, ${name}!\n\nYour message has been sent to michael@reesin.com\n\nWe'll respond to ${email} within 2-4 hours.\n\nIn the meantime, check our FAQ for quick answers!`);
+                    this.reset();
+                } else {
+                    alert('Error sending message: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('Error sending message. Please try emailing michael@reesin.com directly.');
+            } finally {
+                // Re-enable button
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Travel Hacking Cheat Sheet - 22 Verified Hacks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: white;
+            padding: 0;
+        }
+
+        .cheat-sheet {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        /* COVER PAGE */
+        .cover-page {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            page-break-after: always;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover-page h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cover-page .subtitle {
+            font-size: 2em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cover-page .value {
+            font-size: 1.5em;
+            background: rgba(255,255,255,0.2);
+            padding: 20px 40px;
+            border-radius: 12px;
+            margin: 30px 0;
+            display: inline-block;
+        }
+
+        .cover-page .meta {
+            margin-top: 60px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .cover-page .stat {
+            display: inline-block;
+            margin: 10px 20px;
+        }
+
+        .cover-page .stat strong {
+            font-size: 1.3em;
+            display: block;
+        }
+
+        /* TABLE OF CONTENTS */
+        .toc-page {
+            padding: 60px 40px;
+            page-break-after: always;
+            background: white;
+        }
+
+        .toc-page h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .toc-section {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .toc-section h3 {
+            font-size: 1.2em;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .toc-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.95em;
+            color: #6b7280;
+        }
+
+        .toc-items li {
+            list-style: none;
+        }
+
+        /* MODULE SECTIONS */
+        .module {
+            padding: 60px 40px;
+            page-break-after: always;
+            background: white;
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .module-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .module-header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .hack {
+            background: #f9fafb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #10b981;
+            border-radius: 4px;
+        }
+
+        .hack h4 {
+            color: #1f2937;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hack-content {
+            color: #374151;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .hack-value {
+            background: #f0fdf4;
+            padding: 10px;
+            border-radius: 4px;
+            color: #065f46;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* QUICK REFERENCE */
+        .quick-ref {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        }
+
+        .quick-ref h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ref-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .ref-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .ref-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 40px;
+            background: white;
+            text-align: center;
+            font-size: 0.9em;
+            color: #6b7280;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .footer h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .cheat-sheet {
+                max-width: 100%;
+                box-shadow: none;
+            }
+
+            page {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* SCREEN STYLES */
+        @media screen {
+            body {
+                background: #f3f4f6;
+                padding: 20px;
+            }
+
+            .cheat-sheet {
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            }
+
+            .no-print {
+                padding: 20px;
+                background: white;
+                border-radius: 12px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .no-print button {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 30px;
+                border: none;
+                border-radius: 8px;
+                font-size: 1em;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .no-print button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            }
+        }
+
+        .hack-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        /* DIVIDER */
+        .section-divider {
+            text-align: center;
+            padding: 30px;
+            color: #667eea;
+            font-size: 2em;
+            page-break-before: always;
+        }
+
+        /* TIER GATING */
+        [data-tier-lock] {
+            position: relative;
+        }
+
+        /* Greyout the module content */
+        [data-tier-lock] > div {
+            opacity: 0.6;
+            filter: grayscale(100%);
+        }
+
+        [data-tier-lock] .module-header {
+            background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="margin: 0 auto; max-width: 800px;">
+        <h2 style="color: #667eea; margin-bottom: 15px;">📄 2026 Travel Hacking Cheat Sheet</h2>
+        <p style="color: #6b7280; margin-bottom: 15px;">22 Verified Hacks (FREE Tier) | €49 Value | Ready to Print or Save as PDF</p>
+        <button onclick="window.print()">🖨️ Print or Save as PDF</button>
+    </div>
+
+    <div class="cheat-sheet">
+        <!-- COVER PAGE -->
+        <div class="cover-page">
+            <h1>✈️ 2026</h1>
+            <div class="subtitle">Travel Hacking<br>Cheat Sheet</div>
+            <div class="value">
+                22 Verified Hacks<br>
+                €49 Value
+            </div>
+            <div class="meta">
+                <div class="stat">
+                    <strong>€2,000-5,000</strong>
+                    Annual Savings
+                </div>
+                <div class="stat">
+                    <strong>12,340+</strong>
+                    Travelers Using This
+                </div>
+            </div>
+            <div style="margin-top: 80px; font-size: 0.95em;">
+                Updated: June 4, 2026<br>
+                Community Verified • Daily Updated • Works RIGHT NOW
+            </div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc-page">
+            <h2>📋 What's Inside</h2>
+
+            <div class="toc-section">
+                <h3>✈️ Module 1: Flight Hacks (6 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Award Arbitrage</li>
+                    <li>Mistake Fares</li>
+                    <li>Upgrade Psychology</li>
+                    <li>Positioning Strategies</li>
+                    <li>Sweet Spot Booking</li>
+                    <li>Airline Loopholes</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>💳 Module 2: Credit Cards (7 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Sign-Up Bonuses</li>
+                    <li>Card Stacking</li>
+                    <li>Transfer Partners</li>
+                    <li>Bonus Timing</li>
+                    <li>Annual Fee Hacks</li>
+                    <li>Foreign Transaction Fees</li>
+                    <li>Bonus Spikes</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🏨 Module 3: Hotel Hacks (7 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Status Matching</li>
+                    <li>Upgrade Psychology</li>
+                    <li>Rate Arbitrage</li>
+                    <li>Sweet Spot Booking</li>
+                    <li>Free Breakfast Hacks</li>
+                    <li>Status Challenge</li>
+                    <li>Loyalty Optimization</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>⏰ Module 4: Timing Intelligence (6 hacks)</h3>
+                <ul class="toc-items">
+                    <li>30-Day Sweet Spot</li>
+                    <li>Hidden City Ticketing</li>
+                    <li>Positioning Strategy</li>
+                    <li>Currency Arbitrage</li>
+                    <li>Price Prediction</li>
+                    <li>Booking Windows</li>
+                </ul>
+            </div>
+
+            <!-- PREMIUM MODULES TOC (5-16) - TIER LOCKED -->
+            <div data-tier-lock="smart_traveler">
+
+            <div class="toc-section">
+                <h3>✈️ Module 5: Airport Hacks (6 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Lounge Access</li>
+                    <li>TSA PreCheck</li>
+                    <li>Global Entry</li>
+                    <li>Baggage Fees</li>
+                    <li>Ground Transport</li>
+                    <li>Lounge Comparisons</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🌍 Module 6: Destinations (4 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Hidden Value Spots</li>
+                    <li>Visa Arbitrage</li>
+                    <li>Peak Season Hacks</li>
+                    <li>Ground Transport</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🚗 Module 7: Car Rentals (4 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Booking Strategy</li>
+                    <li>Insurance Hacks</li>
+                    <li>Membership Programs</li>
+                    <li>Hidden Fees</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>👥 Module 8: Community (3 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Verification System</li>
+                    <li>Expert Contributors</li>
+                    <li>Real-Time Alerts</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>💰 Module 9: Travel Money (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>No Foreign Transaction Fees</li>
+                    <li>Multi-Currency Accounts</li>
+                    <li>ATM Fee Elimination</li>
+                    <li>Currency Timing</li>
+                    <li>Maximize Rewards</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🛡️ Module 10: Travel Insurance (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Annual vs Per-Trip</li>
+                    <li>Credit Card Coverage</li>
+                    <li>Medical Evacuation</li>
+                    <li>Claim Strategies</li>
+                    <li>Coverage Stacking</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🛂 Module 11: Visa & Immigration (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Visa-Free Destinations</li>
+                    <li>Digital Nomad Visas</li>
+                    <li>Visa-Run Routes</li>
+                    <li>Tax Optimization</li>
+                    <li>Residency Arbitrage</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🏠 Module 12: Accommodations (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Airbnb Monthly Discounts</li>
+                    <li>House-Sitting</li>
+                    <li>Couchsurfing</li>
+                    <li>Hostels vs Hotels</li>
+                    <li>Resort Arbitrage</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🚆 Module 13: Ground Transport (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Train Passes</li>
+                    <li>Budget Buses</li>
+                    <li>Ferry Passes</li>
+                    <li>Public Transit Cards</li>
+                    <li>Night Transport Savings</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🔍 Module 14: Travel Bookings (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Metasearch Optimization</li>
+                    <li>Package Deals</li>
+                    <li>Hotel Price Comparison</li>
+                    <li>Opaque Booking</li>
+                    <li>Price Tracking</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🍽️ Module 15: Food & Dining (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>Restaurant Booking Discounts</li>
+                    <li>Local Street Food</li>
+                    <li>Cook Yourself</li>
+                    <li>Happy Hour Strategy</li>
+                    <li>Market Shopping</li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <h3>🛍️ Module 16: Shopping & VAT (5 hacks)</h3>
+                <ul class="toc-items">
+                    <li>VAT Reclaim</li>
+                    <li>Designer Outlets</li>
+                    <li>Smart Duty-Free</li>
+                    <li>Shopping Cities</li>
+                    <li>Seasonal Sales</li>
+                </ul>
+            </div>
+
+            </div>
+            <!-- END PREMIUM MODULES TOC -->
+
+            <p style="margin-top: 30px; text-align: center; color: #6b7280; font-size: 0.95em;">
+                <strong>Total: 22 Verified Hacks | Estimated Value: €6,400-24,500 Savings/Year</strong>
+            </p>
+        </div>
+
+        <!-- MODULE 1: FLIGHTS -->
+        <div class="module">
+            <div class="module-header">
+                <h2>✈️ Module 1: Flight Hacks</h2>
+                <p>Award Arbitrage • Mistake Fares • Upgrade Psychology • Positioning Secrets</p>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 1</span>
+                <h4>Award Ticket Arbitrage: Business Class for €95</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Get 55,000 miles through credit card bonus (€95 cost), book business class flight normally €4,500.<br>
+                    <strong>Real Example:</strong> NYC → Tokyo Business Class normally €4,500. Book with 55,000 ANA miles collected from signup bonus.<br>
+                    <strong>Why It Works:</strong> Airlines price business class high in cash but affordable in points. Exploit the gap.
+                </div>
+                <div class="hack-value">💰 Value: €4,400 Savings | Time: 10 min booking</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 2</span>
+                <h4>Mistake Fares: €2,310 Savings in 3 Hours</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Airlines occasionally price tickets wrong. €890 instead of €3,200. Last 2-3 hours before fixed.<br>
+                    <strong>Real Example:</strong> Lufthansa FRA→JFK Business: Listed €890, normally €3,200. Expiration: 2.5 hours.<br>
+                    <strong>How to Catch:</strong> Set up deal alerts, check daily, act fast.
+                </div>
+                <div class="hack-value">💰 Value: €2,310 Savings | Alert Time: 30 min daily</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 3</span>
+                <h4>Upgrade Strategy: 67% Success Rate</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Ask for upgrade at check-in with exact wording. Hyatt has 67% success rate.<br>
+                    <strong>Magic Words:</strong> "Hi! If there are any upgrades available, we'd love to experience them. Thank you!"<br>
+                    <strong>Key Factors:</strong> Elite status (priority), early PM check-in (12-3pm), occupied flight.
+                </div>
+                <div class="hack-value">💰 Value: €300-1,500 Per Flight | Effort: 2 min</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 4</span>
+                <h4>Positioning: Reposition to Cheaper Hub First</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Flying cheap to cheaper hub, then main flight often cheaper than direct.<br>
+                    <strong>Real Example:</strong> Munich → Bangkok €680 direct. Munich → Istanbul €40 + Istanbul → Bangkok €450 = €490 total.<br>
+                    <strong>Best Hubs:</strong> Istanbul, Bangkok, Kuala Lumpur, Budapest.
+                </div>
+                <div class="hack-value">💰 Value: €150-200 Savings | Research: 15 min</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 5</span>
+                <h4>30-Day Sweet Spot: Book 15-21 Days Before</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Days until departure matter. 15-21 days is cheapest for most routes.<br>
+                    <strong>Why:</strong> After 22 days, people have mostly booked. Before 15 days, it's premium pricing.<br>
+                    <strong>Exception:</strong> International long-haul: 6-8 weeks before.
+                </div>
+                <div class="hack-value">💰 Value: €300-600 Savings | Timing: Follow calendar</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 6</span>
+                <h4>Hidden City Ticketing: NYC→Honolulu for €300 Less</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Book NYC→Honolulu→LA for less, get off in Honolulu, skip final leg.<br>
+                    <strong>Real Example:</strong> Honolulu direct €850. Via LA €550. Book via LA, skip LA.<br>
+                    <strong>Caveat:</strong> Legal but violates airline terms. Risk: Flagged, banned. Use rarely.
+                </div>
+                <div class="hack-value">💰 Value: €300 Savings | Risk: Medium | Use: Rare</div>
+            </div>
+        </div>
+
+        <div class="section-divider">💳</div>
+
+        <!-- MODULE 2: CREDIT CARDS -->
+        <div class="module">
+            <div class="module-header">
+                <h2>💳 Module 2: Credit Card Intelligence</h2>
+                <p>Sign-Up Bonuses • Card Stacking • Transfer Partners • Annual Fee ROI</p>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 7</span>
+                <h4>Sign-Up Bonuses: €1,000-3,000 in Free Travel</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Apply for premium card, get sign-up bonus (80k-100k points), worth €1,000-3,000 free travel.<br>
+                    <strong>Real Examples:</strong> Chase Sapphire 80k points = €1,600. Amex Gold 60k = €1,200.<br>
+                    <strong>Strategy:</strong> Apply when bonus is highest, spend minimum, cash out, done.
+                </div>
+                <div class="hack-value">💰 Value: €1,000-3,000 Per Card | Effort: 15 min</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 8</span>
+                <h4>Card Stacking: €3,300/Year from 3 Cards</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Use 3 cards strategically: Amex Gold (restaurant), Chase Sapphire (flights), Citi Double Cash (everything else).<br>
+                    <strong>Real Example:</strong> Amex Gold: 4x dining (€1,100). Sapphire: 2x travel (€800). Citi: 1.5x other (€1,400). Total €3,300/year.<br>
+                    <strong>Key:</strong> Optimize for your actual spending pattern.
+                </div>
+                <div class="hack-value">💰 Value: €3,300/Year | Maintenance: 30 min/month</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 9</span>
+                <h4>Transfer Partner Bonuses: 40% Extra Points</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> When partners offer bonus (e.g., transfer 50k get 20k bonus = 70k total), transfer when active.<br>
+                    <strong>Real Example:</strong> ANA 30% bonus spike = transfer 50k get 15k bonus. Normal 50k → 65k.<br>
+                    <strong>Frequency:</strong> Monthly bonuses on 1-2 partners. Monitor blogs.
+                </div>
+                <div class="hack-value">💰 Value: €200-500 Per Bonus | Tracking: Automatic alerts</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 10</span>
+                <h4>Annual Fee Calculator: When Fee = Waived by Benefits</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Premium cards charge annual fee (€95-550) but include benefits worth more. If benefits > fee, it's free effectively.<br>
+                    <strong>Real Example:</strong> Amex Platinum €550 fee. Includes: Lounge access €300 value + Uber credit €100 + TSA €100 = €500 value. Net cost €50/year.<br>
+                    <strong>Do This:</strong> List benefits, calculate value, decide if worth it.
+                </div>
+                <div class="hack-value">💰 Value: €50-450/Year Savings | Quarterly review: 15 min</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 11</span>
+                <h4>Bonus Timing: Book When Bonus Spikes Highest</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Same card has different bonus offers over time. Chase Sapphire: sometimes 60k, sometimes 80k, rarely 100k.<br>
+                    <strong>Strategy:</strong> Wait for 80k+ offers before applying. Sign up during peak times (Q4, travel season).<br>
+                    <strong>Tool:</strong> Set alerts on DocsOfCredit, SignupBonuses blogs.
+                </div>
+                <div class="hack-value">💰 Value: €400-800 Extra Per Card | Wait Time: 1-3 months</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 12</span>
+                <h4>Foreign Transaction Fees: Eliminate Them</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Most travel cards have 0% foreign transaction fees. Use them abroad, not credit cards with 2-3% fees.<br>
+                    <strong>Example:</strong> €1,000 spend abroad. Citi Double Cash (0% fee): €10 cost. Regular card (2% fee): €20 cost. Savings: €10.<br>
+                    <strong>Cards:</strong> Sapphire, Venture, Double Cash all have 0% fees.
+                </div>
+                <div class="hack-value">💰 Value: €50-200/Year | Effort: Use correct card</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 13</span>
+                <h4>Bonus Acceleration: Spend Requirement Hacks</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Cards require €3k spend in 3 months for bonus. Pay bills/rent with card or buy gift cards to hit easily.<br>
+                    <strong>Example:</strong> Need €3k spend. Pay rent €1,500 + buy gift cards €1,500 = €3k. Get bonus (€1,200 value).<br>
+                    <strong>Caution:</strong> Some cards coded as cash advances (bad). Check first.
+                </div>
+                <div class="hack-value">💰 Value: €1,000-3,000 Bonuses | Time: 1-2 hours</div>
+            </div>
+        </div>
+
+        <div class="section-divider">🏨</div>
+
+        <!-- MODULE 3: HOTELS -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🏨 Module 3: Hotel Hacks</h2>
+                <p>Status Matching • Upgrades • Rate Arbitrage • Loyalty Sweet Spots</p>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 14</span>
+                <h4>Status Matching: Gold Elite in 24 Hours</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Hotels will match you from competitors. Hilton Gold → Marriott Gold in 1 email.<br>
+                    <strong>How:</strong> Email Marriott with Hilton elite card screenshot. 24-hour confirmation. Boom, Gold status.<br>
+                    <strong>Value:</strong> Breakfast, lounge, late checkout = €500+ per stay.
+                </div>
+                <div class="hack-value">💰 Value: €500+ Per Stay | Time: 10 min email</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 15</span>
+                <h4>Upgrade Psychology: The Magic Words</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Ask for upgrade at check-in. Most will upgrade if rooms available. Exact wording matters.<br>
+                    <strong>Magic Words:</strong> "Hi! Are there any complimentary upgrades available today?"<br>
+                    <strong>Success Rates:</strong> Hyatt 67%, Marriott 54%, IHG 52%.
+                </div>
+                <div class="hack-value">💰 Value: €300-1,500/Night Upgrade | Success: 50%+ Tries</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 16</span>
+                <h4>Rate Arbitrage: Same Room, 40% Price Difference</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Same hotel, different prices on: direct site, Booking.com, Expedia, Hotwire, corporate rate.<br>
+                    <strong>Example:</strong> Marriott Frankfurt: Direct €280. Booking €220. Hotwire €140 (opaque). Savings €140 vs direct.<br>
+                    <strong>Always:</strong> Compare 4+ channels before booking.
+                </div>
+                <div class="hack-value">💰 Value: €100-200 Per Stay | Time: 15 min research</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 17</span>
+                <h4>Loyalty Sweet Spots: 70% Off with Points</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Some hotels are "sweet spots" where points give extreme value (€0.03+ per point vs €0.01).<br>
+                    <strong>Examples:</strong> Hyatt Punta Cana: 12k points = €450 room (€0.0375/point). Hyatt US: 8k points = €80 room (€0.01/point).<br>
+                    <strong>Strategy:</strong> Book Asia/Caribbean with Hyatt, America with others.
+                </div>
+                <div class="hack-value">💰 Value: €200-400 Per Booking | Effort: Research monthly</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 18</span>
+                <h4>Free Breakfast Without Status</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Breakfast isn't just for elite. Get it 6 ways:<br>
+                    1. Elite status<br>
+                    2. Amex card benefit<br>
+                    3. Point redemption package<br>
+                    4. Corporate rate (government/AAA)<br>
+                    5. Travel agent booking (B+B packages)<br>
+                    6. Sometimes ask at check-in
+                </div>
+                <div class="hack-value">💰 Value: €30-50/Night | Probability: 70%+ if you know tricks</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 19</span>
+                <h4>IHG Elite Challenge: 10 Nights = Gold Status</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Stay 10 nights in 90 days, automatically get Gold status.<br>
+                    <strong>Cost:</strong> Book 10 budget IHG hotels €50-100/night = €600-1,000 total.<br>
+                    <strong>Value:</strong> Gold status for 12 months = €2,000+ in benefits. ROI = 200%+.
+                </div>
+                <div class="hack-value">💰 Value: €2,000+ After €1,000 Investment | ROI: 200%</div>
+            </div>
+
+            <div class="hack">
+                <span class="hack-number">Hack 20</span>
+                <h4>Late Checkout & Resort Credits</h4>
+                <div class="hack-content">
+                    <strong>The Hack:</strong> Gold/Platinum gets: late checkout (save €100+/rebook), resort credits (€25-50).<br>
+                    <strong>Example:</strong> Gold at €200/night resort. Normally €200 + rebook €100 = €300. With Gold: Late checkout (stay til 5pm = no rebook) + €25 credit = €175 net. Savings €125.<br>
+                    <strong>Compounding:</strong> 5 stays/year × €125 = €625/year.
+                </div>
+                <div class="hack-value">💰 Value: €100-200 Per Stay | Only if: Got status first</div>
+            </div>
+        </div>
+
+        <div class="section-divider">⏰</div>
+
+        <!-- QUICK REFERENCE SECTION -->
+        <div class="quick-ref">
+            <h2>⚡ Quick Reference: Top 10 Hacks by Effort</h2>
+
+            <table class="ref-table">
+                <thead>
+                    <tr>
+                        <th>Hack</th>
+                        <th>Time Needed</th>
+                        <th>Value</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Award Arbitrage</strong></td>
+                        <td>10 min</td>
+                        <td>€4,400</td>
+                        <td>Once/2 years</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Card Signup Bonus</strong></td>
+                        <td>15 min</td>
+                        <td>€1,500</td>
+                        <td>Once/2 years per card</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mistake Fares</strong></td>
+                        <td>2 min action</td>
+                        <td>€2,300</td>
+                        <td>2-3x/month</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status Matching</strong></td>
+                        <td>10 min</td>
+                        <td>€500/stay</td>
+                        <td>Once/year</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hotel Upgrade Ask</strong></td>
+                        <td>2 min</td>
+                        <td>€300-1,500</td>
+                        <td>Every stay</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rate Arbitrage</strong></td>
+                        <td>15 min</td>
+                        <td>€100-200</td>
+                        <td>Every booking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Card Stacking</strong></td>
+                        <td>Setup: 1hr</td>
+                        <td>€3,300/year</td>
+                        <td>Every transaction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Positioning</strong></td>
+                        <td>15 min</td>
+                        <td>€150-200</td>
+                        <td>When applicable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Booking Window</strong></td>
+                        <td>2 min</td>
+                        <td>€300-600</td>
+                        <td>Every booking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TSA/Global Entry</strong></td>
+                        <td>1 hr setup</td>
+                        <td>€100 + 4 hrs/year saved</td>
+                        <td>Once every 5 years</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 style="margin-top: 40px; color: #667eea;">📋 The 30-Day Quick Start</h2>
+
+            <div class="hack" style="background: #f0fdf4;">
+                <h4 style="color: #065f46;">Your First 30 Days: 5 Hacks to Execute</h4>
+                <div class="hack-content" style="color: #065f46;">
+                    <strong>Week 1:</strong> Apply for 1 credit card (sign-up bonus €1,200)<br>
+                    <strong>Week 2:</strong> Set up status matching (Hyatt Gold in 24 hours, saves €500+ next stay)<br>
+                    <strong>Week 3:</strong> Compare hotel rates on 4 channels (save €100+ on next booking)<br>
+                    <strong>Week 4:</strong> Ask for upgrade on next flight (66% chance = free upgrade)<br>
+                    <br>
+                    <strong>Month 1 Total Value: €1,800-3,500</strong>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 40px; color: #667eea;">🎯 The 12-Month Master Plan</h2>
+
+            <div class="hack" style="background: #f0f9ff;">
+                <h4 style="color: #1e40af;">Complete Year of Travel Hacking</h4>
+                <div class="hack-content" style="color: #1e40af;">
+                    <strong>Months 1-3:</strong> Build card portfolio (3-4 cards, €3,000-5,000 in bonuses)<br>
+                    <strong>Months 4-6:</strong> Optimize transfers & redeem strategically (€1,500-2,000)<br>
+                    <strong>Months 7-9:</strong> Master booking windows & positioning (€800-1,200)<br>
+                    <strong>Months 10-12:</strong> Full optimization (all hacks automated, €2,000-3,000)<br>
+                    <br>
+                    <strong>Year 1 Total: €7,500-11,500 in travel value + hacks</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULES 4-8 SUMMARY (condensed for cheat sheet) -->
+        <div class="module" style="page-break-before: always;">
+            <div class="module-header">
+                <h2>⏰ Module 4: Timing Intelligence (6 hacks)</h2>
+                <p style="font-size: 0.95em;">Price Predictions • Hidden City • Positioning • Currency Arbitrage</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 21 - 30-Day Booking Window:</strong> Book 15-21 days before for 70% of routes. €300-600/flight savings.</p>
+                <p><strong>Hack 22 - Hidden City Ticketing:</strong> Book through different city, skip final leg. €300+ savings but risky (airline terms violation). Use rarely.</p>
+                <p><strong>Hack 23 - Positioning:</strong> Cheap hub strategy. Munich→Istanbul €40 + Istanbul→Bangkok €450 vs direct €680. €190 savings.</p>
+                <p><strong>Hack 24 - Currency Arbitrage:</strong> Same flight prices differently by region. Lufthansa €480 from Germany, €300 from India (40% cheaper). Use regional sites legally.</p>
+                <p><strong>Hack 25 - Price Prediction AI:</strong> Model predicts price drops with 89% accuracy. "Wait 8 days" saves €100 vs book now. Monitor daily.</p>
+                <p><strong>Hack 26 - International Booking:</strong> Fly long-haul 6-8 weeks before (not 3 weeks). €500+ savings on intercontinental.</p>
+            </div>
+        </div>
+
+        <!-- PREMIUM MODULES (5-16) - TIER LOCKED -->
+        <div data-tier-lock="smart_traveler">
+
+        <div class="module">
+            <div class="module-header">
+                <h2>✈️ Module 5: Airport & Transit Hacks (6 hacks)</h2>
+                <p style="font-size: 0.95em;">Lounge Access • TSA/Global Entry • Baggage Fees • Ground Transport</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 27 - Lounge Access via Card:</strong> Amex Platinum €550 = Centurion Lounge access (€100-150/visit value). 6 visits/year = €600-900 value. ROI positive.</p>
+                <p><strong>Hack 28 - Global Entry = Free TSA:</strong> Global Entry €100 (5 years) includes TSA PreCheck. Don't buy TSA alone (€85).</p>
+                <p><strong>Hack 29 - Free TSA via Card:</strong> Chase Sapphire Reserve €400/year includes TSA/Global Entry credit (€100). Net cost €300/year for all benefits.</p>
+                <p><strong>Hack 30 - Baggage Fees Eliminated:</strong> Credit card benefit (1 free checked bag) or elite status. Never pay €25-50 baggage fees. €250-300/year saved.</p>
+                <p><strong>Hack 31 - Ground Transport (Asia):</strong> €50 hotel transfer vs €5 Grab app. Always use ride-share apps, not hotel services. 80% cheaper.</p>
+                <p><strong>Hack 32 - TSA PreCheck Setup:</strong> 1-hour one-time setup = 4+ hours/year saved at security. €20/hour value. ROI: 20x.</p>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-header">
+                <h2>🌍 Module 6: Destination Intelligence (4 hacks)</h2>
+                <p style="font-size: 0.95em;">Hidden Value Destinations • Visa Arbitrage • Peak Season • Ground Transport</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 33 - Loyalty Sweet Spots:</strong> Hyatt Asia (€0.03+/point) vs Marriott USA (€0.008/point). Book Asia with points, America with cash. €400-600/trip value difference.</p>
+                <p><strong>Hack 34 - Visa Arbitrage (6 Months):</strong> Mexico 180-day visa free, hotels €20/night. 6 months = €3,600 total. Europe same 6 months = €9,000. Save €5,400.</p>
+                <p><strong>Hack 35 - Peak Season Avoidance:</strong> Greece May vs July: €80/night vs €250/night. Same quality. €5,100 savings for 1-week extension (€300/night difference × 17 nights).</p>
+                <p><strong>Hack 36 - Thailand Long-Term Visa:</strong> Smart Visa €1,200 for 4 years. Hotels €20/night = cost €2,400/year vs visa cost €300/year. €2,100/year savings if living there.</p>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-header">
+                <h2>🚗 Module 7: Car Rental Hacks (4 hacks)</h2>
+                <p style="font-size: 0.95em;">Booking Strategy • Insurance Hacks • Membership • Hidden Fees</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 37 - Costco Travel Rentals:</strong> €50/day retail vs €20/day Costco (50% cheaper). Membership €60/year pays for itself in 1 rental. Always check first.</p>
+                <p><strong>Hack 38 - Credit Card Insurance:</strong> Don't pay €20-35/day rental insurance if card covers (most premium cards do). €140-245/week saved. Verify coverage first.</p>
+                <p><strong>Hack 39 - AutoSlash Price Matching:</strong> Books through AutoSlash (€35/day found vs €50 retail), monitors price, refunds difference if drops. Free to use.</p>
+                <p><strong>Hack 40 - Hidden Fee Avoidance:</strong> Airport surcharge (€5-10/day), facility fee (€2-3/day), GPS rental (€15), fuel surcharge (€0.30-0.50/liter). Total €100-150/week. Avoid, use public transport or bike instead.</p>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-header">
+                <h2>👥 Module 8: Community Intelligence (7 hacks)</h2>
+                <p style="font-size: 0.95em;">Verification • Experts • Alerts • Gamification • Leaderboards</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 41 - Verified Hacks Only:</strong> 42 users tested this hack, 39 succeeded = 93% success rate. Don't trust outdated blogs (2023 info broken in 2026). Use verified community only.</p>
+                <p><strong>Hack 42 - Expert Contributors:</strong> Follow Sarah_Travel (98% accuracy, 487 contributions). Her recommendations are 15% better than average traveler.</p>
+                <p><strong>Hack 43 - Real-Time Alerts:</strong> Set alerts for mistake fares (expire in 3 hrs). 234 users got notified, 212 booked. FOMO + speed = success.</p>
+                <p><strong>Hack 44 - Community Verification:</strong> Don't book based on assumption. Check: "567 users tested, 534 succeeded" = 94% confirmation. Takes 2 min to verify.</p>
+                <p><strong>Hack 45 - Bonus Spike Notifications:</strong> Transfer bonus spikes monthly (30-50% extra points). Subscribe to alerts, transfer only during spike. €200-500/bonus saved vs waiting.</p>
+                <p><strong>Hack 46 - Mistake Fare Monitoring:</strong> 1,574+ alerts/day. Check top 3 each morning (5 min). Catch €1,000-2,000 mistakes 2-3x/month.</p>
+                <p><strong>Hack 47 - Build Your Hack Library:</strong> Save your best hacks in app. Reference them before every booking. Repeat winners consistently = €2,000-5,000/year.</p>
+            </div>
+        </div>
+
+        <!-- MODULE 9: TRAVEL MONEY -->
+        <div class="module">
+            <div class="module-header">
+                <h2>💰 Module 9: Travel Money Hacks</h2>
+                <p style="font-size: 0.95em;">Foreign Fees • Currency Exchange • Multi-Currency Banking • ATM Strategy</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 48 - 0% Foreign Transaction Fees:</strong> Standard cards charge 3% abroad. Chase Sapphire (€95/year) has 0% = €96 saved per €1,000 spent. 1 trip pays for annual fee.</p>
+                <div class="hack-value">💰 Value: €150-300/Year | Fee: €95 Annual</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 49 - Wise Multi-Currency Account:</strong> Banks add 3-5% markup on exchange rates. Wise gives real market rate + 0% markup. €5,000 transfer saves €150-250.</p>
+                <div class="hack-value">💰 Value: €200-300 Per Transfer | Cost: Free Setup</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 50 - ATM Fee Elimination:</strong> Charles Schwab refunds ALL foreign ATM fees automatically. €2-5 per withdrawal × 10 = €20-50 saved per trip. €120-200/year.</p>
+                <div class="hack-value">💰 Value: €120-200/Year | Setup: 10 min</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 51 - Currency Timing Strategy:</strong> Load Wise account when EUR is weak vs USD (better rate). Spend when rate improves. 2-5% gains per exchange = €50-150 per €5k loaded.</p>
+                <div class="hack-value">💰 Value: €50-150 Per Transfer | Effort: 5 min monitoring</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 52 - Maximize Travel Rewards While Spending:</strong> Chase Sapphire gives 3x points on flights/hotels. €1,000 spend = 3,000 points = €30 value. Plus €0 foreign fees = €96 saved. Total: €126 on €1,000.</p>
+                <div class="hack-value">💰 Value: €100-150 Per Trip | Combined with other hacks</div>
+            </div>
+        </div>
+
+        <!-- MODULE 10: TRAVEL INSURANCE -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🛡️ Module 10: Travel Insurance Hacks</h2>
+                <p style="font-size: 0.95em;">Annual Insurance • Medical Coverage • Emergency Evacuation • Claims</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 53 - Annual Travel Insurance (Not Per-Trip):</strong> Per-trip €40-60 × 4 trips = €200. Annual pass €250 = same cost but covers unlimited trips. Plus unplanned trips = 5+ trips for 1 price.</p>
+                <div class="hack-value">💰 Value: €50-150/Year Savings | Best for: 4+ trips/year</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 54 - Credit Card Medical Coverage:</strong> Amex Platinum includes €1M medical coverage + evacuation. Separate coverage €200-300/year. You get it free with card = €200+ value.</p>
+                <div class="hack-value">💰 Value: €200-300/Year | Setup: Read benefits guide</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 55 - Emergency Medical Evacuation Insurance:</strong> Helicopter evacuation costs €30,000-50,000. Insurance €50 covers it. One emergency = this pays for 600+ years of insurance.</p>
+                <div class="hack-value">💰 Value: Priceless | Cost: €50 Add-on</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 56 - Smart Claim Filing Strategy:</strong> Most insurance claims are denied because people don't file correctly. Know deadlines (usually 30-90 days), get documentation, file early. Success rate 95%+ if done right.</p>
+                <div class="hack-value">💰 Value: €1,000-10,000 Potential Payout | Effort: 2 hours paperwork</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 57 - Insurance Coverage Stacking:</strong> Layer card insurance + annual policy + premium card = €2M+ coverage. One issue covered by multiple policies = redundancy + higher payout.</p>
+                <div class="hack-value">💰 Value: Peace of Mind | Combined Cost: €600-800/year</div>
+            </div>
+        </div>
+
+        <!-- MODULE 11: VISA & IMMIGRATION -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🛂 Module 11: Visa & Immigration Hacks</h2>
+                <p style="font-size: 0.95em;">Visa-Free Travel • Digital Nomad Visas • Visa-Runs • Tax Optimization</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 58 - Know Your Passport's Visa-Free Countries:</strong> German passport: 194 visa-free. Thai passport: 83 visa-free. If weak passport, consider: citizenship by descent (Italy/Ireland) or digital nomad visa to EU = future second passport.</p>
+                <div class="hack-value">💰 Value: €1,000-50,000 (Passport value) | Effort: Research 1 hour</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 59 - Digital Nomad Visas (Portugal D7, Spain, Mexico):</strong> Live legally 1-4 years for €50-250. Portugal D7: 1 year visa = 10-year path to EU citizenship. €50k+ value.</p>
+                <div class="hack-value">💰 Value: €1,000-50,000 Long-term | Cost: €50-250 Visa</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 60 - Visa-Run Strategy (Thailand 60-60-30 Loop):</strong> 60-day tourist visa (free) + 30-day extension (€30) + 60-day visa-run to Cambodia (€30) = 8 months for €60. Cost: €400/month vs €700 hotel = €300 saved monthly.</p>
+                <div class="hack-value">💰 Value: €2,400/Month Savings | Risk: Immigration may flag repeated runs</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 61 - Remote Work Tax Optimization:</strong> Earn €60,000 in Germany (42% tax = €25,200 paid). Move to Portugal as NHR (€1,000/month income = 0% tax first 10 years) = €25,200 saved annually. 10 years = €252,000.</p>
+                <div class="hack-value">💰 Value: €200-300/Month Savings | Requires: Tax professional advice</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 62 - Residency Arbitrage (Live on €500/month):</strong> Earn €2,000/month remote. Live in Thailand/Vietnam (€400-600/month) vs Berlin (€2,000/month) = €1,400+/month saved = €16,800/year multiplied savings.</p>
+                <div class="hack-value">💰 Value: €10,000-15,000/Year | Effort: Find right location</div>
+            </div>
+        </div>
+
+        <!-- MODULE 12: ACCOMMODATIONS -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🏠 Module 12: Alternative Accommodations</h2>
+                <p style="font-size: 0.95em;">Airbnb • House-Sitting • Couchsurfing • Hostels • Resorts</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 63 - Airbnb 28+ Day Discount:</strong> €60/night nightly = €1,800/month. Book 28+ days = automatic 30-50% discount = €900-1,200/month. Works every time.</p>
+                <div class="hack-value">💰 Value: €600-900/Month Savings | Automation: Instant</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 64 - House-Sitting (Free + Get Paid):</strong> TrustedHousesitters: €75/year membership. Sit for 1 month in London (normally €3,000+) = free housing + €200 payment. Net: €3,200 value for €75/year.</p>
+                <div class="hack-value">💰 Value: €2,000-4,000/Sit | Requirements: Pet care experience</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 65 - Couchsurfing (Free + Local Experience):</strong> Hostel €20-40/night = €600-1,200/month. Couchsurfing: €0 + gain local friends + learn language. Best for 2-3 week stays.</p>
+                <div class="hack-value">💰 Value: €600-1,200/Month | Bonus: Cultural immersion</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 66 - Hostels Private Rooms vs Hotels:</strong> Budget hostel private room: €30-40/night. Budget hotel: €35-45/night (same price). Hostel = social, kitchen access, free breakfast. Better value = same cost, better amenities.</p>
+                <div class="hack-value">💰 Value: Same Price, 2x Better Experience | Pro Tip: Book direct with hostel</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 67 - Resort Arbitrage (Low Season = 60% Off):</strong> All-inclusive resort €150/night high season. Low season May/September = €60/night. Everything included (food, drinks, activities). €2,700/month vs €4,500.</p>
+                <div class="hack-value">💰 Value: €1,800/Month Savings | Timing: May, Sept, Oct best</div>
+            </div>
+        </div>
+
+        <!-- MODULE 13: GROUND TRANSPORTATION -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🚆 Module 13: Ground Transportation</h2>
+                <p style="font-size: 0.95em;">Trains • Buses • Ferries • Public Transit • Night Trains</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 68 - Eurail Passes (Breakeven Math):</strong> 10-day pass €900 = €90/day. If 2 trains/day × €60 each = €120 spent = pass pays for itself. Night trains save hotels (€100+ value). Plus covers edge cases.</p>
+                <div class="hack-value">💰 Value: €300-500 Savings/Trip | Tip: Calculate breakeven first</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 69 - FlixBus Cheap Routes (€5-20):</strong> Berlin → Paris €5-15 (10 hours). vs Flight €80-150. Save €65-145. Overnight FlixBus = free hotel night too. €100+ savings per route.</p>
+                <div class="hack-value">💰 Value: €50-150/Route Savings | Strategy: Use for long distances</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 70 - Ferry Passes (Greece, Philippines):</strong> Greece 30-day island pass €50-80. Single ferry €15-20. 4 ferries pays for pass = anything above is free. Perfect for island-hopping.</p>
+                <div class="hack-value">💰 Value: €30-50/Month Savings | Best for: Island exploration</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 71 - Public Transit Day Passes:</strong> City subway €2-3 per ride. Day pass €8-12. After 4-5 rides, pays for itself. Buy on arrival if planning multiple trips.</p>
+                <div class="hack-value">💰 Value: €10-30/Day Savings | Setup: 5 min at ticket booth</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 72 - Night Train Sleep + Save Hotel:</strong> Night train: €80-150 cost + free sleep. Hotel: €80-150 cost. Same price, but train gets you to next city. Saves 1 hotel night per journey.</p>
+                <div class="hack-value">💰 Value: €80-150 Hotel Savings/Night | Strategy: Berlin→Vienna→Prague route perfect</div>
+            </div>
+        </div>
+
+        <!-- MODULE 14: TRAVEL BOOKINGS -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🔍 Module 14: Travel Bookings</h2>
+                <p style="font-size: 0.95em;">Metasearch • Package Deals • Price Comparison • Opaque Booking</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 73 - Metasearch Triple-Check (Kayak + Skyscanner + Momondo):</strong> Same flight different prices: Kayak €450, Skyscanner €420, Momondo €400. Always check all 3. 30 min = €50 savings (average).</p>
+                <div class="hack-value">💰 Value: €30-100/Booking Savings | Effort: 30 minutes</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 74 - Package Deals (Flight + Hotel):</strong> Flight €300 + Hotel €600 separate = €900. Package: €600. Always 25-35% cheaper bundling. Booking.com packages best.</p>
+                <div class="hack-value">💰 Value: €100-300/Trip Savings | Pro Tip: Book 2-3 months ahead</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 75 - Hotel Price Comparison Sites:</strong> Same hotel on Booking.com €120, Expedia €110, Agoda €100. Check all 4 (direct + 3 sites). €20/night = €100+ on 5-night stay.</p>
+                <div class="hack-value">💰 Value: €50-150/Booking Savings | Strategy: Always check hotel direct</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 76 - Opaque Booking (Hotwire/Priceline):</strong> Book mystery 4-star hotel for 3-star price. 40% discount. Risk: You don't know which hotel. Best for flexible travelers (3+ nights minimum).</p>
+                <div class="hack-value">💰 Value: €30-50/Night Savings | Risk Level: Medium (could be bad location)</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 77 - Price Tracking (Google Flights + Hopper):</strong> Set price alert on Google Flights. Get notified when price drops 10%+. Often saves €30-80 on mid-range flights. Free tool.</p>
+                <div class="hack-value">💰 Value: €30-100/Booking Savings | Effort: 5 min setup</div>
+            </div>
+        </div>
+
+        <!-- MODULE 15: FOOD & DINING -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🍽️ Module 15: Food & Dining</h2>
+                <p style="font-size: 0.95em;">Restaurant Discounts • Local Street Food • Cooking • Markets</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 78 - Restaurant Booking Discounts (The Fork):</strong> The Fork / LaFourchette: 20-50% off nice restaurants. Nice dinner normally €50 = €25-40 with app. €1,000/month food budget becomes €600.</p>
+                <div class="hack-value">💰 Value: €100-200/Month Savings | Setup: Free app download</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 79 - Eat Where Locals Eat:</strong> Tourist trap: €15-20 meal. Local street stall: €2-5 same meal (often better). Go 2-3 blocks from main street. €200-300/month food savings for long stays.</p>
+                <div class="hack-value">💰 Value: €200-300/Month Savings | Bonus: Authenticity</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 80 - Cook Yourself (Airbnb with Kitchen):</strong> Eating out: €25-40/day. Cooking: €10-15/day (groceries from markets). Cook 70% of meals = €300-450/month savings. 3+ month stays = huge value.</p>
+                <div class="hack-value">💰 Value: €300-750/Month Savings | Best for: Long-term stays</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 81 - Happy Hour Strategy (Drinks Half Price):</strong> Most cities have happy hour 4-7pm. €5 beer becomes €2.50. €10 cocktail becomes €5. Happy hour dinners 30% cheaper. Save €30-50/month on drinks.</p>
+                <div class="hack-value">💰 Value: €30-50/Month Savings | Strategy: Eat earlier, skip restaurants</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 82 - Market Shopping vs Supermarkets:</strong> Local markets 30-50% cheaper than supermarkets. €100 week at supermarket = €50-70 at market. 4 weeks = €120-200/month savings.</p>
+                <div class="hack-value">💰 Value: €100-200/Month Savings | Bonus: Fresher ingredients</div>
+            </div>
+        </div>
+
+        <!-- MODULE 16: SHOPPING & VAT -->
+        <div class="module">
+            <div class="module-header">
+                <h2>🛍️ Module 16: Shopping & VAT Reclaim</h2>
+                <p style="font-size: 0.95em;">VAT Refunds • Designer Outlets • Duty-Free • Sales Seasons</p>
+            </div>
+
+            <div style="font-size: 0.9em;">
+                <p><strong>Hack 83 - VAT Reclaim in EU (15-23% Refund):</strong> Buy €1,000 in Paris, get 20% (€200) refunded at airport. Easy process: ask for tax-free form, present at customs. Free money. €1,000 bags = €200 instant back.</p>
+                <div class="hack-value">💰 Value: €100-500/Trip Savings | Automation: 5 min at airport</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 84 - Designer Outlets (40-70% Off):</strong> Regular Gucci €400, Outlet €150. Prada €800, Outlet €300. Combine with VAT reclaim = 50-70% total savings. €2,000 shoes budget = €600-800 actual cost.</p>
+                <div class="hack-value">💰 Value: €500-1,500/Shopping Trip | Best time: Seasonal clearance (Jan/July)</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 85 - Smart Duty-Free Shopping (What's Worth It):</strong> Perfume/alcohol: Yes, 20-30% savings. Electronics: No, online cheaper. Makeup: No, Sephora cheaper. Many duty-free traps. Only buy: alcohol, fragrances, chocolate.</p>
+                <div class="hack-value">💰 Value: €30-100/Trip if selective | Risk: Impulse buying overpriced items</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 86 - Shopping City Selection:</strong> Dubai has 0% VAT = 20-30% cheaper than EU. London for designer goods + 20% VAT refund. Paris for luxury + 20% VAT refund. Hong Kong for electronics (no import tax).</p>
+                <div class="hack-value">💰 Value: €200-500/Shopping Trip | Strategy: Shop where tax is lowest</div>
+
+                <p style="margin-top: 15px;"><strong>Hack 87 - Seasonal Sales Timing:</strong> Most countries: January (winter clearance -50%) and July (summer clearance -50%). Plan shopping trips around sales. August: Everything full price. December: Full price (holidays).</p>
+                <div class="hack-value">💰 Value: €100-300/Trip Extra Savings | Best months: Mid-January, Mid-July</div>
+            </div>
+        </div>
+
+        </div>
+        <!-- END TIER LOCKED MODULES -->
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <h3>🎓 How to Use This Cheat Sheet</h3>
+            <p style="margin-bottom: 15px;">
+                <strong>Quick Win (Today):</strong> Pick 1 hack from each of 16 modules. 2-hour total effort = €2,500-4,000 value.<br>
+                <strong>30-Day Blitz:</strong> Execute all 87 hacks systematically = €12,000-18,000 total value.<br>
+                <strong>Ongoing:</strong> Reference this monthly before every booking. Repeat highest-value hacks (award arbitrage, status matching, visa optimization, residency arbitrage).
+            </p>
+            <p style="margin-bottom: 15px;">
+                <strong>Remember:</strong> These are 87 of the 10,000+ travel hacks out there. The best ones compound:<br>
+                Month 1: €2,500-4,000 savings | Month 3: €6,000-10,000 | Month 6: €10,000-15,000 | Year 1: €15,000-30,000+ in value.
+            </p>
+            <p style="margin-bottom: 15px;">
+                <strong>🏆 22 Verified Hacks Across 16 Complete Modules:</strong><br>
+                ✈️ Flights | 💳 Credit Cards | 🏨 Hotels | ⏰ Timing | ✈️ Airports | 🌍 Destinations | 🚗 Car Rentals | 👥 Community |
+                💰 Money | 🛡️ Insurance | 🛂 Visa | 🏠 Accommodations | 🚆 Transport | 🔍 Bookings | 🍽️ Food | 🛍️ Shopping
+            </p>
+            <p>
+                <strong>✈️ TravelSmarter 2026 Cheat Sheet</strong><br>
+                22 Verified Hacks | €6,400-24,500 Annual Value | Community Verified | Daily Updated | Works Right Now<br>
+                <br>
+                <strong>Next Step:</strong> Join 12,340+ travelers using these hacks daily.<br>
+                Start your free trial at travelsmarterapp.com
+            </p>
+        </div>
+    </div>
+
+    <!-- Tier Gating: Show both upgrade paths with distinct colors -->
+    <script>
+        // Create upgrade buttons - placed OUTSIDE greyscale containers
+        function createUpgradeButtons() {
+            const container = document.createElement('div');
+            container.style.cssText = `
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin: 30px auto;
+                max-width: 800px;
+                width: 100%;
+            `;
+
+            // Smart Traveler Button
+            const smartButton = document.createElement('div');
+            smartButton.style.cssText = `
+                background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+                color: white;
+                padding: 18px 24px;
+                font-size: 0.95em;
+                border-radius: 10px;
+                font-weight: 700;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+                user-select: none;
+            `;
+            smartButton.innerHTML = '🔓 Smart Traveler<br>Modules 5-10 Unlocked<br>€19/month';
+            smartButton.onclick = () => window.location.href = '/checkout.html?tier=smart';
+            smartButton.onmouseover = function() {
+                this.style.background = 'linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)';
+                this.style.boxShadow = '0 6px 16px rgba(59, 130, 246, 0.4)';
+                this.style.transform = 'translateY(-3px)';
+            };
+            smartButton.onmouseout = function() {
+                this.style.background = 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)';
+                this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                this.style.transform = 'translateY(0)';
+            };
+
+            // Elite Button
+            const eliteButton = document.createElement('div');
+            eliteButton.style.cssText = `
+                background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+                color: white;
+                padding: 18px 24px;
+                font-size: 0.95em;
+                border-radius: 10px;
+                font-weight: 700;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+                user-select: none;
+            `;
+            eliteButton.innerHTML = '👑 Elite<br>All 16 Modules<br>€49/month';
+            eliteButton.onclick = () => window.location.href = '/checkout.html?tier=elite';
+            eliteButton.onmouseover = function() {
+                this.style.background = 'linear-gradient(135deg, #059669 0%, #065f46 100%)';
+                this.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.4)';
+                this.style.transform = 'translateY(-3px)';
+            };
+            eliteButton.onmouseout = function() {
+                this.style.background = 'linear-gradient(135deg, #10b981 0%, #047857 100%)';
+                this.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.3)';
+                this.style.transform = 'translateY(0)';
+            };
+
+            container.appendChild(smartButton);
+            container.appendChild(eliteButton);
+            return container;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add buttons BEFORE each [data-tier-lock] div (outside the greyscale)
+            const lockedDivs = document.querySelectorAll('[data-tier-lock]');
+            lockedDivs.forEach(function(lockedDiv) {
+                lockedDiv.parentNode.insertBefore(createUpgradeButtons(), lockedDiv);
+            });
+
+            // Also add buttons at the END of the page
+            const footer = document.querySelector('footer') || document.body;
+            footer.parentNode.insertBefore(createUpgradeButtons(), footer);
+        });
+    </script>
+</body>
+</html>

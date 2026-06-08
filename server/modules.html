@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Modules - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        #tier-info {
+            margin-top: 20px;
+        }
+
+        #modules-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .module-card.locked {
+            opacity: 0.6;
+            filter: grayscale(100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+
+        .module-card.unlocked:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .upgrade-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .upgrade-button:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+        }
+
+        .upgrade-message {
+            color: #ef4444;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        /* Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-bar a:hover {
+            color: #5568d3;
+        }
+
+        /* Community Section */
+        #community-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        #community-section h2 {
+            font-size: 2em;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        #community-section > p {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+        }
+
+        .community-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sort-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sort-buttons button {
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #667eea;
+            transition: all 0.2s;
+        }
+
+        .sort-buttons button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .create-post-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .create-post-btn:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .elite-only-banner {
+            background: #f0fdf4;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            color: #065f46;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <div>
+                <a href="index.html">← Back to Home</a>
+            </div>
+            <div>
+                <a href="sales-page.html" style="color: #10b981;">Pricing</a> |
+                <a href="account.html">Account</a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>📚 Learning Modules</h1>
+                <p>Master travel hacking with our comprehensive guide covering 16 different topics</p>
+                <div id="tier-info"></div>
+            </div>
+            <div style="text-align: right;">
+                <a href="tools.html" style="display: inline-block; font-size: 0.9em; color: #667eea; text-decoration: none; font-weight: 600; cursor: pointer; margin-right: 15px;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    📋 Tools
+                </a>
+                <a href="index.html" style="display: inline-block; font-size: 0.9em; color: #667eea; text-decoration: none; font-weight: 600; cursor: pointer;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    🏠 Home
+                </a>
+            </div>
+        </div>
+
+        <!-- Modules Grid -->
+        <div id="modules-container"></div>
+
+        <!-- Community Discussion Section (Elite Only) -->
+        <div id="community-section" style="display: none;">
+            <h2>💬 Community Discussions</h2>
+            <p>Share your travel hacking tips, tricks, and success stories with the Elite community!</p>
+
+            <div class="elite-only-banner" id="elite-banner" style="display: none;">
+                ⭐ This feature is exclusive to Elite members. <a href="sales-page.html" style="color: #10b981; text-decoration: none; font-weight: bold;">Upgrade to Elite →</a>
+            </div>
+
+            <div class="community-controls" id="community-controls" style="display: none;">
+                <div class="sort-buttons">
+                    <button class="active" onclick="changeCommunitySort('recent')">Recent</button>
+                    <button onclick="changeCommunitySort('popular')">Popular</button>
+                    <button onclick="changeCommunitySort('trending')">Trending</button>
+                </div>
+                <button class="create-post-btn" onclick="openCreatePostModal(document.getElementById('current-module-id').value)">
+                    ✍️ Start Discussion
+                </button>
+            </div>
+
+            <input type="hidden" id="current-module-id" value="">
+
+            <div id="community-posts-container">
+                <p style="text-align: center; color: #999; padding: 40px;">Loading discussions...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="community.js"></script>
+    <script src="modules.js"></script>
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Tools & Templates - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #6b7280;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .tool-card p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tool-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .checklist-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .checklist-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8em;
+            color: #1f2937;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .close-btn:hover {
+            color: #1f2937;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #f3f4f6;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + .item-text {
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+
+        .item-text {
+            flex: 1;
+            font-size: 1em;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .download-btn {
+            flex: 1;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .print-btn {
+            flex: 1;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .elite-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-prompt {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .upgrade-prompt h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            color: #78350f;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div>
+            <a href="index.html">← Back to Home</a>
+        </div>
+        <div>
+            <a href="modules.html" style="margin-right: 20px;">Modules</a>
+            <a href="trip-calculator.html" style="margin-right: 20px;">Calculator</a>
+            <a href="email-templates.html" style="margin-right: 20px;">Templates</a>
+            <a href="gamification.html" style="margin-right: 20px;">Achievements</a>
+            <a href="sales-page.html" style="color: #10b981;">Pricing</a> |
+            <a href="account.html">Account</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🛠️ Travel Tools & Templates</h1>
+            <p>Actionable resources to maximize your travel savings</p>
+        </div>
+
+        <!-- Elite Badge -->
+        <div style="text-align: center;">
+            <span class="elite-badge">✨ Smart Traveler & Elite Feature</span>
+        </div>
+
+        <!-- Check if user has access -->
+        <div id="tools-content">
+            <!-- Tools Grid -->
+            <div class="tools-grid">
+                <!-- Checklists -->
+                <div class="tool-card" id="checklist-card">
+                    <div class="tool-icon">✅</div>
+                    <h2>Travel Checklists</h2>
+                    <p>Week-before and at-airport checklists to ensure you don't miss any hacks or savings opportunities.</p>
+                    <button class="tool-button" id="checklist-btn" onclick="openChecklist('week-before')">View Checklist</button>
+                    <div id="free-lock" style="display: none; margin-top: 15px; padding: 15px; background: #f0f0f0; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🔒</div>
+                        <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Smart Traveler & Elite feature</p>
+                        <a href="sales-page.html" style="color: #667eea; text-decoration: none; font-weight: 600;">Upgrade to unlock →</a>
+                    </div>
+                </div>
+
+                <!-- Email Templates -->
+                <div class="tool-card">
+                    <div class="tool-icon">✉️</div>
+                    <h2>Email Templates</h2>
+                    <p>Copy-paste ready templates for status matching, hotel upgrades, and airline requests.</p>
+                    <button class="tool-button" onclick="location.href='email-templates.html';">Access Templates</button>
+                </div>
+
+                <!-- Trip Cost Calculator -->
+                <div class="tool-card">
+                    <div class="tool-icon">💰</div>
+                    <h2>Trip Cost Calculator</h2>
+                    <p>Input your trip details to see potential savings from applying travel hacks.</p>
+                    <button class="tool-button" onclick="location.href='trip-calculator.html';">Calculate Savings</button>
+                </div>
+
+                <!-- Seasonal Guides -->
+                <div class="tool-card">
+                    <div class="tool-icon">📅</div>
+                    <h2>Seasonal Guides</h2>
+                    <p>Curated strategies for summer vacations, winter holidays, and peak travel seasons.</p>
+                    <button class="tool-button" onclick="location.href='seasonal-guides.html';">View Guides</button>
+                </div>
+
+                <!-- Award Chart Decoder -->
+                <div class="tool-card">
+                    <div class="tool-icon">🏆</div>
+                    <h2>Award Chart Decoder</h2>
+                    <p>Compare award redemption rates and find best value across airlines. Updated biweekly.</p>
+                    <button class="tool-button" onclick="location.href='award-charts.html';">Decode Awards</button>
+                </div>
+
+                <!-- Elite Status Tracker -->
+                <div class="tool-card">
+                    <div class="tool-icon">⭐</div>
+                    <h2>Elite Status Tracker</h2>
+                    <p>Track progress toward elite status across airlines and hotels. See projections for next tier.</p>
+                    <button class="tool-button" onclick="location.href='elite-status-tracker.html';">Track Status</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Prompt (shown to Free users) -->
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h3>⭐ Tools & Templates are Exclusive to Smart Traveler & Elite Members</h3>
+                <p>Unlock these actionable resources to maximize your travel savings and apply hacks with confidence.</p>
+                <a href="sales-page.html">
+                    <button class="upgrade-btn">Upgrade Now</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checklist Modals -->
+
+    <!-- Week-Before Checklist -->
+    <div id="weekBeforeModal" class="checklist-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Week-Before Checklist</h2>
+                <button class="close-btn" onclick="closeModal('weekBeforeModal')">&times;</button>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Status Matching</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Check current elite status on your frequent flyer accounts</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Research matching programs for your target airline</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Prepare documentation (credit card statements, loyalty cards)</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Submit status match request 7-10 days before travel</div>
+                </div>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Hotel & Booking Prep</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Book hotels through loyalty programs (not OTAs)</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Request room upgrade at check-in for elite members</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Add email address to hotel system for communication</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Screenshot booking confirmation with loyalty number</div>
+                </div>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Travel Logistics</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Check award seat availability 11 months in advance</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Book flexible tickets (refundable or changeable)</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Add Global Entry/TSA PreCheck to airline profile</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Check baggage allowance and seat assignment options</div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="download-btn" onclick="downloadChecklist('week-before')">📥 Download PDF</button>
+                <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- At-Airport Checklist -->
+    <div id="atAirportModal" class="checklist-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✈️ At-Airport Checklist</h2>
+                <button class="close-btn" onclick="closeModal('atAirportModal')">&times;</button>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Check-In</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Check in online 24 hours before departure</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Choose best seat available (extra legroom if elite)</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Have loyalty card ready for agent to see</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Ask agent about elite benefits and upgrades</div>
+                </div>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Gate Area</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Verify boarding group and seat assignment on phone</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Look for seat upgrade opportunities on screens</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Check elite lounge access with boarding pass</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Ask gate agent about meal/beverage service class</div>
+                </div>
+            </div>
+
+            <div class="checklist-section" style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Boarding</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Board in elite group when called</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Introduce yourself to flight crew and acknowledge elite status</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Ask about amenity kit or upgrades after boarding</div>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">Take photo of seat/amenities for community sharing</div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="download-btn" onclick="downloadChecklist('at-airport')">📥 Download PDF</button>
+                <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 TravelSmarter. Exclusive tools for Smart Traveler & Elite members.</p>
+        <p style="margin-top: 15px; font-size: 0.9em;">
+            <a href="index.html">Home</a> •
+            <a href="modules.html">Modules</a> •
+            <a href="sales-page.html">Pricing</a> •
+            <a href="account.html">Account</a>
+        </p>
+    </footer>
+
+    <script src="api-service.js"></script>
+    <script>
+        // Check tier on page load
+        document.addEventListener('DOMContentLoaded', checkTierAccess);
+
+        async function checkTierAccess() {
+            // Get user tier from API
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            const token = localStorage.getItem('userToken');
+
+            if (!token) {
+                // Not logged in - show upgrade prompt
+                showUpgradePrompt();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const userTier = (data.user.subscriptionTier || 'free').toLowerCase();
+
+                    if (userTier === 'free') {
+                        showUpgradePrompt();
+                    }
+                    // Smart Traveler and Elite can see the tools
+                } else {
+                    showUpgradePrompt();
+                }
+            } catch (error) {
+                console.error('Error checking tier:', error);
+                showUpgradePrompt();
+            }
+        }
+
+        function showUpgradePrompt() {
+            // Show tools but with preview mode (greyed out)
+            const toolCards = document.querySelectorAll('.tool-card');
+            toolCards.forEach(card => {
+                card.style.opacity = '0.7';
+                card.style.pointerEvents = 'none';
+            });
+
+            // Show lock on checklist card
+            const freeLock = document.getElementById('free-lock');
+            if (freeLock) {
+                freeLock.style.display = 'block';
+            }
+
+            // Disable checklist button
+            const checklistBtn = document.getElementById('checklist-btn');
+            if (checklistBtn) {
+                checklistBtn.disabled = true;
+                checklistBtn.style.opacity = '0.6';
+                checklistBtn.style.cursor = 'not-allowed';
+            }
+
+            // Show email/calculator/guides as coming soon (already greyed)
+            // Show upgrade section at bottom
+            document.getElementById('upgrade-section').style.display = 'block';
+        }
+
+        function openChecklist(type) {
+            if (type === 'week-before') {
+                document.getElementById('weekBeforeModal').classList.add('active');
+            } else if (type === 'at-airport') {
+                document.getElementById('atAirportModal').classList.add('active');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function downloadChecklist(type) {
+            // Simple text download for now
+            let content = '';
+            let filename = '';
+
+            if (type === 'week-before') {
+                content = `WEEK-BEFORE TRAVEL CHECKLIST
+TravelSmarter - Travel Hacking Edition
+
+STATUS MATCHING
+☐ Check current elite status on your frequent flyer accounts
+☐ Research matching programs for your target airline
+☐ Prepare documentation (credit card statements, loyalty cards)
+☐ Submit status match request 7-10 days before travel
+
+HOTEL & BOOKING PREP
+☐ Book hotels through loyalty programs (not OTAs)
+☐ Request room upgrade at check-in for elite members
+☐ Add email address to hotel system for communication
+☐ Screenshot booking confirmation with loyalty number
+
+TRAVEL LOGISTICS
+☐ Check award seat availability 11 months in advance
+☐ Book flexible tickets (refundable or changeable)
+☐ Add Global Entry/TSA PreCheck to airline profile
+☐ Check baggage allowance and seat assignment options
+
+Print this checklist and mark off each item!`;
+                filename = 'TravelSmarter_Week-Before-Checklist.txt';
+            } else if (type === 'at-airport') {
+                content = `AT-AIRPORT TRAVEL CHECKLIST
+TravelSmarter - Travel Hacking Edition
+
+CHECK-IN
+☐ Check in online 24 hours before departure
+☐ Choose best seat available (extra legroom if elite)
+☐ Have loyalty card ready for agent to see
+☐ Ask agent about elite benefits and upgrades
+
+GATE AREA
+☐ Verify boarding group and seat assignment on phone
+☐ Look for seat upgrade opportunities on screens
+☐ Check elite lounge access with boarding pass
+☐ Ask gate agent about meal/beverage service class
+
+BOARDING
+☐ Board in elite group when called
+☐ Introduce yourself to flight crew and acknowledge elite status
+☐ Ask about amenity kit or upgrades after boarding
+☐ Take photo of seat/amenities for community sharing
+
+Print this checklist and bring it with you!`;
+                filename = 'TravelSmarter_At-Airport-Checklist.txt';
+            }
+
+            // Create download
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.checklist-modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

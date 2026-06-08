@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements & Leaderboard - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+
+        .progress-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .progress-section h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .badge-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .badge-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .badge-card.locked {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+            opacity: 0.6;
+        }
+
+        .badge-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .badge-name {
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .badge-progress {
+            color: #6b7280;
+            font-size: 0.8em;
+        }
+
+        .leaderboard {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .leaderboard h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            background: #f9fafb;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .leaderboard-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .leaderboard-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .rank {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .rank.top {
+            font-size: 1.3em;
+        }
+
+        .rank-1 { color: #fbbf24; }
+        .rank-2 { color: #9ca3af; }
+        .rank-3 { color: #d97706; }
+
+        .user-name {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .user-stats {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .upgrade-prompt h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upgrade-prompt a {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .upgrade-prompt a:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badges-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .leaderboard-table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🏆 TravelSmarter</h1>
+        <div class="navbar-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="modules.html">📚 Modules</a>
+            <a href="tools.html">📋 Tools</a>
+            <a href="account.html">🎫 Account</a>
+            <a onclick="logout()">🚪 Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Your Achievements</h1>
+            <p>Complete travel hacking challenges and unlock badges!</p>
+        </div>
+
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h2>🔒 Elite Feature</h2>
+                <p>Achievements & Leaderboard are available to Elite members</p>
+                <a href="sales-page.html">Upgrade to Elite →</a>
+            </div>
+        </div>
+
+        <div id="content" style="display: none;">
+            <!-- User Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Current Level</h3>
+                    <div class="value" id="userLevel">1</div>
+                    <div class="label">Travel Hacker</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Hacks Mastered</h3>
+                    <div class="value" id="hacksMastered">0</div>
+                    <div class="label">out of 87</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Savings</h3>
+                    <div class="value" id="totalSavings">€0</div>
+                    <div class="label">estimated</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Badges Earned</h3>
+                    <div class="value" id="badgesCount">0</div>
+                    <div class="label">achievements unlocked</div>
+                </div>
+            </div>
+
+            <!-- Progress to Next Level -->
+            <div class="progress-section">
+                <h2>📈 Level Progress</h2>
+                <div class="progress-label">
+                    <span id="xpLabel">0 / 1,000 XP</span>
+                    <span id="levelLabel">Level 1 → 2</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="xpBar" style="width: 0%"></div>
+                </div>
+                <p style="color: #6b7280; font-size: 0.9em; margin-top: 10px;">Complete hacks to earn XP and level up! Each hack completion = 10 XP</p>
+            </div>
+
+            <!-- Badges Section -->
+            <div class="progress-section">
+                <h2>🏅 Badges & Achievements</h2>
+                <div class="badges-grid" id="badgesGrid"></div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="leaderboard">
+                <h2>🏆 Top Savers This Month</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Traveler</th>
+                            <th>Level</th>
+                            <th>Hacks Used</th>
+                            <th>Est. Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : 'https://api.travelsmarterapp.com';
+
+        function getAuthToken() {
+            return localStorage.getItem('userToken');
+        }
+
+        // Badge definitions
+        const BADGES = {
+            'first-flight': {
+                name: 'First Flight',
+                icon: '✈️',
+                description: 'Found your first flight deal',
+                requirement: 'Complete 1 Flight Hacking hack'
+            },
+            'flight-master': {
+                name: 'Flight Master',
+                icon: '✈️🎯',
+                description: 'Completed 5 Flight Hacking hacks',
+                requirement: 'Complete 5 Flight Hacking hacks'
+            },
+            'rewards-pro': {
+                name: 'Rewards Pro',
+                icon: '💳',
+                description: 'Mastered credit card rewards',
+                requirement: 'Complete 3 Credit Card hacks'
+            },
+            'hotel-elite': {
+                name: 'Hotel Elite',
+                icon: '🏨',
+                description: 'Earned hotel upgrades',
+                requirement: 'Complete 3 Hotel Hacking hacks'
+            },
+            'budget-master': {
+                name: 'Budget Master',
+                icon: '💰',
+                description: 'Master of budget travel',
+                requirement: 'Complete 5 budget-related hacks'
+            },
+            'globetrotter': {
+                name: 'Globetrotter',
+                icon: '🌍',
+                description: 'Explored multiple destinations',
+                requirement: 'Complete hacks from 5+ modules'
+            },
+            'savings-champion': {
+                name: 'Savings Champion',
+                icon: '🏆',
+                description: 'Estimated €1,000+ in savings',
+                requirement: 'Achieve €1,000 estimated savings'
+            },
+            'level-5': {
+                name: 'Level 5 Traveler',
+                icon: '⭐',
+                description: 'Reached Level 5',
+                requirement: 'Reach Level 5'
+            },
+            'community-hero': {
+                name: 'Community Hero',
+                icon: '👥',
+                description: 'Active in community discussions',
+                requirement: 'Complete 3 community posts'
+            },
+            'all-modules': {
+                name: 'Complete Master',
+                icon: '🎓',
+                description: 'Mastered hacks from all 16 modules',
+                requirement: 'Complete hacks from all 16 modules'
+            }
+        };
+
+        // Mock leaderboard data
+        const LEADERBOARD = [
+            { rank: 1, name: 'You', level: 3, hacks: 12, savings: 1520 },
+            { rank: 2, name: 'Alex M.', level: 4, hacks: 28, savings: 3480 },
+            { rank: 3, name: 'Maria S.', level: 2, hacks: 8, savings: 1240 },
+            { rank: 4, name: 'James L.', level: 3, hacks: 15, savings: 2100 },
+            { rank: 5, name: 'Sophie T.', level: 2, hacks: 7, savings: 980 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const token = getAuthToken();
+                if (!token) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Check user tier
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                const userTier = (data.user?.subscriptionTier || 'free').toLowerCase();
+
+                if (userTier !== 'elite') {
+                    document.getElementById('upgrade-section').style.display = 'block';
+                    document.getElementById('content').style.display = 'none';
+                    return;
+                }
+
+                // Show content for elite users
+                document.getElementById('content').style.display = 'block';
+                loadUserProgress();
+                renderBadges();
+                renderLeaderboard();
+            } catch (error) {
+                console.error('Error:', error);
+                window.location.href = 'index.html';
+            }
+        });
+
+        function loadUserProgress() {
+            // Mock data for demonstration
+            const userProgress = {
+                level: 3,
+                xp: 650,
+                hacksMastered: 12,
+                totalSavings: 1520,
+                badgesEarned: 4
+            };
+
+            document.getElementById('userLevel').textContent = userProgress.level;
+            document.getElementById('hacksMastered').textContent = userProgress.hacksMastered;
+            document.getElementById('totalSavings').textContent = '€' + userProgress.totalSavings.toLocaleString();
+            document.getElementById('badgesCount').textContent = userProgress.badgesEarned;
+
+            // XP progress
+            const nextLevelXP = userProgress.level * 1000;
+            const xpPercent = (userProgress.xp / nextLevelXP) * 100;
+            document.getElementById('xpBar').style.width = xpPercent + '%';
+            document.getElementById('xpLabel').textContent = `${userProgress.xp} / ${nextLevelXP} XP`;
+            document.getElementById('levelLabel').textContent = `Level ${userProgress.level} → ${userProgress.level + 1}`;
+        }
+
+        function renderBadges() {
+            const badgesGrid = document.getElementById('badgesGrid');
+            const earnedBadges = ['first-flight', 'flight-master', 'rewards-pro', 'hotel-elite'];
+
+            let html = '';
+            for (const [badgeId, badgeData] of Object.entries(BADGES)) {
+                const isEarned = earnedBadges.includes(badgeId);
+                const lockedClass = isEarned ? '' : 'locked';
+
+                html += `
+                    <div class="badge-card ${lockedClass}" title="${badgeData.requirement}">
+                        <div class="badge-icon">${badgeData.icon}</div>
+                        <div class="badge-name">${badgeData.name}</div>
+                        <div class="badge-progress">${isEarned ? '✓ Earned' : '🔒 Locked'}</div>
+                    </div>
+                `;
+            }
+
+            badgesGrid.innerHTML = html;
+        }
+
+        function renderLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            let html = '';
+
+            LEADERBOARD.forEach(entry => {
+                const rankClass = entry.rank <= 3 ? `rank rank-${entry.rank} top` : 'rank';
+                const medal = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : entry.rank;
+
+                html += `
+                    <tr>
+                        <td class="${rankClass}">${medal}</td>
+                        <td><div class="user-name">${entry.name}</div></td>
+                        <td><div class="user-stats">Level ${entry.level}</div></td>
+                        <td><div class="user-stats">${entry.hacks}/87</div></td>
+                        <td><strong>€${entry.savings.toLocaleString()}</strong></td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function logout() {
+            localStorage.removeItem('userToken');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

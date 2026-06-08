@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Cost Calculator - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 1.1em;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-section, .results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-section h2, .results-section h2 {
+            color: #1f2937;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #4b5563;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 25px 0;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-card h3 {
+            color: #4b5563;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            font-size: 2em;
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .result-label {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .savings-breakdown {
+            margin-top: 30px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-label {
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .breakdown-value {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .breakdown-percent {
+            color: #667eea;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+
+        .annual-projection {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .annual-projection h3 {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .annual-value {
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .before-value {
+            color: #ef4444;
+        }
+
+        .after-value {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .upgrade-prompt h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upgrade-prompt a {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .upgrade-prompt a:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1024px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .result-value {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>💰 TravelSmarter</h1>
+        <div class="navbar-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="modules.html">📚 Modules</a>
+            <a href="tools.html">📋 Tools</a>
+            <a href="account.html">🎫 Account</a>
+            <a onclick="logout()">🚪 Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>💰 Trip Cost Calculator</h1>
+            <p>See how much you can save with TravelSmarter hacks!</p>
+        </div>
+
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h2>🔒 Smart Traveler & Elite Feature</h2>
+                <p>Trip Cost Calculator is available to Smart Traveler and Elite members</p>
+                <a href="sales-page.html">Upgrade Now →</a>
+            </div>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="calculator-container">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <h2>📝 Your Trip Details</h2>
+
+                    <div class="form-group">
+                        <label>How many trips per year?</label>
+                        <input type="number" id="tripsPerYear" value="4" min="1" max="52" oninput="calculate()">
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <h3 style="color: #4b5563; margin-bottom: 15px; font-size: 1.1em;">Per Trip Costs</h3>
+
+                    <div class="form-group">
+                        <label>Average flight cost (€)</label>
+                        <input type="number" id="flightCost" value="500" min="0" step="10" oninput="calculate()">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Hotel nights</label>
+                            <input type="number" id="hotelNights" value="7" min="1" step="1" oninput="calculate()">
+                        </div>
+                        <div class="form-group">
+                            <label>Hotel cost/night (€)</label>
+                            <input type="number" id="hotelCostPerNight" value="100" min="0" step="10" oninput="calculate()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Daily food budget (€)</label>
+                        <input type="number" id="dailyFoodBudget" value="50" min="0" step="5" oninput="calculate()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Local transport/activities (€)</label>
+                        <input type="number" id="transportCost" value="100" min="0" step="10" oninput="calculate()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Shopping/souvenirs (€)</label>
+                        <input type="number" id="shoppingCost" value="150" min="0" step="10" oninput="calculate()">
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section">
+                    <h2>💰 Your Savings</h2>
+
+                    <div class="result-card">
+                        <h3>Single Trip Cost</h3>
+                        <div class="result-value" id="singleTripCost">€1,575</div>
+                        <div class="result-label">Without TravelSmarter hacks</div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Single Trip With TravelSmarter</h3>
+                        <div class="result-value" id="singleTripSavings">€1,151</div>
+                        <div class="result-label" id="savingsPercent">-27% savings</div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Per-Trip Savings</h3>
+                        <div class="result-value" id="perTripSavings">€424</div>
+                        <div class="result-label">Money saved per trip</div>
+                    </div>
+
+                    <div class="annual-projection">
+                        <h3>Annual Impact</h3>
+                        <div class="annual-value" id="annualSavings">€1,696</div>
+                    </div>
+
+                    <div class="savings-breakdown">
+                        <h3 style="color: #1f2937; margin-bottom: 15px;">Breakdown by Category</h3>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">✈️ Flights</span>
+                            <span>
+                                <span class="breakdown-percent" id="flightPercent">25%</span>
+                                <span class="breakdown-value" id="flightSavings">€125</span>
+                            </span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">🏨 Hotels</span>
+                            <span>
+                                <span class="breakdown-percent" id="hotelPercent">30%</span>
+                                <span class="breakdown-value" id="hotelSavings">€210</span>
+                            </span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">🍽️ Food & Dining</span>
+                            <span>
+                                <span class="breakdown-percent" id="foodPercent">45%</span>
+                                <span class="breakdown-value" id="foodSavings">€159</span>
+                            </span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">🚗 Transport & Activities</span>
+                            <span>
+                                <span class="breakdown-percent" id="transportPercent">35%</span>
+                                <span class="breakdown-value" id="transportSavings">€35</span>
+                            </span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">🛍️ Shopping & VAT</span>
+                            <span>
+                                <span class="breakdown-percent" id="shoppingPercent">20%</span>
+                                <span class="breakdown-value" id="shoppingSavings">€30</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="input-section" style="margin-top: 30px;">
+                <h2>📊 Before vs After Comparison</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Without TravelSmarter</th>
+                            <th>With TravelSmarter</th>
+                            <th>Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>✈️ Flights</strong></td>
+                            <td class="before-value" id="table-flight-before">€500</td>
+                            <td class="after-value" id="table-flight-after">€375</td>
+                            <td class="breakdown-value" id="table-flight-save">€125</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🏨 Hotels</strong></td>
+                            <td class="before-value" id="table-hotel-before">€700</td>
+                            <td class="after-value" id="table-hotel-after">€490</td>
+                            <td class="breakdown-value" id="table-hotel-save">€210</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🍽️ Food & Dining</strong></td>
+                            <td class="before-value" id="table-food-before">€350</td>
+                            <td class="after-value" id="table-food-after">€192</td>
+                            <td class="breakdown-value" id="table-food-save">€159</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🚗 Transport</strong></td>
+                            <td class="before-value" id="table-transport-before">€100</td>
+                            <td class="after-value" id="table-transport-after">€65</td>
+                            <td class="breakdown-value" id="table-transport-save">€35</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🛍️ Shopping & VAT</strong></td>
+                            <td class="before-value" id="table-shopping-before">€150</td>
+                            <td class="after-value" id="table-shopping-after">€120</td>
+                            <td class="breakdown-value" id="table-shopping-save">€30</td>
+                        </tr>
+                        <tr style="background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%); font-weight: 700; font-size: 1.1em;">
+                            <td>TOTAL PER TRIP</td>
+                            <td class="before-value" id="table-total-before">€1,800</td>
+                            <td class="after-value" id="table-total-after">€1,242</td>
+                            <td class="breakdown-value" id="table-total-save">€558</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : 'https://api.travelsmarterapp.com';
+
+        function getAuthToken() {
+            return localStorage.getItem('userToken');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const token = getAuthToken();
+                if (!token) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Check user tier
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                const userTier = (data.user?.subscriptionTier || 'free').toLowerCase();
+
+                // Check if user has access (Smart Traveler or Elite)
+                if (userTier !== 'smart traveler' && userTier !== 'smarttraveler' && userTier !== 'elite') {
+                    document.getElementById('upgrade-section').style.display = 'block';
+                    document.getElementById('content').style.display = 'none';
+                    return;
+                }
+
+                document.getElementById('content').style.display = 'block';
+                calculate();
+            } catch (error) {
+                console.error('Error:', error);
+                window.location.href = 'index.html';
+            }
+        });
+
+        function calculate() {
+            // Get input values
+            const tripsPerYear = parseInt(document.getElementById('tripsPerYear').value) || 1;
+            const flightCost = parseFloat(document.getElementById('flightCost').value) || 0;
+            const hotelNights = parseInt(document.getElementById('hotelNights').value) || 1;
+            const hotelCostPerNight = parseFloat(document.getElementById('hotelCostPerNight').value) || 0;
+            const dailyFoodBudget = parseFloat(document.getElementById('dailyFoodBudget').value) || 0;
+            const transportCost = parseFloat(document.getElementById('transportCost').value) || 0;
+            const shoppingCost = parseFloat(document.getElementById('shoppingCost').value) || 0;
+
+            // Calculate per-trip costs
+            const totalHotelCost = hotelNights * hotelCostPerNight;
+            const totalFoodCost = dailyFoodBudget * hotelNights;
+            const tripCostBefore = flightCost + totalHotelCost + totalFoodCost + transportCost + shoppingCost;
+
+            // Calculate savings (based on TravelSmarter hack percentages)
+            const flightSavings = flightCost * 0.25; // 25% savings on flights
+            const hotelSavings = totalHotelCost * 0.30; // 30% on hotels
+            const foodSavings = totalFoodCost * 0.45; // 45% on food (eating local)
+            const transportSavings = transportCost * 0.35; // 35% on transport
+            const shoppingSavings = shoppingCost * 0.20; // 20% on shopping (VAT refunds)
+
+            const totalPerTripSavings = flightSavings + hotelSavings + foodSavings + transportSavings + shoppingSavings;
+            const tripCostAfter = tripCostBefore - totalPerTripSavings;
+
+            // Calculate annual impact
+            const annualCostBefore = tripCostBefore * tripsPerYear;
+            const annualCostAfter = tripCostAfter * tripsPerYear;
+            const annualSavings = totalPerTripSavings * tripsPerYear;
+            const savingsPercent = ((totalPerTripSavings / tripCostBefore) * 100).toFixed(1);
+
+            // Update single trip results
+            document.getElementById('singleTripCost').textContent = '€' + tripCostBefore.toFixed(0);
+            document.getElementById('singleTripSavings').textContent = '€' + tripCostAfter.toFixed(0);
+            document.getElementById('savingsPercent').textContent = `-${savingsPercent}% savings`;
+            document.getElementById('perTripSavings').textContent = '€' + totalPerTripSavings.toFixed(0);
+            document.getElementById('annualSavings').textContent = '€' + annualSavings.toFixed(0);
+
+            // Update breakdown
+            document.getElementById('flightPercent').textContent = '25%';
+            document.getElementById('flightSavings').textContent = '€' + flightSavings.toFixed(0);
+
+            document.getElementById('hotelPercent').textContent = '30%';
+            document.getElementById('hotelSavings').textContent = '€' + hotelSavings.toFixed(0);
+
+            document.getElementById('foodPercent').textContent = '45%';
+            document.getElementById('foodSavings').textContent = '€' + foodSavings.toFixed(0);
+
+            document.getElementById('transportPercent').textContent = '35%';
+            document.getElementById('transportSavings').textContent = '€' + transportSavings.toFixed(0);
+
+            document.getElementById('shoppingPercent').textContent = '20%';
+            document.getElementById('shoppingSavings').textContent = '€' + shoppingSavings.toFixed(0);
+
+            // Update table
+            document.getElementById('table-flight-before').textContent = '€' + flightCost.toFixed(0);
+            document.getElementById('table-flight-after').textContent = '€' + (flightCost - flightSavings).toFixed(0);
+            document.getElementById('table-flight-save').textContent = '€' + flightSavings.toFixed(0);
+
+            document.getElementById('table-hotel-before').textContent = '€' + totalHotelCost.toFixed(0);
+            document.getElementById('table-hotel-after').textContent = '€' + (totalHotelCost - hotelSavings).toFixed(0);
+            document.getElementById('table-hotel-save').textContent = '€' + hotelSavings.toFixed(0);
+
+            document.getElementById('table-food-before').textContent = '€' + totalFoodCost.toFixed(0);
+            document.getElementById('table-food-after').textContent = '€' + (totalFoodCost - foodSavings).toFixed(0);
+            document.getElementById('table-food-save').textContent = '€' + foodSavings.toFixed(0);
+
+            document.getElementById('table-transport-before').textContent = '€' + transportCost.toFixed(0);
+            document.getElementById('table-transport-after').textContent = '€' + (transportCost - transportSavings).toFixed(0);
+            document.getElementById('table-transport-save').textContent = '€' + transportSavings.toFixed(0);
+
+            document.getElementById('table-shopping-before').textContent = '€' + shoppingCost.toFixed(0);
+            document.getElementById('table-shopping-after').textContent = '€' + (shoppingCost - shoppingSavings).toFixed(0);
+            document.getElementById('table-shopping-save').textContent = '€' + shoppingSavings.toFixed(0);
+
+            document.getElementById('table-total-before').textContent = '€' + tripCostBefore.toFixed(0);
+            document.getElementById('table-total-after').textContent = '€' + tripCostAfter.toFixed(0);
+            document.getElementById('table-total-save').textContent = '€' + totalPerTripSavings.toFixed(0);
+        }
+
+        function logout() {
+            localStorage.removeItem('userToken');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

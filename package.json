@@ -1,0 +1,27 @@
+{
+  "name": "travelsmarter-app",
+  "version": "1.0.0",
+  "description": "TravelSmarter - Complete Travel Hacking Platform (Frontend + Backend)",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "dev": "cd server && npm run dev",
+    "install-all": "npm install && cd server && npm install",
+    "db:init": "cd server && npm run db:init",
+    "db:seed": "cd server && npm run db:seed"
+  },
+  "keywords": [
+    "travel",
+    "hacking",
+    "platform",
+    "nodejs",
+    "express",
+    "react"
+  ],
+  "author": "TravelSmarter Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

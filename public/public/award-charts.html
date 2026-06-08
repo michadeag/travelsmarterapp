@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Award Chart Decoder - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .elite-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 25px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .search-btn, .clear-btn {
+            flex: 1;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .clear-btn {
+            background: #f3f4f6;
+            color: #667eea;
+            border: 2px solid #e5e7eb;
+        }
+
+        .clear-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .results-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .results-count {
+            background: #f3f4f6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .results-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .results-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .airline-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1.05em;
+        }
+
+        .cabin-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .cabin-economy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .cabin-premium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .cabin-business {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        .cabin-first {
+            background: #f9a8d4;
+            color: #500724;
+        }
+
+        .cpp-value {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .best-value {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+
+        .no-results-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .value-explanation {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .value-explanation h3 {
+            color: #0369a1;
+            margin-bottom: 10px;
+        }
+
+        .value-explanation p {
+            color: #075985;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .value-explanation ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .value-explanation li {
+            color: #075985;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .value-explanation li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0ea5e9;
+            font-weight: 700;
+        }
+
+        .upgrade-prompt {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .upgrade-prompt h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            color: #78350f;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-buttons {
+                flex-direction: column;
+            }
+
+            .results-table {
+                font-size: 0.9em;
+            }
+
+            .results-table th,
+            .results-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div>
+            <a href="tools.html">← Back to Tools</a>
+        </div>
+        <div>
+            <a href="modules.html" style="margin-right: 20px;">Modules</a>
+            <a href="index.html" style="margin-right: 20px;">Home</a>
+            <a href="account.html">Account</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏆 Award Chart Decoder</h1>
+            <p>Find the best value awards and compare redemption rates across airlines</p>
+            <div style="margin-top: 15px;">
+                <span class="elite-badge">✨ Smart Traveler & Elite Feature</span>
+            </div>
+        </div>
+
+        <!-- Check if user has access -->
+        <div id="decoder-content">
+            <!-- Value Explanation -->
+            <div class="value-explanation">
+                <h3>What is Cents Per Point (CPP)?</h3>
+                <p>CPP is the value you get from each mile or point when redeeming. Higher is better!</p>
+                <ul>
+                    <li><strong>CPP Calculation:</strong> (Cash Equivalent Price ÷ Miles Required) × 100</li>
+                    <li><strong>Example:</strong> €1,200 redemption ÷ 50,000 miles = 2.4¢ per point</li>
+                    <li><strong>Good Value:</strong> 1.5¢+ per point is excellent</li>
+                    <li><strong>Comparison:</strong> Shows which airlines offer best value on same route</li>
+                </ul>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-title">🔍 Search Award Charts</div>
+
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label for="origin">From (Airport Code)</label>
+                        <input type="text" id="origin" placeholder="e.g., CDG, JFK, LHR" maxlength="3">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="destination">To (Airport Code)</label>
+                        <input type="text" id="destination" placeholder="e.g., NRT, LAX, BKK" maxlength="3">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="cabin">Cabin Class</label>
+                        <select id="cabin">
+                            <option value="">All Cabins</option>
+                            <option value="Economy">Economy</option>
+                            <option value="Premium Economy">Premium Economy</option>
+                            <option value="Business">Business</option>
+                            <option value="First">First</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="airline">Airline</label>
+                        <input type="text" id="airline" placeholder="e.g., Turkish Airlines">
+                    </div>
+                </div>
+
+                <div class="search-buttons">
+                    <button class="search-btn" onclick="searchAwards()">Search Awards</button>
+                    <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section">
+                <div class="results-header">
+                    <div class="results-title">💎 Award Redemptions</div>
+                    <div class="results-count" id="resultsCount">0 results</div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="results-table" id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>Airline</th>
+                                <th>Route</th>
+                                <th>Cabin</th>
+                                <th>Miles Required</th>
+                                <th>Cash Value (€)</th>
+                                <th>CPP ¢</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="no-results-icon">🔍</div>
+                    <p>No award charts found matching your criteria.</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Try adjusting your filters or search with different airport codes.</p>
+                </div>
+
+                <div id="loadingSpinner" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 15px;">Loading award data...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Prompt (shown to Free users) -->
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h3>⭐ Award Chart Decoder is Exclusive to Smart Traveler & Elite Members</h3>
+                <p>Discover the best award values and compare redemption rates across all major airlines. Updated biweekly with latest award pricing.</p>
+                <a href="sales-page.html">
+                    <button class="upgrade-btn">Upgrade Now</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 TravelSmarter. Award charts updated biweekly with latest redemption rates.</p>
+        <p style="margin-top: 15px; font-size: 0.9em;">
+            <a href="index.html">Home</a> •
+            <a href="tools.html">Tools & Templates</a> •
+            <a href="modules.html">Modules</a> •
+            <a href="account.html">Account</a>
+        </p>
+    </footer>
+
+    <script src="api-service.js"></script>
+    <script>
+        // Check tier on page load
+        document.addEventListener('DOMContentLoaded', checkTierAccess);
+
+        async function checkTierAccess() {
+            // Get user tier from API
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000'
+                : 'https://api.travelsmarterapp.com';
+
+            const token = localStorage.getItem('userToken');
+
+            if (!token) {
+                // Not logged in - show upgrade prompt
+                showUpgradePrompt();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const userTier = (data.user.subscriptionTier || 'free').toLowerCase();
+
+                    if (userTier === 'free') {
+                        showUpgradePrompt();
+                    }
+                    // Smart Traveler and Elite can use the decoder
+                } else {
+                    showUpgradePrompt();
+                }
+            } catch (error) {
+                console.error('Error checking tier:', error);
+                showUpgradePrompt();
+            }
+        }
+
+        function showUpgradePrompt() {
+            document.getElementById('decoder-content').style.display = 'none';
+            document.getElementById('upgrade-section').style.display = 'block';
+        }
+
+        async function searchAwards() {
+            const origin = document.getElementById('origin').value.toUpperCase().trim();
+            const destination = document.getElementById('destination').value.toUpperCase().trim();
+            const cabin = document.getElementById('cabin').value;
+            const airline = document.getElementById('airline').value.trim();
+
+            if (!origin && !destination && !cabin && !airline) {
+                alert('Please enter at least one search criterion');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('resultsTable').style.display = 'none';
+            document.getElementById('resultsSection').classList.add('active');
+
+            try {
+                const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'
+                    : 'https://api.travelsmarterapp.com';
+
+                let queryString = '';
+                const params = [];
+
+                if (origin) params.push(`origin=${encodeURIComponent(origin)}`);
+                if (destination) params.push(`destination=${encodeURIComponent(destination)}`);
+                if (cabin) params.push(`cabin_class=${encodeURIComponent(cabin)}`);
+                if (airline) params.push(`airline=${encodeURIComponent(airline)}`);
+
+                queryString = params.join('&');
+
+                const response = await fetch(`${API_URL}/api/award-charts/search?${queryString}`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('userToken')}` }
+                });
+
+                const result = await response.json();
+
+                document.getElementById('loadingSpinner').style.display = 'none';
+
+                if (result.data && result.data.length > 0) {
+                    // Sort by CPP (best value first)
+                    const sorted = result.data.sort((a, b) => (b.value_cpp || 0) - (a.value_cpp || 0));
+
+                    const tbody = document.getElementById('resultsBody');
+                    tbody.innerHTML = '';
+
+                    let bestCpp = sorted[0]?.value_cpp || 0;
+
+                    sorted.forEach((chart, index) => {
+                        const row = document.createElement('tr');
+                        const isBestValue = index === 0;
+
+                        const cabinClass = chart.cabin_class || 'Unknown';
+                        const cabinLower = cabinClass.toLowerCase().replace(' ', '-');
+                        const cabinDisplay = `<span class="cabin-badge cabin-${cabinLower}">${cabinClass}</span>`;
+
+                        const bestBadge = isBestValue ? '<span class="best-value">Best Value ⭐</span>' : '';
+
+                        row.innerHTML = `
+                            <td><span class="airline-name">${chart.airline_name}</span></td>
+                            <td>${chart.origin_airport} → ${chart.destination_airport}</td>
+                            <td>${cabinDisplay}</td>
+                            <td style="font-weight: 600;">${chart.miles_required.toLocaleString()}</td>
+                            <td>€${chart.cash_equivalent_eur.toFixed(2)}</td>
+                            <td><span class="cpp-value">${(chart.value_cpp || 0).toFixed(2)}¢</span> ${bestBadge}</td>
+                            <td style="font-size: 0.9em; color: #6b7280;">${chart.notes || '-'}</td>
+                        `;
+
+                        tbody.appendChild(row);
+                    });
+
+                    document.getElementById('resultsTable').style.display = 'table';
+                    document.getElementById('resultsCount').textContent = `${result.count} result${result.count !== 1 ? 's' : ''}`;
+                } else {
+                    document.getElementById('noResults').style.display = 'block';
+                    document.getElementById('resultsTable').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error searching awards:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('noResults').style.display = 'block';
+                document.getElementById('noResults').innerHTML = `
+                    <div class="no-results-icon">❌</div>
+                    <p>Error loading award charts.</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">${error.message}</p>
+                `;
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('origin').value = '';
+            document.getElementById('destination').value = '';
+            document.getElementById('cabin').value = '';
+            document.getElementById('airline').value = '';
+            document.getElementById('resultsSection').classList.remove('active');
+        }
+
+        // Allow Enter key to search
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.target.closest('.search-section')) {
+                searchAwards();
+            }
+        });
+    </script>
+</body>
+</html>

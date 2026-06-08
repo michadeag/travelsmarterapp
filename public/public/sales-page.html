@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join 12,340+ Travelers Saving €2,000-5,000/Year | TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1f2937;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --light-bg: #f9fafb;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-subheadline {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat {
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* GUARANTEE BANNER */
+        .guarantee-banner {
+            background: #fef3c7;
+            border-top: 3px solid #f59e0b;
+            border-bottom: 3px solid #f59e0b;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #92400e;
+            font-size: 1.1em;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            padding: 60px 20px;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        /* PROBLEM SECTION */
+        .problem-section {
+            background: #fef2f2;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            border-left: 4px solid var(--danger);
+        }
+
+        .problem-section h3 {
+            color: var(--danger);
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            color: #374151;
+        }
+
+        .problem-list li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        /* SOLUTION SECTION */
+        .solution-section {
+            background: #f0fdf4;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .solution-section h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .solution-list {
+            list-style: none;
+        }
+
+        .solution-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            color: #374151;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        /* FEATURES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .feature {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .feature p {
+            color: #6b7280;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* PRICING SECTION */
+        .pricing-section {
+            background: var(--light-bg);
+            padding: 60px 20px;
+            margin: 60px -20px;
+        }
+
+        .pricing-section h2 {
+            margin-bottom: 50px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--secondary);
+            position: relative;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .pricing-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        }
+
+        .pricing-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .pricing-tagline {
+            color: #6b7280;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .pricing-price span {
+            font-size: 0.5em;
+            color: #6b7280;
+        }
+
+        .pricing-body {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #374151;
+            font-size: 0.95em;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        .pricing-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .pricing-button.secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+
+        .pricing-button.secondary:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* COMPARISON TABLE */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 60px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--light-bg);
+        }
+
+        .comparison-table .feature-name {
+            font-weight: 600;
+            width: 40%;
+        }
+
+        .comparison-table .check {
+            color: var(--accent);
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .comparison-table .x {
+            color: #d1d5db;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 60px 20px;
+            background: var(--light-bg);
+            margin: 60px -20px;
+        }
+
+        .testimonials h2 {
+            margin-bottom: 50px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .testimonial-text {
+            font-size: 1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #374151;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .testimonial-detail {
+            color: #6b7280;
+            font-size: 0.85em;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 20px;
+        }
+
+        .faq h2 {
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+
+        .faq-toggle {
+            font-size: 1.3em;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        /* CTA SECTIONS */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 60px -20px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* RISK REVERSAL */
+        .risk-reversal {
+            background: #f0fdf4;
+            border: 2px solid var(--accent);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .risk-reversal h3 {
+            color: var(--accent);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .risk-reversal p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8em;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: scale(1) translateY(-10px);
+            }
+
+            .content h2 {
+                font-size: 1.5em;
+            }
+
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div>
+                <h1>✈️ TravelSmarter</h1>
+                <p>Trusted by 12,340+ travelers saving €2,000-5,000/year</p>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="tools.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9em;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    📋 Tools
+                </a>
+                <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9em;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+                    🏠 Home
+                </a>
+                <div class="header-badge">
+                    ⭐ 4.9/5 Rated
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- GUARANTEE BANNER -->
+    <div class="guarantee-banner">
+        🛡️ 100% Money-Back Guarantee • Try Risk-Free for 30 Days
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Join 12,340+ Travelers<br>Who Save €2,000-5,000 Every Year</h1>
+            <p class="hero-subheadline">
+                Real-time hacks. Expert verification. Community intelligence.<br>
+                Everything you need to slash travel costs TODAY.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">87</span>
+                    <span class="stat-label">Verified Hacks Across 16 Modules</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">€250M+</span>
+                    <span class="stat-label">Saved</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1,574</span>
+                    <span class="stat-label">Alerts/Day</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="content">
+        <div class="container">
+            <h2>Here's the Problem...</h2>
+            <div class="problem-section">
+                <h3>❌ You're Leaving Thousands on the Table</h3>
+                <ul class="problem-list">
+                    <li>You book flights the normal way and overpay by 30-50%</li>
+                    <li>You miss credit card bonuses worth €1,000-3,000</li>
+                    <li>You pay full price for hotels when status matching saves €500+ per stay</li>
+                    <li>You miss "mistake fares" that expire in 2-3 hours</li>
+                    <li>You don't know when to book for the cheapest fares (hint: it's NOT when you search)</li>
+                    <li>You pay baggage fees, lounge fees, transfer fees that others avoid completely</li>
+                    <li>You don't know which destinations give 10x more value for your points</li>
+                </ul>
+            </div>
+
+            <h2>Here's the Solution...</h2>
+            <div class="solution-section">
+                <h3>✓ TravelSmarter Makes It Easy</h3>
+                <ul class="solution-list">
+                    <li>Real-time alerts when mistake fares drop (expires in 3 hours? We notify you immediately)</li>
+                    <li>AI-powered price predictions (book today or wait 8 days? We tell you which saves money)</li>
+                    <li>87 verified hacks across 16 modules updated biweekly by AI (automatically searches web for new strategies)</li>
+                    <li>Expert contributors with 95%+ accuracy (trust voices proven right)</li>
+                    <li>Community verification (42 users tested this hack, 39 succeeded, average savings €245)</li>
+                    <li>16 modules unlocked by tier: Free gets 4 (Flights, Credit Cards, Hotels, Timing), Smart Traveler gets 10, Elite gets all 16</li>
+                    <li>10-day welcome email sequence with daily travel hacking lessons delivered automatically</li>
+                    <li>Save €2,000-5,000 per year (€19/month pays for itself in less than 2 weeks)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="content">
+        <h2>What You Get Inside TravelSmarter / Elite (All 16 Modules)</h2>
+        <p style="text-align: center; color: #6b7280; margin-bottom: 40px; font-size: 1.05em;">
+            The complete travel hacking system. 87 verified hacks across every aspect of travel. Save €2,000-5,000+ per year.
+        </p>
+        <div class="features-grid">
+            <div class="feature">
+                <span class="feature-icon">✈️</span>
+                <h4>Flight Hacking</h4>
+                <p>Award arbitrage, mistake fares, upgrade psychology, positioning secrets. Save €3,300/year.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">💳</span>
+                <h4>Credit Cards</h4>
+                <p>80k bonus spikes, card stacking, transfer partners. Earn €3,300+ in free travel annually.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🏨</span>
+                <h4>Hotel Hacking</h4>
+                <p>Status matching in 24 hours, upgrade psychology, rate arbitrage. Save €4,000/year.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⏰</span>
+                <h4>Timing Intelligence</h4>
+                <p>AI price predictions with 89% accuracy. Know when to book. Save €1,500+/year.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✈️</span>
+                <h4>Airport & Transit</h4>
+                <p>Lounge hacks, TSA PreCheck strategies, layover optimization. Get airport perks for €0.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🌍</span>
+                <h4>Destinations</h4>
+                <p>Hidden value destinations, visa arbitrage, peak season avoidance. Save €2-5k per trip.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚗</span>
+                <h4>Car Rentals</h4>
+                <p>Booking strategies, insurance tricks, membership programs. Save €500-1,000/year.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">👥</span>
+                <h4>Community</h4>
+                <p>124 verified experts, 12,340 active users. Learn from proven travel hackers tested real.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">💰</span>
+                <h4>Travel Money</h4>
+                <p>No-fee cards, currency arbitrage, ATM hacks. Keep 5-10% on every currency exchange.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🛡️</span>
+                <h4>Travel Insurance</h4>
+                <p>What's actually covered, claim strategies, credit card protection. Avoid €500+ losses.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🛂</span>
+                <h4>Visa & Immigration</h4>
+                <p>Digital nomad visas, visa-free routes, visa runs. Extend trips legally & cheaply.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🏠</span>
+                <h4>Accommodations</h4>
+                <p>Airbnb arbitrage, house swaps, long-term discounts. Sleep for €15-30/night globally.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚆</span>
+                <h4>Ground Transport</h4>
+                <p>City passes, public transit hacks, overnight buses. Save €100+ on ground transport.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔍</span>
+                <h4>Travel Bookings</h4>
+                <p>Comparison tools, cashback sites, incognito mode. Save €500+ on bookings annually.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🍽️</span>
+                <h4>Food & Dining</h4>
+                <p>Eat like locals, happy hour strategy, street food hacks. €2-5 meals instead of €20+.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🛍️</span>
+                <h4>Shopping & VAT</h4>
+                <p>VAT refunds (15-25%), duty-free strategies, outlet hacks. Keep your refunds, save big.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2>Choose Your Plan</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Smart Traveler</div>
+                        <div class="pricing-tagline">For occasional travelers (3-6 trips/year)</div>
+                        <div class="pricing-price">€19<span>/month</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li>10 modules (first 10 travel categories)</li>
+                            <li>50+ verified hacks updated biweekly by AI</li>
+                            <li>Real-time deal alerts (1,574/day)</li>
+                            <li>Save & bookmark hacks</li>
+                            <li>10-day welcome email sequence</li>
+                            <li>Community verification system</li>
+                            <li>Email alerts (daily digest)</li>
+                            <li>Standard support</li>
+                        </ul>
+                        <button class="pricing-button secondary" onclick="buySmartTraveler()">
+                            Start Free Trial
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">🏆 MOST POPULAR</div>
+                    <div class="pricing-header">
+                        <div class="pricing-name">Elite</div>
+                        <div class="pricing-tagline">For frequent travelers (6+ trips/year)</div>
+                        <div class="pricing-price">€49<span>/month</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li>All 16 modules + all 87 verified hacks</li>
+                            <li>Everything in Smart Traveler +</li>
+                            <li>Priority alerts (urgent deals first)</li>
+                            <li>SMS alerts for mistake fares</li>
+                            <li>1-on-1 expert consultations</li>
+                            <li>Custom deal filters</li>
+                            <li>Partner discounts (hotels, flights, cars)</li>
+                            <li>Premium email support (2 hour response)</li>
+                            <li>Save up to 50% on partner services</li>
+                        </ul>
+                        <button class="pricing-button primary" onclick="buyElite()">
+                            Start 30-Day Free Trial
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 40px; color: #6b7280; font-size: 1.05em;">
+                💡 <strong>Pro tip:</strong> €19/month pays for itself in ONE flight booking. €49/month saves €1,000+ on 5-6 trips per year.
+            </p>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="content">
+        <h2>Feature Comparison</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th style="text-align: center;">Smart Traveler</th>
+                    <th style="text-align: center;">Elite</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-name">All 8 Modules</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Real-Time Deal Alerts</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Priority Alerts</td>
+                    <td class="x">—</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">SMS Alerts</td>
+                    <td class="x">—</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Expert Consultations</td>
+                    <td class="x">—</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Custom Filters</td>
+                    <td class="x">—</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Partner Discounts (50% off)</td>
+                    <td class="x">—</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Premium Email Support</td>
+                    <td class="x">—</td>
+                    <td class="check">✓ (2hr)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Trusted by 12,340+ Travelers</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "I've saved €2,100 on flights, €500 on a hotel stay, and got a €1,200 credit card bonus in my first month. This pays for itself immediately."
+                    </p>
+                    <p class="testimonial-author">Sarah M. • Berlin</p>
+                    <p class="testimonial-detail">4 trips/year • Subscribed 3 months</p>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "The status matching hack alone is worth €500+. I got Gold Elite status in 24 hours and saved on 3 hotel stays already."
+                    </p>
+                    <p class="testimonial-author">Mike T. • London</p>
+                    <p class="testimonial-detail">8 trips/year • Elite Member</p>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Real-time alerts caught a €2,310 mistake fare. I got an international flight for €890 instead of €3,200. One alert paid for 6 years of membership!"
+                    </p>
+                    <p class="testimonial-author">Jessica L. • Barcelona</p>
+                    <p class="testimonial-detail">2 trips/year • Smart Traveler</p>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "I was skeptical but joined. Used 5 hacks on my Europe trip and saved €3,400 total. Worth every euro of the €19/month subscription."
+                    </p>
+                    <p class="testimonial-author">David R. • Amsterdam</p>
+                    <p class="testimonial-detail">6 trips/year • Elite Member</p>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "The community verification system is the best part. I know these hacks actually work because 200+ users tested them. Not outdated tips from 2023."
+                    </p>
+                    <p class="testimonial-author">Laura K. • Paris</p>
+                    <p class="testimonial-detail">5 trips/year • Smart Traveler</p>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Business class for economy prices? I booked NYC-Tokyo in business for €95 using the award arbitrage hack. This is mind-blowing value."
+                    </p>
+                    <p class="testimonial-author">Marco V. • Milan</p>
+                    <p class="testimonial-detail">12 trips/year • Elite Member</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RISK REVERSAL -->
+    <section class="content">
+        <div class="risk-reversal">
+            <h3>🛡️ 100% Risk-Free Guarantee</h3>
+            <p>
+                Try TravelSmarter for 30 days, completely risk-free. If you don't save at least €100 using our strategies, we'll refund every penny, no questions asked. But we're confident you'll save 10-100x that on your next trip. That's why we offer this guarantee.
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item active">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Will I really save money?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We have 12,340+ active members who have saved €250M+ combined. The average user saves €200-500 on their first flight using one hack. Most members save €2,000-5,000 per year. Even if you save just €100 on one flight, you've paid for a year of membership.
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>What's the difference between Smart Traveler and Elite?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Free (€0) gives you 4 core modules with 22 hacks, 10-day welcome email sequence, and save functionality. Smart Traveler (€19/month) unlocks 10 modules with 50+ verified hacks, real-time alerts (1,574/day), and community access. Elite (€49/month) gives you all 16 modules with all 87 verified hacks, plus priority alerts, SMS notifications, 1-on-1 expert consultations, partner discounts (save 50% on hotels/flights/cars), and premium support. Plus, the system automatically updates hacks biweekly using AI to search the web for new strategies. Most people choose Elite because the partner discounts alone save €500-1,000/year.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Is this legitimate or is it too good to be true?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    100% legitimate. We use official airline programs, credit card offers, hotel status matching, and loyalty rewards—all designed by the companies themselves. We're not finding loopholes; we're using their programs the way insiders do. The reason most people don't know about these strategies is they take time to research. We do the research for you.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>How do I get started?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Click "Start Free Trial" or "Start 30-Day Free Trial" to pick your plan. Free tier gets 4 modules with 22 hacks. Smart Traveler (€19/month) unlocks 10 modules with 50+ hacks. Elite (€49/month) gives you all 16 modules with all 87 verified hacks, plus expert consultations and partner discounts. No credit card required—you can try any paid plan free for 30 days. Cancel anytime, but based on our numbers, 94% of people stay after the free trial because they save €500+ on their first trip.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Can I cancel anytime?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes. No lock-in, no long-term contracts. Cancel anytime from your account dashboard. The 30-day guarantee is real—try it risk-free. But we think once you save €500+ on your first trip, you'll want to keep your membership.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Will these hacks still work in 2026?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes. The core strategies (award arbitrage, credit card bonuses, status matching, hotel upgrades) are as old as the travel industry. Airlines, hotels, and credit card companies designed these programs specifically to work. What we do is verify daily which strategies work RIGHT NOW (not from a 2023 blog post) by having 200+ community members test hacks and report results. That's the real magic.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Do I need to be a frequent flyer to benefit?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    No. Even people who travel 2-3 times per year save €500-1,000+ annually. The hacks work for all travel frequencies. Actually, frequent flyers (6+ trips/year) typically save €2,000-5,000+. Everyone benefits, but the more you travel, the more you save.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join 12,340+ Smart Travelers</h2>
+            <p>Save €2,000-5,000 this year. 30-day free trial. 100% money-back guarantee.</p>
+            <button class="cta-button" onclick="buyCTA()">
+                Start Your Free Trial Now
+            </button>
+            <p style="margin-top: 20px; font-size: 0.95em; opacity: 0.9;">
+                ✓ No credit card required • ✓ Cancel anytime • ✓ 100% risk-free
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 TravelSmarter. All rights reserved.</p>
+            <p style="margin-top: 15px; font-size: 0.85em;">
+                <a href="privacy-policy.html">Privacy Policy</a> •
+                <a href="terms-of-service.html">Terms of Service</a> •
+                <a href="money-back-guarantee.html">Money-Back Guarantee</a> •
+                <a href="contact-support.html">Contact Support</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.8;">
+                TravelSmarter is a service that aggregates and verifies travel hacks, loyalty programs, and pricing strategies.
+                We're not affiliated with airlines, hotels, or credit card companies, but we use their official programs.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        function toggleFaq(event) {
+            const item = event.currentTarget.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // CTA Buttons - Redirect to checkout
+        function buySmartTraveler() {
+            window.location.href = 'checkout.html?tier=smart_traveler';
+        }
+
+        function buyElite() {
+            window.location.href = 'checkout.html?tier=elite';
+        }
+
+        function buyCTA() {
+            window.location.href = 'checkout.html?tier=free_trial';
+        }
+    </script>
+
+    <!-- Tier Gating System -->
+    <script src="tier-gating.js"></script>
+</body>
+</html>

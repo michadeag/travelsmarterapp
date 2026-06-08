@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Checklist - TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2em;
+        }
+
+        .header p {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-download {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #059669;
+        }
+
+        .btn-print {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #2563eb;
+        }
+
+        .btn-back {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #4b5563;
+        }
+
+        .checklist {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .checklist-section {
+            margin-bottom: 30px;
+        }
+
+        .checklist-section h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f9fafb;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            background: #f0f4ff;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-label strong {
+            color: #667eea;
+        }
+
+        .progress-fill {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .upgrade-prompt h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-prompt p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upgrade-prompt a {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .upgrade-prompt a:hover {
+            transform: scale(1.05);
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header, .actions, .btn {
+                display: none !important;
+            }
+
+            .checklist {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .checklist-item input[type="checkbox"] {
+                accent-color: #000;
+            }
+
+            .progress-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 id="moduleName">Module Checklist</h1>
+                <p id="moduleDescription">Complete these steps to master this travel hacking module</p>
+            </div>
+            <div class="actions">
+                <button class="btn btn-download" onclick="downloadPDF()">📥 Download PDF</button>
+                <button class="btn btn-print" onclick="window.print()">🖨️ Print</button>
+                <button class="btn btn-back" onclick="goBack()">← Back</button>
+            </div>
+        </div>
+
+        <div id="upgrade-section" style="display: none;">
+            <div class="upgrade-prompt">
+                <h2>🔒 Smart Traveler & Elite Feature</h2>
+                <p>Module-Specific Checklists are available to Smart Traveler and Elite members</p>
+                <a href="sales-page.html">Upgrade Now →</a>
+            </div>
+        </div>
+
+        <div id="checklist-content" class="checklist"></div>
+    </div>
+
+    <script>
+        // Get module ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const moduleId = parseInt(urlParams.get('id')) || 1;
+
+        // Module data
+        const MODULE_NAMES = {
+            1: 'Flight Hacking',
+            2: 'Credit Cards',
+            3: 'Hotel Hacks',
+            4: 'Timing Intelligence',
+            5: 'Airport & Transit',
+            6: 'Destinations',
+            7: 'Car Rentals',
+            8: 'Community',
+            9: 'Travel Money',
+            10: 'Travel Insurance',
+            11: 'Visa & Immigration',
+            12: 'Accommodations',
+            13: 'Ground Transport',
+            14: 'Travel Bookings',
+            15: 'Food & Dining',
+            16: 'Shopping & VAT'
+        };
+
+        const CHECKLISTS = {
+            1: {
+                title: 'Flight Hacking Checklist',
+                description: 'Master flight booking strategies and save hundreds on airfare',
+                sections: [
+                    {
+                        title: 'Pre-Booking Research',
+                        items: [
+                            'Set up price alerts on Google Flights, Kayak, and Hopper',
+                            'Check historical price trends for your route (3-6 month history)',
+                            'Identify the best booking window (typically 1-3 months ahead)',
+                            'Compare prices across multiple search engines'
+                        ]
+                    },
+                    {
+                        title: 'Booking Strategy',
+                        items: [
+                            'Clear cookies and search in incognito mode',
+                            'Check Tuesday-Thursday for typically lower fares',
+                            'Look for flights departing mid-week (Tue-Thu)',
+                            'Consider flying into secondary airports for 20-40% savings',
+                            'Book early morning or late evening flights (red-eyes)'
+                        ]
+                    },
+                    {
+                        title: 'Advanced Tactics',
+                        items: [
+                            'Use award/miles for premium cabin upgrades',
+                            'Book one-way tickets separately if cheaper',
+                            'Set up alerts for your home airport constantly',
+                            'Join airline frequent flyer programs for alerts'
+                        ]
+                    }
+                ]
+            },
+            2: {
+                title: 'Credit Card Strategy Checklist',
+                description: 'Maximize rewards and sign-up bonuses for travel',
+                sections: [
+                    {
+                        title: 'Choosing the Right Cards',
+                        items: [
+                            'Research sign-up bonuses for your travel goals',
+                            'Compare annual fees vs rewards earned',
+                            'Check for free hotel/airline incidental credits',
+                            'Verify travel redemption rates (value per point)'
+                        ]
+                    },
+                    {
+                        title: 'Maximizing Sign-Up Bonuses',
+                        items: [
+                            'Open cards 3 months apart to avoid red flags',
+                            'Plan spending to hit minimum spend requirements naturally',
+                            'Stack sign-up bonuses across multiple cards',
+                            'Use shopping portals for additional points on purchases'
+                        ]
+                    },
+                    {
+                        title: 'Ongoing Optimization',
+                        items: [
+                            'Use categorized rewards on appropriate purchases',
+                            'Carry 3-5 cards for different reward categories',
+                            'Monitor annual fee anniversary dates',
+                            'Transfer points to airline partners strategically'
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: 'Hotel Hacking Checklist',
+                description: 'Secure better rates, upgrades, and perks at hotels',
+                sections: [
+                    {
+                        title: 'Booking Smart',
+                        items: [
+                            'Book direct on hotel websites for loyalty points',
+                            'Compare rates across Expedia, Booking.com, and official sites',
+                            'Check for price match guarantees and claim if needed',
+                            'Book during off-peak seasons for 30-50% discounts'
+                        ]
+                    },
+                    {
+                        title: 'Status & Upgrades',
+                        items: [
+                            'Join hotel loyalty programs (all free)',
+                            'Status match from credit cards or airline elite',
+                            'Mention special occasions at check-in politely',
+                            'Arrive early to maximize upgrade availability',
+                            'Request upper floors, away from elevators'
+                        ]
+                    },
+                    {
+                        title: 'Perks & Savings',
+                        items: [
+                            'Confirm free breakfast benefit with status',
+                            'Verify late checkout availability',
+                            'Maximize free room upgrades with elite status',
+                            'Use hotel credit from premium cards for incidentals'
+                        ]
+                    }
+                ]
+            },
+            4: {
+                title: 'Timing Intelligence Checklist',
+                description: 'Master when to book for maximum savings',
+                sections: [
+                    {
+                        title: 'Seasonal Awareness',
+                        items: [
+                            'Avoid peak travel seasons (summer, Dec holidays, spring break)',
+                            'Travel during shoulder seasons (Mar-May, Sep-Nov)',
+                            'Book holiday flights on the holiday itself (fewer travelers)',
+                            'Research low seasons for your destination'
+                        ]
+                    },
+                    {
+                        title: 'Booking Timing',
+                        items: [
+                            'Book 1-3 months in advance for domestic flights',
+                            'Book 2-3 months ahead for international flights',
+                            'Track prices for 2+ weeks before booking',
+                            'Set calendar reminder for best booking windows'
+                        ]
+                    },
+                    {
+                        title: 'Weekly & Daily Patterns',
+                        items: [
+                            'Search and book on Tuesday-Thursday',
+                            'Avoid Friday-Sunday bookings (prices peak)',
+                            'Check prices daily at same time (pricing varies)',
+                            'Book early morning (airline sales often released Tue morning)'
+                        ]
+                    }
+                ]
+            },
+            5: {
+                title: 'Airport & Transit Checklist',
+                description: 'Navigate airports efficiently and save on ground transportation',
+                sections: [
+                    {
+                        title: 'Pre-Flight Preparation',
+                        items: [
+                            'Enroll in TSA PreCheck ($78/5 years)',
+                            'Enroll in CLEAR (optional, for security bypass)',
+                            'Check in online exactly 24 hours before departure',
+                            'Choose best seat (online before flight day)'
+                        ]
+                    },
+                    {
+                        title: 'Airport Day Strategy',
+                        items: [
+                            'Arrive 2 hours early for domestic flights',
+                            'Use lounge access from credit cards or status',
+                            'Access free WiFi via airline/lounge/credit card',
+                            'Use airport apps to track security wait times'
+                        ]
+                    },
+                    {
+                        title: 'Ground Transportation',
+                        items: [
+                            'Use public transit to airport (€5-15 vs €30+ rideshare)',
+                            'Book rental cars from non-airport locations (20-30% cheaper)',
+                            'Decline rental car insurance (covered by credit card)',
+                            'Use rideshare only for late/early flights'
+                        ]
+                    }
+                ]
+            },
+            6: {
+                title: 'Destination Selection Checklist',
+                description: 'Choose budget-friendly destinations with great value',
+                sections: [
+                    {
+                        title: 'Research Phase',
+                        items: [
+                            'Create spreadsheet of potential destinations',
+                            'Research cost of living in each (food, transport, accommodation)',
+                            'Check peak/shoulder/low seasons for each',
+                            'Compare flight costs to different airports'
+                        ]
+                    },
+                    {
+                        title: 'Budget Destinations',
+                        items: [
+                            'Research Eastern Europe (Poland, Czech Republic, Hungary)',
+                            'Explore Southeast Asia (Vietnam, Thailand, Cambodia)',
+                            'Consider Portugal, Mexico, Philippines for value',
+                            'Check digital nomad visa options (Portugal, Estonia, Mexico)'
+                        ]
+                    },
+                    {
+                        title: 'Seasonal Planning',
+                        items: [
+                            'Identify shoulder seasons with good weather',
+                            'Avoid peak tourist seasons for same destination',
+                            'Plan around local holidays and festivals',
+                            'Book accommodation during low season for better rates'
+                        ]
+                    }
+                ]
+            },
+            7: {
+                title: 'Car Rental Checklist',
+                description: 'Rent cars cheaply and avoid unnecessary fees',
+                sections: [
+                    {
+                        title: 'Finding Best Rates',
+                        items: [
+                            'Book through Costco Travel (30-50% discount)',
+                            'Compare Autoslash, Kayak, Rentalcars.com',
+                            'Book at non-airport locations (save 20-50%)',
+                            'Pick up downtown if closer to your destination'
+                        ]
+                    },
+                    {
+                        title: 'Avoiding Fees',
+                        items: [
+                            'Decline rental company insurance (credit card covers it)',
+                            'Fill up before returning car (avoid €3+/liter charges)',
+                            'Document car condition with photos before leaving lot',
+                            'Verify no additional toll charges before pickup'
+                        ]
+                    },
+                    {
+                        title: 'Smart Practices',
+                        items: [
+                            'Use Autoslash to auto-rebook if prices drop',
+                            'Request free car upgrade at pickup',
+                            'Check for loyalty program discounts',
+                            'Compare per-day rates across multi-day rentals'
+                        ]
+                    }
+                ]
+            },
+            8: {
+                title: 'Community Engagement Checklist',
+                description: 'Leverage the Elite community for tips and advice',
+                sections: [
+                    {
+                        title: 'Getting Started',
+                        items: [
+                            'Introduce yourself in community discussions',
+                            'Share your travel goals and budget',
+                            'Ask specific questions about your upcoming trip',
+                            'Read existing discussions for common questions'
+                        ]
+                    },
+                    {
+                        title: 'Active Participation',
+                        items: [
+                            'Share successful travel hacks you\'ve used',
+                            'Upvote helpful replies from other members',
+                            'Reply with your own experience and tips',
+                            'Follow discussions relevant to your travel style'
+                        ]
+                    },
+                    {
+                        title: 'Building Connections',
+                        items: [
+                            'Find travel buddies for group discounts',
+                            'Exchange status match strategies with members',
+                            'Learn from others\' mistakes and successes',
+                            'Share credit card sign-up bonuses and timing tips'
+                        ]
+                    }
+                ]
+            },
+            9: {
+                title: 'Travel Money Checklist',
+                description: 'Manage money efficiently while traveling',
+                sections: [
+                    {
+                        title: 'Pre-Trip Setup',
+                        items: [
+                            'Notify your bank of travel dates',
+                            'Get a no-fee international debit card (Wise, Charles Schwab)',
+                            'Get a no-fee credit card (no foreign transaction fees)',
+                            'Research ATMs and banks at destination'
+                        ]
+                    },
+                    {
+                        title: 'Currency Management',
+                        items: [
+                            'Avoid airport currency exchange (5-10% markup)',
+                            'Use ATMs for local currency at real exchange rates',
+                            'Withdraw larger amounts to minimize ATM fees',
+                            'Use Wise for large transfers (better rates than banks)'
+                        ]
+                    },
+                    {
+                        title: 'Payment Strategy',
+                        items: [
+                            'Use credit card for major purchases (fraud protection)',
+                            'Use debit card for ATM withdrawals',
+                            'Carry small cash for tips and small purchases',
+                            'Track spending in spreadsheet for budgeting'
+                        ]
+                    }
+                ]
+            },
+            10: {
+                title: 'Travel Insurance Checklist',
+                description: 'Get comprehensive coverage at good rates',
+                sections: [
+                    {
+                        title: 'Insurance Options',
+                        items: [
+                            'Check credit card coverage first (many include basic protection)',
+                            'Compare annual vs single-trip policies',
+                            'Research SafetyWing, World Nomads, Allianz options',
+                            'Check what your employer offers'
+                        ]
+                    },
+                    {
+                        title: 'Coverage Essentials',
+                        items: [
+                            'Verify trip cancellation coverage and limits',
+                            'Check emergency medical evacuation coverage',
+                            'Confirm lost luggage reimbursement amounts',
+                            'Review pre-existing condition exclusions'
+                        ]
+                    },
+                    {
+                        title: 'Claims Preparation',
+                        items: [
+                            'Buy insurance within 14 days of booking (avoid pre-existing clauses)',
+                            'Keep receipts and documentation for claims',
+                            'Understand claim process and required documents',
+                            'Save policy document and claim phone numbers'
+                        ]
+                    }
+                ]
+            },
+            11: {
+                title: 'Visa & Immigration Checklist',
+                description: 'Navigate visa requirements smoothly',
+                sections: [
+                    {
+                        title: 'Passport & Visa Planning',
+                        items: [
+                            'Verify passport validity (6+ months required)',
+                            'Research visa requirements for each destination',
+                            'Check visa-free countries for your passport',
+                            'Explore visa-on-arrival options (Thailand, Turkey, Vietnam)'
+                        ]
+                    },
+                    {
+                        title: 'Digital Nomad Options',
+                        items: [
+                            'Research digital nomad visas (Portugal, Estonia, Mexico)',
+                            'Understand requirements (income threshold, documents)',
+                            'Compare costs vs tourist visa extensions',
+                            'Plan visa renewal strategy for extended stays'
+                        ]
+                    },
+                    {
+                        title: 'Documentation',
+                        items: [
+                            'Prepare visa application documents early',
+                            'Get travel insurance proof (sometimes required)',
+                            'Have hotel reservations ready',
+                            'Obtain recommendation letters if needed'
+                        ]
+                    }
+                ]
+            },
+            12: {
+                title: 'Accommodation Hacking Checklist',
+                description: 'Find and book great accommodations at best rates',
+                sections: [
+                    {
+                        title: 'Finding Options',
+                        items: [
+                            'Compare Airbnb, hotels, hostels, and house swaps',
+                            'Read recent reviews carefully (not just ratings)',
+                            'Verify location on map vs description',
+                            'Check cancellation policies before booking'
+                        ]
+                    },
+                    {
+                        title: 'Negotiating Discounts',
+                        items: [
+                            'Message Airbnb hosts directly before booking (often 10-20% off)',
+                            'Book 28+ days on Airbnb for automatic 20-40% discount',
+                            'Compare prices during low seasons',
+                            'Ask about weekly/monthly discounts for long stays'
+                        ]
+                    },
+                    {
+                        title: 'Smart Bookings',
+                        items: [
+                            'Prioritize entire homes with kitchens (save on food)',
+                            'Check for free breakfast at hostels',
+                            'Consider house swaps for free accommodation',
+                            'Watch for cleaning fee surprises on total cost'
+                        ]
+                    }
+                ]
+            },
+            13: {
+                title: 'Ground Transport Checklist',
+                description: 'Navigate local transportation efficiently and cheaply',
+                sections: [
+                    {
+                        title: 'Public Transportation',
+                        items: [
+                            'Get city tourist card with unlimited transit + attractions',
+                            'Buy weekly/monthly passes (40-50% cheaper than daily)',
+                            'Research app options for trip planning',
+                            'Keep receipts (may be needed for tourist card)'
+                        ]
+                    },
+                    {
+                        title: 'Budget Transportation',
+                        items: [
+                            'Walk and bike instead of using transit (free + explore city)',
+                            'Consider overnight buses/trains to save hotel nights',
+                            'Split rideshare with other travelers',
+                            'Use public transit instead of taxis'
+                        ]
+                    },
+                    {
+                        title: 'Long-Distance Travel',
+                        items: [
+                            'Compare flights vs train vs bus for intercity travel',
+                            'Book buses 1-2 weeks in advance for discounts',
+                            'Use flight search for budget airlines',
+                            'Check if overnight transit saves accommodation cost'
+                        ]
+                    }
+                ]
+            },
+            14: {
+                title: 'Travel Booking Checklist',
+                description: 'Find and book the best travel deals',
+                sections: [
+                    {
+                        title: 'Multi-Platform Search',
+                        items: [
+                            'Use Google Flights for price history and flexibility',
+                            'Use Skyscanner for budget airlines and hidden flights',
+                            'Use Kayak for price prediction and price tracking',
+                            'Always verify on airline website directly'
+                        ]
+                    },
+                    {
+                        title: 'Booking Strategy',
+                        items: [
+                            'Clear cookies before final booking',
+                            'Book flights and hotels separately (usually cheaper)',
+                            'Use cashback sites (Rakuten, TopCashback) for rebates',
+                            'Compare prices across multiple days (date flexibility)'
+                        ]
+                    },
+                    {
+                        title: 'Maximizing Value',
+                        items: [
+                            'Book one-way if cheaper than roundtrip',
+                            'Use credit card protections for booking',
+                            'Keep search history and prices for complaints',
+                            'Set alerts for flash sales on booking sites'
+                        ]
+                    }
+                ]
+            },
+            15: {
+                title: 'Food & Dining Checklist',
+                description: 'Eat well while traveling on a budget',
+                sections: [
+                    {
+                        title: 'Eating Cheap',
+                        items: [
+                            'Eat where locals eat, not in tourist areas',
+                            'Choose street food and market stalls (€1-3 meals)',
+                            'Eat lunch as main meal (dinner is 30-50% cheaper)',
+                            'Skip fancy restaurants and tourist traps'
+                        ]
+                    },
+                    {
+                        title: 'Finding Great Food',
+                        items: [
+                            'Research local specialties before trip',
+                            'Ask hotel staff where they eat (not tourists)',
+                            'Use Google Maps to find highest-rated local restaurants',
+                            'Join local food tours for recommendations'
+                        ]
+                    },
+                    {
+                        title: 'Happy Hour Strategy',
+                        items: [
+                            'Research restaurant happy hours (usually 4-8pm)',
+                            'Get 50% off drinks and appetizers',
+                            'Make appetizers your main meal',
+                            'Eat early for 2-for-1 or early-bird deals'
+                        ]
+                    }
+                ]
+            },
+            16: {
+                title: 'Shopping & VAT Checklist',
+                description: 'Shop smart and claim tax refunds while traveling',
+                sections: [
+                    {
+                        title: 'VAT Refunds',
+                        items: [
+                            'Research VAT refund eligibility (usually 15-25%)',
+                            'Shop at stores with Tax Free Shopping signs',
+                            'Make single purchases over €50-100 threshold',
+                            'Claim refund at airport before departure'
+                        ]
+                    },
+                    {
+                        title: 'Smart Shopping',
+                        items: [
+                            'Shop duty-free on exit (tax-free, not just duty-free)',
+                            'Use outlet malls outside cities for 40-60% discounts',
+                            'Shop local markets for 50-70% vs tourist shops',
+                            'Negotiate prices at markets (especially in Asia)'
+                        ]
+                    },
+                    {
+                        title: 'Timing Purchases',
+                        items: [
+                            'Shop during January and July sales (40-70% discounts)',
+                            'Avoid peak shopping seasons (June, December)',
+                            'Ask for discounts if buying multiple items',
+                            'Compare prices before negotiating'
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // Load checklist on page load
+        document.addEventListener('DOMContentLoaded', loadChecklist);
+
+        async function loadChecklist() {
+            try {
+                // Check user tier
+                const token = localStorage.getItem('userToken');
+                if (!token) {
+                    showUpgradePrompt();
+                    return;
+                }
+
+                const response = await fetch('https://api.travelsmarterapp.com/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                const userTier = (data.user?.subscriptionTier || 'free').toLowerCase();
+
+                // Check if user has access (Smart Traveler or Elite)
+                if (userTier !== 'smart traveler' && userTier !== 'smarttraveler' && userTier !== 'elite') {
+                    showUpgradePrompt();
+                    return;
+                }
+
+                // Load checklist
+                displayChecklist();
+            } catch (error) {
+                console.error('Error checking tier:', error);
+                showUpgradePrompt();
+            }
+        }
+
+        function displayChecklist() {
+            const checklist = CHECKLISTS[moduleId];
+            if (!checklist) {
+                document.getElementById('moduleName').textContent = 'Module Not Found';
+                return;
+            }
+
+            // Update header
+            document.getElementById('moduleName').textContent = checklist.title;
+            document.getElementById('moduleDescription').textContent = checklist.description;
+
+            // Build checklist HTML
+            const contentDiv = document.getElementById('checklist-content');
+            let totalItems = 0;
+            let html = '';
+
+            for (const section of checklist.sections) {
+                html += `<div class="checklist-section">
+                    <h3>${section.title}</h3>`;
+
+                for (const item of section.items) {
+                    const itemId = `item-${totalItems}`;
+                    html += `
+                        <div class="checklist-item">
+                            <input type="checkbox" id="${itemId}" onchange="updateProgress()">
+                            <label for="${itemId}">${item}</label>
+                        </div>`;
+                    totalItems++;
+                }
+
+                html += '</div>';
+            }
+
+            // Add progress bar
+            html += `
+                <div class="progress-bar">
+                    <div class="progress-label">
+                        <span>Progress:</span>
+                        <strong><span id="progress-text">0%</span></strong>
+                    </div>
+                    <div class="progress-fill">
+                        <div class="progress-bar-inner" id="progress-bar"></div>
+                    </div>
+                </div>`;
+
+            contentDiv.innerHTML = html;
+
+            // Store total items for progress calculation
+            window.totalItems = totalItems;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percentage = Math.round((checked / window.totalItems) * 100);
+
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+
+            // Save progress to localStorage
+            localStorage.setItem(`checklist-${moduleId}`, JSON.stringify(
+                Array.from(checkboxes).map(cb => cb.checked)
+            ));
+        }
+
+        function showUpgradePrompt() {
+            document.getElementById('checklist-content').style.display = 'none';
+            document.getElementById('upgrade-section').style.display = 'block';
+        }
+
+        function downloadPDF() {
+            alert('📥 Download feature coming soon! For now, use the Print button to save as PDF.');
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Load saved progress on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem(`checklist-${moduleId}`);
+            if (saved) {
+                const states = JSON.parse(saved);
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((cb, i) => {
+                    if (states[i]) cb.checked = true;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

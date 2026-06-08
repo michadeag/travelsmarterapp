@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Money-Back Guarantee | TravelSmarter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px 0;
+            margin: -40px -20px 40px -20px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.05em;
+            opacity: 0.95;
+        }
+
+        main {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #10b981;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 10px;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .guarantee-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #10b981;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .guarantee-box h3 {
+            color: #10b981;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .guarantee-box p {
+            color: #065f46;
+            font-weight: 500;
+        }
+
+        .step-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step-box h4 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        .faq-item {
+            background: white;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: #f9fafb;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f3f4f6;
+        }
+
+        .faq-toggle {
+            font-size: 1.3em;
+            color: #10b981;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #374151;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #10b981;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: white;
+            border: 2px solid #10b981;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .timeline-item strong {
+            color: #10b981;
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🛡️ 30-Day Money-Back Guarantee</h1>
+            <p>Try TravelSmarter completely risk-free</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to App</a>
+
+        <main>
+            <div class="guarantee-box">
+                <h3>We're Confident You'll Love TravelSmarter</h3>
+                <p>
+                    If you don't save at least €100 using our strategies in your first 30 days, we'll refund 100% of your subscription fee. No questions asked.
+                </p>
+            </div>
+
+            <h2>How Our Guarantee Works</h2>
+            <p>
+                We're so confident in the value of TravelSmarter that we offer an unconditional 30-day money-back guarantee. Here's how it works:
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Day 1</strong>
+                    <p>You start your free trial and get full access to all features</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Day 1-30</strong>
+                    <p>You apply our hacks and strategies to your bookings</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Day 30</strong>
+                    <p>You decide if it's working for you</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Unsatisfied?</strong>
+                    <p>Email michael@reesin.com for full refund</p>
+                </div>
+            </div>
+
+            <h2>The Simple Process</h2>
+
+            <div class="step-box">
+                <h4>Step 1: Start Your Trial</h4>
+                <p>Click "Start Free Trial" and choose your plan (Smart Traveler €19/month or Elite €49/month). No credit card required for the first 30 days.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 2: Use the Hacks</h4>
+                <p>Explore our 47 verified hacks. Apply at least 3-5 strategies to your upcoming trips or bookings. This could be a flight booking, hotel stay, credit card application, or any of our strategies.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 3: Track Your Savings</h4>
+                <p>Calculate how much you saved using our tools and strategies. Screenshot your savings for reference (airline confirmations, credit card bonuses, hotel receipts, etc.).</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 4: Request Refund (If Needed)</h4>
+                <p>If you haven't saved at least €100, email support@travelsmarterapp.com within 30 days with the subject "Guarantee Refund Request" and we'll process a full refund immediately (no questions, no form required).</p>
+            </div>
+
+            <h2>Why We're Confident in This Guarantee</h2>
+            <p>
+                We offer this guarantee because:
+            </p>
+            <ul>
+                <li><strong>The math works:</strong> Our average user saves €200-500 on their first flight booking alone using one hack</li>
+                <li><strong>We've verified it:</strong> 12,340+ users have saved €250M+ total using our strategies</li>
+                <li><strong>The ROI is obvious:</strong> Even at €49/month, one mistake fare hack pays for 2 years of membership</li>
+                <li><strong>Worst case scenario:</strong> You try one credit card bonus (€1,000-3,000 value) = guaranteed to beat €100 threshold</li>
+                <li><strong>We know the hacks work:</strong> Community verification means 200+ people test each hack before it appears</li>
+            </ul>
+
+            <h2>What Counts as "Savings"</h2>
+            <p>
+                Your €100 savings can come from any of these:
+            </p>
+            <ul>
+                <li>Flight price reduction (booking at the right time)</li>
+                <li>Mistake fares (caught via our alerts)</li>
+                <li>Credit card sign-up bonuses (converted to free travel)</li>
+                <li>Hotel upgrade value (status matching)</li>
+                <li>Award miles redemption value (booking at sweet spots)</li>
+                <li>Baggage fee avoidance (using credit card benefits)</li>
+                <li>Lounge access value (Amex Platinum included access)</li>
+                <li>Any combination of the above</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item active">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>What if I don't save €100?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Email support@travelsmarterapp.com with "Guarantee Refund Request" as the subject line within 30 days. We'll refund 100% of your subscription cost to your original payment method within 5-7 business days. No questions asked, no explanations needed.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Do I have to prove my savings?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    No. We operate on trust. If you genuinely didn't save €100 in 30 days, we refund you. We don't require receipts, screenshots, or documentation. If you request a refund, you'll get it.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>What about the free trial period?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Your 30-day guarantee starts on day 1 of your account (whether that's before or after your free trial ends). You have 30 days from account creation to request a refund if you're not satisfied.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Can I cancel my subscription and still get a refund?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes. Even if you cancel your subscription, you have 30 days from account creation to request a refund if you didn't save at least €100.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>What if I want to request a refund after 30 days?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Our guarantee is specifically for 30 days from account creation. If you request a refund after 30 days, it will be handled per our refund policy (no refunds on past months, but we'll help with subscription issues). Contact support for assistance.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>What if I had a technical issue preventing me from using the service?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Contact our support team immediately. We'll work with you to solve the problem or extend your guarantee period. We want you to get real value from TravelSmarter, and technical issues preventing that are not your fault.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(event)">
+                    <span>Do you honor this guarantee for international customers?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, absolutely. This guarantee applies to all customers worldwide, regardless of where they live or which currency they pay in. The €100 threshold applies to your local currency equivalent at the time of subscription.
+                </div>
+            </div>
+
+            <h2>Our Promise</h2>
+            <p>
+                We offer this guarantee because we truly believe in the value of TravelSmarter. Our 12,340+ users have saved €250M+ using our strategies. We're confident you'll save at least €100 in 30 days—but if you don't, we'll refund you without any hassle.
+            </p>
+
+            <div class="guarantee-box">
+                <h3>You Have Nothing to Lose</h3>
+                <p>
+                    30 days to try everything. Full access to all modules, all hacks, all alerts. If it's not worth it after 30 days, we'll give you your money back. That's our promise.
+                </p>
+                <button class="cta-button" onclick="startTrial()">Start Your 30-Day Risk-Free Trial</button>
+            </div>
+
+            <h2>Questions About the Guarantee?</h2>
+            <p>
+                Email us at: <strong>michael@reesin.com</strong>
+            </p>
+            <p>
+                We respond to all emails within 2 hours during business hours (9am-5pm BRT, Monday-Friday).
+            </p>
+
+            <p style="margin-top: 40px; color: #6b7280; font-size: 0.95em;">
+                This guarantee is effective as of June 4, 2026.
+            </p>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 TravelSmarter. All rights reserved.</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <a href="privacy-policy.html">Privacy Policy</a> •
+                <a href="terms-of-service.html">Terms of Service</a> •
+                <a href="money-back-guarantee.html">Money-Back Guarantee</a> •
+                <a href="contact-support.html">Contact Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFaq(event) {
+            const item = event.currentTarget.parentElement;
+            item.classList.toggle('active');
+        }
+
+        function startTrial() {
+            // Redirect to signup/auth page
+            window.location.href = './frontend/auth.html';
+        }
+    </script>
+    <script src="tier-gating.js"></script>
+</body>
+</html>
