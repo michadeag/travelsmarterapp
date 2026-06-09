@@ -1298,6 +1298,41 @@
             // Also add buttons at the END of the page
             const footer = document.querySelector('footer') || document.body;
             footer.parentNode.insertBefore(createUpgradeButtons(), footer);
+
+            // Add clickable link at the very bottom
+            const linkWrapper = document.createElement('div');
+            linkWrapper.style.cssText = `
+                text-align: center;
+                padding: 30px 20px;
+                margin-top: 40px;
+                border-top: 1px solid #e5e7eb;
+                background: #f9fafb;
+            `;
+
+            const link = document.createElement('a');
+            link.href = 'https://travelsmarterapp.com/checkout.html?tier=elite';
+            link.textContent = 'https://travelsmarterapp.com/cheat-sheet.html';
+            link.style.cssText = `
+                color: #667eea;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                display: inline-block;
+                cursor: pointer;
+            `;
+
+            link.onmouseover = function() {
+                this.style.color = '#764ba2';
+                this.style.textDecoration = 'underline';
+            };
+            link.onmouseout = function() {
+                this.style.color = '#667eea';
+                this.style.textDecoration = 'none';
+            };
+
+            linkWrapper.appendChild(link);
+            document.body.appendChild(linkWrapper);
         });
     </script>
 </body>
