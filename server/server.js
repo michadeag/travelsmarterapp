@@ -614,6 +614,7 @@ async function seedCommunityDiscussions() {
 // Initialize database tables and settings on startup
 async function initializeApp() {
   try {
+    console.log('🚀 TravelSmarter Backend v2.0 — Reddit/LinkedIn/Pinterest/Instagram/WordPress/Blogger/Quora enabled');
     console.log('🔧 Initializing database...');
 
     // Create all required tables FIRST
