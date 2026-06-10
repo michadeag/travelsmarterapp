@@ -9,6 +9,7 @@ const hackUpdateService = require('./services/hackUpdateService');
 const redditService = require('./services/redditService');
 const linkedinService = require('./services/linkedinService');
 const pinterestService = require('./services/pinterestService');
+const instagramService = require('./services/instagramService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -29,6 +30,7 @@ const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
 const redditRoutes = require('./routes/redditRoutes');
 const linkedinRoutes = require('./routes/linkedinRoutes');
 const pinterestRoutes = require('./routes/pinterestRoutes');
+const instagramRoutes = require('./routes/instagramRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -147,6 +149,7 @@ app.use('/api/email-templates', emailTemplateRoutes);
 app.use('/api/reddit', redditRoutes);
 app.use('/api/linkedin', linkedinRoutes);
 app.use('/api/pinterest', pinterestRoutes);
+app.use('/api/instagram', instagramRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -953,6 +956,21 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_pinterest_posts_posted_at ON pinterest_posts(posted_at DESC);
+
+      -- Instagram posts log
+      CREATE TABLE IF NOT EXISTS instagram_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title VARCHAR(300),
+        category VARCHAR(50),
+        image_url TEXT,
+        caption TEXT,
+        post_id VARCHAR(255),
+        included_cta BOOLEAN DEFAULT false,
+        status VARCHAR(50) DEFAULT 'posted',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_instagram_posts_posted_at ON instagram_posts(posted_at DESC);
     `;
 
     try {
@@ -982,6 +1000,22 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize Instagram service and auto-start scheduler if configured
+    try {
+      const instagramConfigured = await instagramService.loadSettings();
+      if (instagramConfigured) {
+        console.log('✅ Instagram service initialized');
+        if (instagramService.credentials.autoPosting) {
+          instagramService.startScheduler();
+          console.log('✅ Instagram auto-posting scheduler started');
+        }
+      } else {
+        console.log('ℹ️ Instagram not configured — add credentials in Settings');
+      }
+    } catch (igErr) {
+      console.warn('⚠️ Instagram service init failed (non-blocking):', igErr.message);
+    }
 
     // Initialize Pinterest service and auto-start scheduler if configured
     try {
