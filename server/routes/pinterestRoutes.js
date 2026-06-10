@@ -14,7 +14,19 @@ router.get('/status', async (req, res) => {
 router.post('/reload-settings', async (req, res) => {
   try {
     const configured = await pinterestService.loadSettings();
-    res.json({ success: true, configured });
+    const c = pinterestService.credentials;
+    res.json({
+      success: true,
+      configured,
+      debug: {
+        hasAccessToken: !!c.accessToken,
+        accessTokenLength: c.accessToken?.length || 0,
+        hasBoardId: !!c.boardId,
+        boardId: c.boardId || null,
+        hasIdeogramKey: !!c.ideogramKey,
+        ideogramKeyLength: c.ideogramKey?.length || 0
+      }
+    });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
