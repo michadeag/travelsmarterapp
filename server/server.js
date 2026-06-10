@@ -10,6 +10,7 @@ const redditService = require('./services/redditService');
 const linkedinService = require('./services/linkedinService');
 const pinterestService = require('./services/pinterestService');
 const instagramService = require('./services/instagramService');
+const mediumService = require('./services/mediumService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -31,6 +32,7 @@ const redditRoutes = require('./routes/redditRoutes');
 const linkedinRoutes = require('./routes/linkedinRoutes');
 const pinterestRoutes = require('./routes/pinterestRoutes');
 const instagramRoutes = require('./routes/instagramRoutes');
+const mediumRoutes = require('./routes/mediumRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -150,6 +152,7 @@ app.use('/api/reddit', redditRoutes);
 app.use('/api/linkedin', linkedinRoutes);
 app.use('/api/pinterest', pinterestRoutes);
 app.use('/api/instagram', instagramRoutes);
+app.use('/api/medium', mediumRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -971,6 +974,22 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_instagram_posts_posted_at ON instagram_posts(posted_at DESC);
+
+      -- Medium posts log
+      CREATE TABLE IF NOT EXISTS medium_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title VARCHAR(300),
+        body TEXT,
+        category VARCHAR(50),
+        tags VARCHAR(500),
+        medium_id VARCHAR(255),
+        medium_url TEXT,
+        included_cta BOOLEAN DEFAULT false,
+        status VARCHAR(50) DEFAULT 'published',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_medium_posts_posted_at ON medium_posts(posted_at DESC);
     `;
 
     try {
@@ -1000,6 +1019,22 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize Medium service and auto-start scheduler if configured
+    try {
+      const mediumConfigured = await mediumService.loadSettings();
+      if (mediumConfigured) {
+        console.log('✅ Medium service initialized');
+        if (mediumService.credentials.autoPosting) {
+          mediumService.startScheduler();
+          console.log('✅ Medium auto-posting scheduler started');
+        }
+      } else {
+        console.log('ℹ️ Medium not configured — add Integration Token in Settings');
+      }
+    } catch (mediumErr) {
+      console.warn('⚠️ Medium service init failed (non-blocking):', mediumErr.message);
+    }
 
     // Initialize Instagram service and auto-start scheduler if configured
     try {
