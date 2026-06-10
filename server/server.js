@@ -11,6 +11,7 @@ const linkedinService = require('./services/linkedinService');
 const pinterestService = require('./services/pinterestService');
 const instagramService = require('./services/instagramService');
 const mediumService = require('./services/mediumService');
+const quoraService = require('./services/quoraService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -33,6 +34,7 @@ const linkedinRoutes = require('./routes/linkedinRoutes');
 const pinterestRoutes = require('./routes/pinterestRoutes');
 const instagramRoutes = require('./routes/instagramRoutes');
 const mediumRoutes = require('./routes/mediumRoutes');
+const quoraRoutes = require('./routes/quoraRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -153,6 +155,7 @@ app.use('/api/linkedin', linkedinRoutes);
 app.use('/api/pinterest', pinterestRoutes);
 app.use('/api/instagram', instagramRoutes);
 app.use('/api/medium', mediumRoutes);
+app.use('/api/quora', quoraRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -990,6 +993,18 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_medium_posts_posted_at ON medium_posts(posted_at DESC);
+
+      -- Quora generated answers
+      CREATE TABLE IF NOT EXISTS quora_answers (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        question TEXT,
+        answer TEXT,
+        category VARCHAR(50),
+        included_cta BOOLEAN DEFAULT false,
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_quora_answers_posted_at ON quora_answers(posted_at DESC);
     `;
 
     try {
@@ -1019,6 +1034,14 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize Quora service (content generator — no scheduler)
+    try {
+      await quoraService.loadSettings();
+      console.log('✅ Quora content generator initialized');
+    } catch (quoraErr) {
+      console.warn('⚠️ Quora service init failed (non-blocking):', quoraErr.message);
+    }
 
     // Initialize Medium service and auto-start scheduler if configured
     try {
