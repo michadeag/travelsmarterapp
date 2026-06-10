@@ -96,6 +96,89 @@ router.get('/activities', async (req, res) => {
   }
 });
 
+// Analytics summary — user metrics + all social media platform stats
+router.get('/analytics/summary', async (req, res) => {
+  try {
+    const pool = require('../config/database');
+
+    // User stats
+    const usersResult = await pool.query(`
+      SELECT
+        COUNT(*) AS total_users,
+        COUNT(*) FILTER (WHERE created_at >= date_trunc('month', NOW())) AS signups_this_month,
+        COUNT(*) FILTER (WHERE created_at >= date_trunc('month', NOW()) - INTERVAL '1 month'
+                           AND created_at <  date_trunc('month', NOW())) AS signups_last_month,
+        COUNT(*) FILTER (WHERE subscription_tier IN ('smart_traveler','elite')) AS paid_users,
+        COUNT(*) FILTER (WHERE subscription_tier = 'elite') AS elite_users
+      FROM users
+    `);
+    const u = usersResult.rows[0];
+
+    // Social media stats per platform
+    const platforms = [
+      { key: 'reddit',    table: 'reddit_posts',    dateCol: 'posted_at' },
+      { key: 'linkedin',  table: 'linkedin_posts',  dateCol: 'posted_at' },
+      { key: 'pinterest', table: 'pinterest_posts', dateCol: 'posted_at' },
+      { key: 'instagram', table: 'instagram_posts', dateCol: 'posted_at' },
+      { key: 'medium',    table: 'medium_posts',    dateCol: 'posted_at' },
+      { key: 'blogger',   table: 'blogger_posts',   dateCol: 'posted_at' },
+      { key: 'quora',     table: 'quora_answers',   dateCol: 'posted_at' },
+    ];
+
+    const socialStats = {};
+    let totalPosts = 0;
+    let totalCTA = 0;
+
+    for (const p of platforms) {
+      try {
+        const r = await pool.query(`
+          SELECT
+            COUNT(*) AS total,
+            COUNT(*) FILTER (WHERE ${p.dateCol} >= date_trunc('month', NOW())) AS this_month,
+            COUNT(*) FILTER (WHERE included_cta = true) AS with_cta
+          FROM ${p.table}
+        `);
+        const row = r.rows[0];
+        socialStats[p.key] = {
+          total: parseInt(row.total) || 0,
+          thisMonth: parseInt(row.this_month) || 0,
+          withCTA: parseInt(row.with_cta) || 0
+        };
+        totalPosts += parseInt(row.total) || 0;
+        totalCTA += parseInt(row.with_cta) || 0;
+      } catch {
+        socialStats[p.key] = { total: 0, thisMonth: 0, withCTA: 0 };
+      }
+    }
+
+    const signupsThisMonth = parseInt(u.signups_this_month) || 0;
+    const signupsLastMonth = parseInt(u.signups_last_month) || 0;
+    const signupChange = signupsLastMonth > 0
+      ? Math.round(((signupsThisMonth - signupsLastMonth) / signupsLastMonth) * 100)
+      : null;
+
+    res.json({
+      success: true,
+      users: {
+        total: parseInt(u.total_users) || 0,
+        signupsThisMonth,
+        signupsLastMonth,
+        signupChange,
+        paid: parseInt(u.paid_users) || 0,
+        elite: parseInt(u.elite_users) || 0
+      },
+      social: {
+        totalPosts,
+        totalCTA,
+        platforms: socialStats
+      }
+    });
+  } catch (err) {
+    console.error('Analytics error:', err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Public endpoint to get Stripe publishable key (for checkout page)
 router.get('/config/stripe-key', async (req, res) => {
   try {
