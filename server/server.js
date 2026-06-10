@@ -7,6 +7,7 @@ const pool = require('./config/database');
 const emailSequenceService = require('./services/emailSequenceService');
 const hackUpdateService = require('./services/hackUpdateService');
 const redditService = require('./services/redditService');
+const linkedinService = require('./services/linkedinService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -25,6 +26,7 @@ const eliteStatusRoutes = require('./routes/eliteStatusRoutes');
 // Email template routes
 const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
 const redditRoutes = require('./routes/redditRoutes');
+const linkedinRoutes = require('./routes/linkedinRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -141,6 +143,7 @@ app.use('/api/contact', contactRoutes);
 // Email template routes
 app.use('/api/email-templates', emailTemplateRoutes);
 app.use('/api/reddit', redditRoutes);
+app.use('/api/linkedin', linkedinRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -919,6 +922,19 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_reddit_posts_posted_at ON reddit_posts(posted_at DESC);
+
+      -- LinkedIn posts log
+      CREATE TABLE IF NOT EXISTS linkedin_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        body TEXT,
+        category VARCHAR(50),
+        included_cta BOOLEAN DEFAULT false,
+        linkedin_post_id VARCHAR(255),
+        status VARCHAR(50) DEFAULT 'posted',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_linkedin_posts_posted_at ON linkedin_posts(posted_at DESC);
     `;
 
     try {
@@ -948,6 +964,22 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize LinkedIn service and auto-start scheduler if configured
+    try {
+      const linkedinConfigured = await linkedinService.loadSettings();
+      if (linkedinConfigured) {
+        console.log('✅ LinkedIn service initialized');
+        if (linkedinService.credentials.autoPosting) {
+          linkedinService.startScheduler();
+          console.log('✅ LinkedIn auto-posting scheduler started');
+        }
+      } else {
+        console.log('ℹ️ LinkedIn not configured — add credentials in Settings');
+      }
+    } catch (linkedinErr) {
+      console.warn('⚠️ LinkedIn service init failed (non-blocking):', linkedinErr.message);
+    }
 
     // Initialize Reddit service and auto-start scheduler if configured
     try {
