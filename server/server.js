@@ -34,6 +34,7 @@ const linkedinRoutes = require('./routes/linkedinRoutes');
 const pinterestRoutes = require('./routes/pinterestRoutes');
 const instagramRoutes = require('./routes/instagramRoutes');
 const mediumRoutes = require('./routes/mediumRoutes');
+const wordpressRoutes = require('./routes/wordpressRoutes');
 const quoraRoutes = require('./routes/quoraRoutes');
 const bloggerRoutes = require('./routes/bloggerRoutes');
 
@@ -156,6 +157,7 @@ app.use('/api/linkedin', linkedinRoutes);
 app.use('/api/pinterest', pinterestRoutes);
 app.use('/api/instagram', instagramRoutes);
 app.use('/api/medium', mediumRoutes);
+app.use('/api/wordpress', wordpressRoutes);
 app.use('/api/quora', quoraRoutes);
 app.use('/api/blogger', bloggerRoutes);
 
@@ -1022,6 +1024,21 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_blogger_posts_posted_at ON blogger_posts(posted_at DESC);
+
+      -- WordPress.com published posts
+      CREATE TABLE IF NOT EXISTS wordpress_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title TEXT,
+        body TEXT,
+        category VARCHAR(100),
+        wp_post_id VARCHAR(255),
+        wp_url TEXT,
+        included_cta BOOLEAN DEFAULT false,
+        status VARCHAR(50) DEFAULT 'published',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_wordpress_posts_posted_at ON wordpress_posts(posted_at DESC);
     `;
 
     try {

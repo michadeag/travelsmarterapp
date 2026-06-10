@@ -120,7 +120,7 @@ router.get('/analytics/summary', async (req, res) => {
       { key: 'linkedin',  table: 'linkedin_posts',  dateCol: 'posted_at' },
       { key: 'pinterest', table: 'pinterest_posts', dateCol: 'posted_at' },
       { key: 'instagram', table: 'instagram_posts', dateCol: 'posted_at' },
-      { key: 'medium',    table: 'medium_posts',    dateCol: 'posted_at' },
+      { key: 'wordpress', table: 'wordpress_posts',  dateCol: 'posted_at' },
       { key: 'blogger',   table: 'blogger_posts',   dateCol: 'posted_at' },
       { key: 'quora',     table: 'quora_answers',   dateCol: 'posted_at' },
     ];
