@@ -6,6 +6,7 @@ require('dotenv').config();
 const pool = require('./config/database');
 const emailSequenceService = require('./services/emailSequenceService');
 const hackUpdateService = require('./services/hackUpdateService');
+const redditService = require('./services/redditService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -23,6 +24,7 @@ const eliteStatusRoutes = require('./routes/eliteStatusRoutes');
 
 // Email template routes
 const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
+const redditRoutes = require('./routes/redditRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -138,6 +140,7 @@ app.use('/api/contact', contactRoutes);
 
 // Email template routes
 app.use('/api/email-templates', emailTemplateRoutes);
+app.use('/api/reddit', redditRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -901,6 +904,21 @@ async function initializeApp() {
 
       CREATE INDEX IF NOT EXISTS idx_elite_progress_user ON user_elite_progress(user_id);
       CREATE INDEX IF NOT EXISTS idx_elite_progress_program ON user_elite_progress(program_type, program_name);
+
+      -- Reddit posts log
+      CREATE TABLE IF NOT EXISTS reddit_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title VARCHAR(300),
+        body TEXT,
+        subreddit VARCHAR(100),
+        category VARCHAR(50),
+        included_cta BOOLEAN DEFAULT false,
+        reddit_url VARCHAR(500),
+        status VARCHAR(50) DEFAULT 'posted',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_reddit_posts_posted_at ON reddit_posts(posted_at DESC);
     `;
 
     try {
@@ -930,6 +948,22 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize Reddit service and auto-start scheduler if configured
+    try {
+      const redditConfigured = await redditService.loadSettings();
+      if (redditConfigured) {
+        console.log('✅ Reddit service initialized');
+        if (redditService.credentials.autoPosting) {
+          redditService.startScheduler();
+          console.log('✅ Reddit auto-posting scheduler started');
+        }
+      } else {
+        console.log('ℹ️ Reddit not configured — add credentials in Settings');
+      }
+    } catch (redditErr) {
+      console.warn('⚠️ Reddit service init failed (non-blocking):', redditErr.message);
+    }
 
     // Seed default email sequence
     await emailSequenceService.seedEmailSequence().catch(err => {
