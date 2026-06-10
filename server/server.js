@@ -8,6 +8,7 @@ const emailSequenceService = require('./services/emailSequenceService');
 const hackUpdateService = require('./services/hackUpdateService');
 const redditService = require('./services/redditService');
 const linkedinService = require('./services/linkedinService');
+const pinterestService = require('./services/pinterestService');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -27,6 +28,7 @@ const eliteStatusRoutes = require('./routes/eliteStatusRoutes');
 const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
 const redditRoutes = require('./routes/redditRoutes');
 const linkedinRoutes = require('./routes/linkedinRoutes');
+const pinterestRoutes = require('./routes/pinterestRoutes');
 
 // Import controllers
 const SettingsController = require('./controllers/settingsController');
@@ -144,6 +146,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/email-templates', emailTemplateRoutes);
 app.use('/api/reddit', redditRoutes);
 app.use('/api/linkedin', linkedinRoutes);
+app.use('/api/pinterest', pinterestRoutes);
 
 // Diagnostic endpoint - updated Jun 6 21:57
 app.get('/api/test/version', (req, res) => {
@@ -935,6 +938,21 @@ async function initializeApp() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_linkedin_posts_posted_at ON linkedin_posts(posted_at DESC);
+
+      -- Pinterest posts log
+      CREATE TABLE IF NOT EXISTS pinterest_posts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title VARCHAR(300),
+        category VARCHAR(50),
+        image_url TEXT,
+        description TEXT,
+        pin_id VARCHAR(255),
+        included_cta BOOLEAN DEFAULT false,
+        status VARCHAR(50) DEFAULT 'posted',
+        posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_pinterest_posts_posted_at ON pinterest_posts(posted_at DESC);
     `;
 
     try {
@@ -964,6 +982,22 @@ async function initializeApp() {
     await SettingsController.initializeTable();
     await SettingsController.initializeDefaults();
     console.log('✅ Settings initialized');
+
+    // Initialize Pinterest service and auto-start scheduler if configured
+    try {
+      const pinterestConfigured = await pinterestService.loadSettings();
+      if (pinterestConfigured) {
+        console.log('✅ Pinterest service initialized');
+        if (pinterestService.credentials.autoPosting) {
+          pinterestService.startScheduler();
+          console.log('✅ Pinterest auto-posting scheduler started');
+        }
+      } else {
+        console.log('ℹ️ Pinterest not configured — add credentials in Settings');
+      }
+    } catch (pinterestErr) {
+      console.warn('⚠️ Pinterest service init failed (non-blocking):', pinterestErr.message);
+    }
 
     // Initialize LinkedIn service and auto-start scheduler if configured
     try {
