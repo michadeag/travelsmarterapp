@@ -184,8 +184,7 @@ class PinterestService {
         image_request: {
           prompt,
           model: 'V_2',
-          width: 1024,
-          height: 1536,
+          resolution: 'RESOLUTION_1024_1536',
           style_type: 'DESIGN',
           magic_prompt_option: 'OFF'
         }
