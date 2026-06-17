@@ -185,6 +185,7 @@ class PinterestService {
           prompt,
           model: 'V_2',
           aspect_ratio: 'ASPECT_2_3',
+          resolution: 'RESOLUTION_1024_1536',
           style_type: 'DESIGN',
           magic_prompt_option: 'OFF'
         }
