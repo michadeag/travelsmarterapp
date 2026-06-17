@@ -183,11 +183,10 @@ class PinterestService {
       const response = await axios.post(
         'https://api.openai.com/v1/images/generations',
         {
-          model: 'dall-e-3',
+          model: 'gpt-image-1',
           prompt,
           n: 1,
-          size: '1024x1792',
-          quality: 'standard'
+          size: '1024x1536'
         },
         {
           headers: {
