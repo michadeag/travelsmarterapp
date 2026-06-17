@@ -182,21 +182,15 @@ class PinterestService {
     if (this.credentials.openaiKey) {
       const response = await axios.post(
         'https://api.openai.com/v1/images/generations',
+        { model: 'gpt-image-1', prompt, n: 1, size: '1024x1536' },
         {
-          model: 'gpt-image-1',
-          prompt,
-          n: 1,
-          size: '1024x1536'
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${this.credentials.openaiKey}`,
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Authorization': `Bearer ${this.credentials.openaiKey}`, 'Content-Type': 'application/json' },
+          timeout: 120000
         }
       );
-      const imageUrl = response.data?.data?.[0]?.url;
-      if (!imageUrl) throw new Error('DALL-E 3 returned no image URL');
+      const imgData = response.data?.data?.[0];
+      const imageUrl = imgData?.url || (imgData?.b64_json ? `data:image/png;base64,${imgData.b64_json}` : null);
+      if (!imageUrl) throw new Error('OpenAI returned no image');
       return imageUrl;
     }
 
