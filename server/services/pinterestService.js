@@ -116,7 +116,7 @@ class PinterestService {
   async loadSettings() {
     try {
       const result = await pool.query(
-        `SELECT key, value FROM settings WHERE key LIKE 'pinterest_%' OR key = 'ideogram_api_key'`
+        `SELECT key, value FROM settings WHERE key LIKE 'pinterest_%' OR key = 'ideogram_api_key' OR key = 'openai_api_key'`
       );
       const settings = {};
       result.rows.forEach(r => { settings[r.key] = r.value; });
@@ -125,6 +125,7 @@ class PinterestService {
         accessToken: settings.pinterest_access_token || '',
         boardId: settings.pinterest_board_id || '',
         ideogramKey: settings.ideogram_api_key || '',
+        openaiKey: settings.openai_api_key || '',
         frequency: settings.pinterest_posting_frequency || 'daily',
         maxPosts: parseInt(settings.pinterest_max_posts_per_day || '1'),
         postingTime: settings.pinterest_posting_time || '20:00',
@@ -134,7 +135,7 @@ class PinterestService {
       this.isConfigured = !!(
         this.credentials.accessToken &&
         this.credentials.boardId &&
-        this.credentials.ideogramKey
+        (this.credentials.openaiKey || this.credentials.ideogramKey)
       );
 
       const counterResult = await pool.query(
@@ -178,6 +179,29 @@ class PinterestService {
   async generateImage(topic, includeCTA) {
     const prompt = this._buildIdeogramPrompt(topic, includeCTA);
 
+    if (this.credentials.openaiKey) {
+      const response = await axios.post(
+        'https://api.openai.com/v1/images/generations',
+        {
+          model: 'dall-e-3',
+          prompt,
+          n: 1,
+          size: '1024x1792',
+          quality: 'standard'
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${this.credentials.openaiKey}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const imageUrl = response.data?.data?.[0]?.url;
+      if (!imageUrl) throw new Error('DALL-E 3 returned no image URL');
+      return imageUrl;
+    }
+
+    // Fallback: Ideogram
     const response = await axios.post(
       'https://api.ideogram.ai/generate',
       {
@@ -196,7 +220,6 @@ class PinterestService {
         }
       }
     );
-
     const imageUrl = response.data?.data?.[0]?.url;
     if (!imageUrl) throw new Error('Ideogram returned no image URL');
     return imageUrl;
